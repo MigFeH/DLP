@@ -4,11 +4,11 @@ import ast.locatable.AbstractLocatable;
 
 public class AbstractDefinicion extends AbstractLocatable implements Definicion {
 
-    private String tipo;
+    private Tipo tipo;
     private String nombre;
 
     public AbstractDefinicion(int linea, int columna,
-                              String tipo, String nombre) {
+                              Tipo tipo, String nombre) {
         super(linea, columna);
         this.tipo = tipo;
         this.nombre = nombre;
