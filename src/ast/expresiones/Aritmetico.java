@@ -5,18 +5,25 @@ import ast.locatable.AbstractLocatable;
 public class Aritmetico extends AbstractLocatable implements Expresion {
 
     private Expresion izquierda;
+    private String operador;
     private Expresion derecha;
 
     public Aritmetico(int linea, int columna,
                       Expresion izquierda,
+                      String operador,
                       Expresion derecha) {
         super(linea, columna);
         this.izquierda = izquierda;
+        this.operador = operador;
         this.derecha = derecha;
     }
 
     public Expresion getIzquierda() {
         return this.izquierda;
+    }
+
+    public String getOperador() {
+        return this.operador;
     }
 
     public Expresion getDerecha() {
