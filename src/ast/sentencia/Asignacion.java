@@ -14,5 +14,12 @@ public class Asignacion extends AbstractLocatable implements Sentencia {
         this.derecha = derecha;
     }
 
+    public Expresion getIzquierda() {
+        return this.izquierda;
+    }
+
+    public Expresion getDerecha() {
+        return this.derecha;
+    }
 
 }

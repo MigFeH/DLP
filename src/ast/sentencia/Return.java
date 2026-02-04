@@ -13,4 +13,8 @@ public class Return extends AbstractLocatable implements Sentencia {
         super(linea, columna);
         this.expresion = expresion;
     }
+
+    public Expresion getExpresion() {
+        return this.expresion;
+    }
 }

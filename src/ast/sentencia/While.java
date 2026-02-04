@@ -16,4 +16,13 @@ public class While extends AbstractLocatable implements Sentencia {
         this.condicion = condicion;
         this.cuerpo = cuerpo;
     }
+
+    public Expresion getCondicion() {
+        return this.condicion;
+    }
+
+    public List<Sentencia> getCuerpo() {
+        return this.cuerpo;
+    }
+
 }

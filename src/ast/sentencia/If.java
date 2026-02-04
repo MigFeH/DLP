@@ -19,4 +19,17 @@ public class If extends AbstractLocatable implements Sentencia {
         this.cuerpo = cuerpo;
         this.cuerpoElse = cuerpoElse;
     }
+
+    public Expresion getCondicion() {
+        return this.condicion;
+    }
+
+    public List<Sentencia> getCuerpo() {
+        return this.cuerpo;
+    }
+
+    public List<Sentencia> getCuerpoElse() {
+        return this.cuerpoElse;
+    }
+
 }

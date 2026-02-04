@@ -11,6 +11,6 @@ public class TipoRecord implements Tipo {
     }
 
     public List<CampoRecord> getCampos() {
-        return campos;
+        return this.campos;
     }
 }

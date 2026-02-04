@@ -13,4 +13,9 @@ public class Input extends AbstractLocatable implements Sentencia {
         super(linea, columna);
         this.expresiones = expresiones;
     }
+
+    public List<Expresion> getExpresiones() {
+        return this.expresiones;
+    }
+
 }
