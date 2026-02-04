@@ -1,6 +1,7 @@
 package ast.definiciones;
 
 import ast.sentencia.Sentencia;
+import ast.tipos.Tipo;
 
 import java.util.List;
 
@@ -16,6 +17,14 @@ public class DefinicionFunc extends AbstractDefinicion {
         super(linea, columna, tipo, nombre);
         this.definicionesVariables = definicionesVariables;
         this.sentencias  = sentencias;
+    }
+
+    public List<DefinicionVar> getDefinicionesVariables() {
+        return this.definicionesVariables;
+    }
+
+    public List<Sentencia> getSentencias() {
+        return this.sentencias;
     }
 
 }

@@ -1,6 +1,7 @@
 package ast.definiciones;
 
 import ast.locatable.AbstractLocatable;
+import ast.tipos.Tipo;
 
 public class AbstractDefinicion extends AbstractLocatable implements Definicion {
 

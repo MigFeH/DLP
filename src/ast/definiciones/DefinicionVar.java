@@ -1,5 +1,7 @@
 package ast.definiciones;
 
+import ast.tipos.Tipo;
+
 public class DefinicionVar extends AbstractDefinicion {
 
     public DefinicionVar(int linea, int columna,
