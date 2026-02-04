@@ -1,15 +1,15 @@
-package ast.sentencia;
+package ast.expresiones;
 
-import ast.expresiones.Expresion;
 import ast.locatable.AbstractLocatable;
 
-public class Asignacion extends AbstractLocatable implements Sentencia {
+public class Logico extends AbstractLocatable implements Expresion {
 
     private Expresion izquierda;
     private Expresion derecha;
 
-    public Asignacion(int linea, int columna,
-                      Expresion izquierda, Expresion derecha) {
+    public Logico(int linea, int columna,
+                  Expresion izquierda,
+                  Expresion derecha) {
         super(linea, columna);
         this.izquierda = izquierda;
         this.derecha = derecha;

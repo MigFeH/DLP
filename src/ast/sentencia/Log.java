@@ -1,5 +1,6 @@
 package ast.sentencia;
 
+import ast.expresiones.Expresion;
 import ast.locatable.AbstractLocatable;
 
 import java.util.List;
