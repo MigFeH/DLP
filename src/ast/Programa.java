@@ -11,4 +11,9 @@ public class Programa {
     public Programa(List<Definicion> definiciones) {
         this.definiciones = definiciones;
     }
+
+    public List<Definicion> getDefiniciones() {
+        return this.definiciones;
+    }
+
 }
