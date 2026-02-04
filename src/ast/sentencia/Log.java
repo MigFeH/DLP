@@ -4,12 +4,12 @@ import ast.locatable.AbstractLocatable;
 
 import java.util.List;
 
-public class Input extends AbstractLocatable implements Sentencia {
+public class Log extends AbstractLocatable implements Sentencia {
 
     private List<Expresion> expresiones;
 
-    public Input(int linea, int columna,
-                 List<Expresion> expresiones) {
+    public Log(int linea, int columna,
+               List<Expresion> expresiones) {
         super(linea, columna);
         this.expresiones = expresiones;
     }
