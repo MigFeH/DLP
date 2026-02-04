@@ -1,13 +1,10 @@
 package ast.definiciones;
 
-import ast.locatable.AbstractLocatable;
+import ast.sentencia.Sentencia;
 
 import java.util.List;
 
-public class DefinicionFunc extends AbstractLocatable implements Definicion {
-
-    private Tipo tipo;
-    private String nombre;
+public class DefinicionFunc extends AbstractDefinicion {
 
     private List<DefinicionVar> definicionesVariables;
     private List<Sentencia> sentencias;
@@ -16,21 +13,9 @@ public class DefinicionFunc extends AbstractLocatable implements Definicion {
                           Tipo tipo, String nombre,
                           List<DefinicionVar> definicionesVariables,
                           List<Sentencia> sentencias) {
-        super(linea, columna);
-        this.tipo = tipo;
-        this.nombre = nombre;
+        super(linea, columna, tipo, nombre);
         this.definicionesVariables = definicionesVariables;
         this.sentencias  = sentencias;
     }
 
-
-    @Override
-    public String getNombre() {
-        return this.nombre;
-    }
-
-    @Override
-    public Tipo getTipo() {
-        return this.tipo;
-    }
 }
