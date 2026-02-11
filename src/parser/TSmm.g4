@@ -4,12 +4,13 @@ program: INT_CONSTANT+
        ;
 
 
-// ---------------------
-// Reglas lexicas
+// ----------------------------
+// ------ REGLAS LEXICAS ------
 
 WHITE_SPACES: [\t\n\r ]+ -> skip
             ;
 
+// Constantes
 INT_CONSTANT: [1-9][0-9]*
             | '0'
             ;
@@ -28,12 +29,14 @@ fragment // Para que EXPONENTE no lo reconozca como token, sino como un fragment
 EXPONENTE: [eE][+-]? DIGITO+
             ;
 
+// Comentarios
 COMENTARIO_UNILINEA: '//'.*?'\n' -> skip
             ;
 
 COMENTARIO_MULTILINEA: '/*'.*?'*/' -> skip
             ;
 
+// Ids
 ID: (LETRA | '_') (LETRA | DIGITO | '_')+
             ;
 
