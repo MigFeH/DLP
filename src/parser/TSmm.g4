@@ -5,7 +5,7 @@ program: INT_CONSTANT+
 
 
 // ---------------------
-//
+// Reglas lexicas
 
 WHITE_SPACES: [\t\n\r ]+ -> skip
             ;
