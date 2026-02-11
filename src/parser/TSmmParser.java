@@ -1,4 +1,4 @@
-// Generated from C:/Users/uo287577/Desktop/DLP/Sesion 03/Proyecto/src/parser/TSmm.g4 by ANTLR 4.13.2
+// Generated from C:/Users/uo287577/Desktop/DLP/Proyecto/lab-dlp/src/parser/TSmm.g4 by ANTLR 4.13.2
 package parser;
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -17,8 +17,8 @@ public class TSmmParser extends Parser {
 	protected static final PredictionContextCache _sharedContextCache =
 		new PredictionContextCache();
 	public static final int
-		WHITE_SPACES=1, INT_CONSTANT=2, REAL_CONSTANT=3, COMENTARIO_UNILINEA=4, 
-		COMENTARIO_MULTILINEA=5, ID=6;
+		WHITE_SPACES=1, INT_CONSTANT=2, REAL_CONSTANT=3, CHAR_CONSTANT=4, COMENTARIO_UNILINEA=5, 
+		COMENTARIO_MULTILINEA=6, ID=7;
 	public static final int
 		RULE_program = 0;
 	private static String[] makeRuleNames() {
@@ -35,8 +35,8 @@ public class TSmmParser extends Parser {
 	private static final String[] _LITERAL_NAMES = makeLiteralNames();
 	private static String[] makeSymbolicNames() {
 		return new String[] {
-			null, "WHITE_SPACES", "INT_CONSTANT", "REAL_CONSTANT", "COMENTARIO_UNILINEA", 
-			"COMENTARIO_MULTILINEA", "ID"
+			null, "WHITE_SPACES", "INT_CONSTANT", "REAL_CONSTANT", "CHAR_CONSTANT", 
+			"COMENTARIO_UNILINEA", "COMENTARIO_MULTILINEA", "ID"
 		};
 	}
 	private static final String[] _SYMBOLIC_NAMES = makeSymbolicNames();
@@ -137,7 +137,7 @@ public class TSmmParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\u0004\u0001\u0006\b\u0002\u0000\u0007\u0000\u0001\u0000\u0004\u0000\u0004"+
+		"\u0004\u0001\u0007\b\u0002\u0000\u0007\u0000\u0001\u0000\u0004\u0000\u0004"+
 		"\b\u0000\u000b\u0000\f\u0000\u0005\u0001\u0000\u0000\u0000\u0001\u0000"+
 		"\u0000\u0000\u0007\u0000\u0003\u0001\u0000\u0000\u0000\u0002\u0004\u0005"+
 		"\u0002\u0000\u0000\u0003\u0002\u0001\u0000\u0000\u0000\u0004\u0005\u0001"+

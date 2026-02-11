@@ -12,7 +12,6 @@ public class LexerHelper {
 		return -1;
 	}
 
-	// TODO: Implement the lexemeToChar and lexemeToReal methods
 	public static double lexemeToReal(String str) {
 		try {
 			return Double.parseDouble(str);
@@ -25,27 +24,22 @@ public class LexerHelper {
 
 	public static char lexemeToChar(String str) {
 		try {
-			if(str.length() == 3) {
-				// caso 1: 'x'
-				return str.charAt(1);
-			} else {
-				// caso 2 y 3: tienen mas de longitud 3
-				char[] caracteres = str.toCharArray();
+			str = str.substring(1, str.length() - 1); // sin comillas simples
 
-				if(caracteres[1] == '\\') {
-					if(Character.isDigit(caracteres[2])) {
-						// caso 2: '\92' (solo tiene numeros)
-						return (char) str;
-					} else if(Character.)
-				}
-					// case 3: charAt(...)
+			if(str.equals("\\n")) { // caso \n
+				return '\n';
+			} else if(str.equals("\\t")) { // caso \t
+				return '\t';
+			} else if(str.startsWith("\\")) { // caso \126 (codigo ascii)
+				return (char) Integer.parseInt(str.substring(1));
+			} else if(str.length() == 1) { // caso x
+				return str.charAt(0);
 			}
-			return Character.parseCharacter(str);
 		}
 		catch(NumberFormatException e) {
 			System.out.println(e);
 		}
-		return -1;
+		return ' ';
 	}
 
 }

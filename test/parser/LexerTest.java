@@ -2,6 +2,8 @@ package parser;
 
 import org.antlr.v4.runtime.*;
 
+import java.time.Clock;
+
 public class LexerTest {
 
     public static void main(String... args) throws Exception {
@@ -22,9 +24,9 @@ public class LexerTest {
                 case TSmmLexer.INT_CONSTANT:
                     semanticValue = LexerHelper.lexemeToInt(token.getText());
                     break;
-            /*    case TSmmLexer.CHAR_CONSTANT:
+                case TSmmLexer.CHAR_CONSTANT:
                     semanticValue = LexerHelper.lexemeToChar(token.getText());
-                    break;*/
+                    break;
                 case TSmmLexer.REAL_CONSTANT:
                     semanticValue = LexerHelper.lexemeToReal(token.getText());
                     break;
@@ -53,19 +55,19 @@ public class LexerTest {
 			new LexicalInfo(12, 5, "34.12E-3", TSmmLexer.REAL_CONSTANT, 0.03412),
 			new LexicalInfo(12, 15, "3e3", TSmmLexer.REAL_CONSTANT, 3000.0),
 			new LexicalInfo(12, 20, "0.0003", TSmmLexer.REAL_CONSTANT, .0003),
-//
-//
+
+
 			new LexicalInfo(16, 5, "var1", TSmmLexer.ID, "var1"),
 			new LexicalInfo(16, 11, "_var_1", TSmmLexer.ID, "_var_1"),
 			new LexicalInfo(16, 19, "VAR_1_AB_2", TSmmLexer.ID, "VAR_1_AB_2"),
-//
-//			new LexicalInfo(20, 5, "'a'", TSmmLexer.CHAR_CONSTANT, 'a'),
-//			new LexicalInfo(20, 10, "'b'", TSmmLexer.CHAR_CONSTANT, 'b'),
-//			new LexicalInfo(20, 15, "'.'", TSmmLexer.CHAR_CONSTANT, '.'),
-//			new LexicalInfo(20, 20, "'-'", TSmmLexer.CHAR_CONSTANT, '-'),
-//			new LexicalInfo(20, 25, "'~'", TSmmLexer.CHAR_CONSTANT, '~'),
-//			new LexicalInfo(21, 5, "'\\n'", TSmmLexer.CHAR_CONSTANT, '\n'),
-//			new LexicalInfo(21, 11, "'\\t'", TSmmLexer.CHAR_CONSTANT, '\t'),
-//			new LexicalInfo(22, 5, "'\\126'", TSmmLexer.CHAR_CONSTANT, '~'),
+
+			new LexicalInfo(20, 5, "'a'", TSmmLexer.CHAR_CONSTANT, 'a'),
+			new LexicalInfo(20, 10, "'b'", TSmmLexer.CHAR_CONSTANT, 'b'),
+			new LexicalInfo(20, 15, "'.'", TSmmLexer.CHAR_CONSTANT, '.'),
+			new LexicalInfo(20, 20, "'-'", TSmmLexer.CHAR_CONSTANT, '-'),
+			new LexicalInfo(20, 25, "'~'", TSmmLexer.CHAR_CONSTANT, '~'),
+			new LexicalInfo(21, 5, "'\\n'", TSmmLexer.CHAR_CONSTANT, '\n'),
+			new LexicalInfo(21, 11, "'\\t'", TSmmLexer.CHAR_CONSTANT, '\t'),
+			new LexicalInfo(22, 5, "'\\126'", TSmmLexer.CHAR_CONSTANT, '~'),
     };
 }

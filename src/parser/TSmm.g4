@@ -14,21 +14,18 @@ INT_CONSTANT: [1-9][0-9]*
             | '0'
             ;
 
-REAL_CONSTANT: MANTISA
-            | MANTISA EXPONENTE
+REAL_CONSTANT: DIGITO* '.' DIGITO*
+            | DIGITO* '.'? DIGITO* EXPONENTE
             ;
 
 CHAR_CONSTANT: '\''.'\''
-            | '\\' algo
-            | [\n\t]
-            ;
-
-fragment
-MANTISA: INT_CONSTANT '.' INT_CONSTANT
+            | '\'' '\\' DIGITO+ '\''
+            | '\'' '\\n' '\''
+            | '\'' '\\t' '\''
             ;
 
 fragment // Para que EXPONENTE no lo reconozca como token, sino como un fragmento reutilizable en otras reglas
-EXPONENTE: [eE][+-]INT_CONSTANT
+EXPONENTE: [eE][+-]? DIGITO+
             ;
 
 COMENTARIO_UNILINEA: '//'.*?'\n' -> skip
