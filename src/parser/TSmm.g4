@@ -3,9 +3,9 @@ grammar TSmm;
 program: definition*
             ;
 
-// ----------------------------
+// --------------------------------
 // ------ REGLAS SINTACTICAS ------
-// tokens en orden correcto
+// --- Tokens en orden correcto ---
 
 expression: INT_CONSTANT
             | REAL_CONSTANT
@@ -69,7 +69,7 @@ function_body: var_definition* statement*
 
 // ----------------------------
 // ------ REGLAS LEXICAS ------
-// tokens permitidos
+// ---- Tokens permitidos -----
 
 // token : lexema
 WHITE_SPACES: [\t\n\r ]+ -> skip
