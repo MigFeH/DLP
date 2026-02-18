@@ -6,7 +6,6 @@ import ast.tipos.Tipo;
 public class Cast extends AbstractLocatable implements Expresion{
 
     private Expresion izquierda;
-//    private TipoSimple nuevoTipo; // cambiar a type
     private Tipo derecha;
 
     public Cast(int linea, int columna,
