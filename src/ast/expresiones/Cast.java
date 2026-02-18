@@ -1,27 +1,28 @@
 package ast.expresiones;
 
 import ast.locatable.AbstractLocatable;
-import ast.tipos.simples.TipoSimple;
+import ast.tipos.Tipo;
 
 public class Cast extends AbstractLocatable implements Expresion{
 
-    private Expresion convertir;
-    private TipoSimple nuevoTipo;
+    private Expresion izquierda;
+//    private TipoSimple nuevoTipo; // cambiar a type
+    private Tipo derecha;
 
     public Cast(int linea, int columna,
-                Expresion convertir,
-                TipoSimple nuevoTipo) {
+                Expresion izquierda,
+                Tipo derecha) {
         super(linea, columna);
-        this.convertir = convertir;
-        this.nuevoTipo = nuevoTipo;
+        this.izquierda = izquierda;
+        this.derecha = derecha;
     }
 
-    public Expresion getConvertir() {
-        return this.convertir;
+    public Expresion getIzquierda() {
+        return this.izquierda;
     }
 
-    public TipoSimple getNuevoTipo() {
-        return this.nuevoTipo;
+    public Tipo getDerecha() {
+        return this.derecha;
     }
 
 }

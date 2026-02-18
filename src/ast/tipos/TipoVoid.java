@@ -1,6 +1,6 @@
-package ast.tipos.simples;
+package ast.tipos;
 
-public class TipoVoid implements TipoSimple {
+public class TipoVoid implements Tipo {
 
     private static TipoVoid instance;
 

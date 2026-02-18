@@ -1,17 +1,66 @@
-Especificaci�n l�xica:
+PROGRAMA [HECHO]
+========
+Un programa es una secuencia de definiciones. 
+Las definiciones pueden ser de variables o de funciones.
 
-Elementos l�xicos sensibles a may�sculas/min�sculas.
+DEFINICION DE VARIABLE [HECHO]
+======================
+La sintaxis de la definici�n de una variable empieza con la palabra 
+reservada "let", seguida de una lista (con al menos un elemento) de 
+identificadores separados por comas y finaliza con ":" y un tipo. 
+Las definiciones de variables terminan mediante el caracter ";"
 
-Elementos: [que debe reconocer, hay que hacer los patrones que lo reconozcan]
+DEFINICION DE FUNCION [HECHO]
+======================
+Las funciones se definen mediante la palabra reservada "function" el
+ identificador de la funci�n, una lista de parametros separados 
+ por comas entre "(" y ")" seguido de ":" y el tipo de retorno 
+ cuando sea necesario.
+El tipo de retorno y de los par�metros debe ser de tipo simple 
+(no se permiten ni arrays ni registros). 
+El cuerpo de la funcion va entre "{" y "}".
+El cuerpo de las funciones se compone de una secuencia de cero 
+o m�s definiciones de variables seguida de una secuencia de cero 
+o m�s sentencias.
+La funcion "main" es obligatoria, no devuelve nada, no recibe par�metros y 
+debe estar declarada en �ltimo lugar.
 
-  Comentarios con // hasta el final de l�nea [que lo descarte (skip)]
-  Comentarios con varias l�neas (de /* hasta */) [que lo descarte (skip)]
-  Identificadores que comienzan con una letra o _ y seguidos de letra, d�gito o _
-  Literales Enteros sin signo
-  Literales Reales con punto decimal
-	12.3, 2., .34
-  Literales Reales con formato exponente
-	34.12E-3, 3e3, 2e+5
-  Literales car�cter entre '',
-  Literales car�cter mediante codigo ASCII '\126'
-  Dos caracteres especiales '\n' y '\t'
+TIPOS [HECHO]
+=====
+Los tipos simples son "int", "number" y "char".
+Los arrays se pueden crear con el constructor de tipos "[]",
+ especificando el tama�o con una constante entera, 
+ seguido de cualquier tipo.
+Los registros no tienen identificador, y los campos son declarados
+ como variables dentro de "[" "]".
+
+SENTENCIAS [HECHO]
+==========
+La sentencia de escritura consiste en la palabra reservada "log" seguida de una lista de una o m�s expresiones separadas por comas.
+La sentencia de lectura consiste en la palabra reservada "input" seguida de una lista de una o m�s expresiones separadas por comas.
+Una asignaci�n est� compuesta por dos expresiones separadas por el operador "=".
+La sentencia condicional "if"-"else" y la sentencia iterativa "while" siguen la sintaxis del lenguaje TypeScript: la condici�n entre par�ntesis "(" ")" y 
+las sentencias del cuerpo van entre "{" "}" y solamente si hay una �nica sentencia pueden omitirse. 
+La sentencia de retorno consiste en la palabra reservada "return" seguida de una <expresi�n>.
+La invocaci�n a una funci�n sin retorno (se denomina procedimiento) ser� siempre una sentencia.
+Todas las sentencias excepto "if-else" y "while" finalizan con ";".
+
+EXPRESIONES [HECHO]
+===========
+La invocaci�n a una funci�n podr� ser tambi�n una expresi�n cuando retorne un valor.
+La conversi�n expl�cita a tipos simples (cast) se escribe entre par�ntesis '(' ')' y sigue la sintaxis <expresi�n> "as" <tipo>. 
+Las expresiones est�n formadas por:
+- Constantes enteras, reales y caracter sin signo.
+- Identificadores
+- Los siguientes operadores aplicados a una o dos expresiones (por 
+orden de precedencia descendente):
+		( )			Non associative [HECHO]
+		[]			Non associative [HECHO]
+ 		.			Left associative [HECHO]
+        CAST     	Non associative [HECHO]
+		- (unary)	Non associative [HECHO]
+        !			Non associative [HECHO]
+		* / %		Left associative [HECHO]
+		+ -			Left associative [HECHO]
+	> >= < <= != ==	Left associative [HECHO]
+		&& ||		Left associative [HECHO]

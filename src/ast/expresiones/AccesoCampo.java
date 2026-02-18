@@ -5,22 +5,23 @@ import ast.locatable.AbstractLocatable;
 public class AccesoCampo extends AbstractLocatable implements Expresion {
 
     private Expresion izquierda;
-    private String nombreCampo;
+//    private String nombreCampo;
+    private Expresion derecha;
 
     public AccesoCampo(int linea, int columna,
                        Expresion izquierda,
-                       String nombreCampo) {
+                       Expresion derecha) {
         super(linea, columna);
         this.izquierda = izquierda;
-        this.nombreCampo = nombreCampo;
+        this.derecha = derecha;
     }
 
     public Expresion getIzquierda() {
         return this.izquierda;
     }
 
-    public String getNombreCampo() {
-        return this.nombreCampo;
+    public Expresion getDerecha() {
+        return this.derecha;
     }
 
 }
