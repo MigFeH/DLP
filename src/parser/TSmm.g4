@@ -18,8 +18,7 @@ program returns [Programa ast] locals [List<Definicion> defs = new ArrayList<>()
                 var_definition { $defs.addAll($var_definition.ast); }
                     |
                 function_definition { $defs.add($function_definition.ast); }
-            )*
-            main=main_function_definition EOF {
+            )* main=main_function_definition EOF {
                 $defs.add($main.ast);
                 $ast = new Programa($defs);
             }
