@@ -1,10 +1,11 @@
-// Generated from C:/Users/uo287577/Desktop/DLP/Sesion 03/Proyecto/src/parser/TSmm.g4 by ANTLR 4.13.2
+// Generated from D:/TRABAJOS/Desktop/Clase/DLP/Proyecto/src/parser/TSmm.g4 by ANTLR 4.13.2
 package parser;
  // para meter todos los imports
 import ast.*;
 import ast.expresiones.*;
 import ast.definiciones.*;
 import ast.tipos.*;
+import ast.sentencia.*;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

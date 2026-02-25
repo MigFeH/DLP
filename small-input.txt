@@ -1,6 +1,11 @@
 // Variable and function definitions
 let i, j, n: int;
 let c: char;
+let paira: [
+        let i, j, n: int;
+    	let integer: int;
+    	let character: char;
+  	];
 
 // Empty function
 function p(): void{ }
