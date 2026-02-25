@@ -185,6 +185,7 @@ public class TSmmParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class Main_function_definitionContext extends ParserRuleContext {
 		public DefinicionFunc ast;
+		public List<DefinicionVar> parametros = new ArrayList<>();
 		public List<DefinicionVar> definicionesVariables = new ArrayList<>();
 		public List<Sentencia> sentencias = new ArrayList<>();
 		public Token START;
@@ -237,7 +238,7 @@ public class TSmmParser extends Parser {
 				{
 				setState(45);
 				((Main_function_definitionContext)_localctx).var_definition = var_definition();
-				 _localctx.definicionesVariables.add(((Main_function_definitionContext)_localctx).var_definition.ast); 
+				 _localctx.definicionesVariables.addAll(((Main_function_definitionContext)_localctx).var_definition.ast); 
 				}
 				}
 				setState(52);
@@ -265,7 +266,7 @@ public class TSmmParser extends Parser {
 			                ((Main_function_definitionContext)_localctx).ast =  new DefinicionFunc(
 			                    ((Main_function_definitionContext)_localctx).START.getLine(),
 			                    ((Main_function_definitionContext)_localctx).START.getCharPositionInLine() + 1,
-			                    new TipoFuncion(TipoVoid.getInstance(), new ArrayList<DefinicionVar>()),
+			                    new TipoFuncion(TipoVoid.getInstance(), _localctx.parametros),
 			                    "main",
 			                    _localctx.definicionesVariables,
 			                    _localctx.sentencias);
@@ -1112,7 +1113,7 @@ public class TSmmParser extends Parser {
 	@SuppressWarnings("CheckReturnValue")
 	public static class TipoContext extends ParserRuleContext {
 		public Tipo ast;
-		public List<List<DefinicionVar>> lineasDefiniciones = new ArrayList<>();
+		public List<DefinicionVar> lineasDefiniciones = new ArrayList<>();
 		public Token INT_CONSTANT;
 		public TipoContext tipo;
 		public Var_definitionContext var_definition;
@@ -1176,8 +1177,8 @@ public class TSmmParser extends Parser {
 					setState(258);
 					((TipoContext)_localctx).var_definition = var_definition();
 
-					                List<DefinicionVar> linea = ((TipoContext)_localctx).var_definition.ast;
-					                _localctx.lineasDefiniciones.add(linea);
+					                _localctx.lineasDefiniciones.addAll(((TipoContext)_localctx).var_definition.ast);
+
 					            
 					}
 					}
@@ -1190,13 +1191,11 @@ public class TSmmParser extends Parser {
 
 				                List<CampoRecord> camposRegistro = new ArrayList<>();
 
-				                for(List<DefinicionVar> lineaCampo : _localctx.lineasDefiniciones) {
-				                    for(DefinicionVar variable : lineaCampo) {
-				                        camposRegistro.add(new CampoRecord(
-				                            variable.getLinea(),
-				                            variable.getColumna(),
-				                            variable.ast));
-				                    }
+				                for(DefinicionVar variable : _localctx.lineasDefiniciones) {
+				                    camposRegistro.add(new CampoRecord(
+				                        variable.getLinea(),
+				                        variable.getColumna(),
+				                        variable));
 				                }
 
 				                ((TipoContext)_localctx).ast =  new TipoRecord(camposRegistro);
@@ -1413,7 +1412,7 @@ public class TSmmParser extends Parser {
 				{
 				setState(297);
 				((Function_definitionContext)_localctx).var_definition = var_definition();
-				 _localctx.definicionesVariables.add(((Function_definitionContext)_localctx).var_definition.ast); 
+				 _localctx.definicionesVariables.addAll(((Function_definitionContext)_localctx).var_definition.ast); 
 				}
 				}
 				setState(304);

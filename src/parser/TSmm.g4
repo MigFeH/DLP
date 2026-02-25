@@ -15,21 +15,22 @@ import ast.sentencia.*;
 
 program returns [Programa ast] locals [List<Definicion> defs = new ArrayList<>()]:
             (definition { $defs.add($definition.ast); } )*
-            main=main_function_definition EOF {
+            main=main_function_definition
+            EOF {
                 $defs.add($main.ast);
                 $ast = new Programa($defs);
             }
             ;
 
-main_function_definition returns [DefinicionFunc ast] locals [
+main_function_definition returns [DefinicionFunc ast] locals [List<DefinicionVar> parametros = new ArrayList<>(),
     List<DefinicionVar> definicionesVariables = new ArrayList<>(),
     List<Sentencia> sentencias = new ArrayList<>()]:
 
-            START='function' 'main' '(' ')' ':' 'void' '{' (var_definition { $definicionesVariables.add($var_definition.ast); })* (statement { $sentencias.add($statement.ast); } )* '}' {
+            START='function' 'main' '(' ')' ':' 'void' '{' (var_definition { $definicionesVariables.addAll($var_definition.ast); })* (statement { $sentencias.add($statement.ast); } )* '}' {
                 $ast = new DefinicionFunc(
                     $START.getLine(),
                     $START.getCharPositionInLine() + 1,
-                    new TipoFuncion(TipoVoid.getInstance(), new ArrayList<DefinicionVar>()),
+                    new TipoFuncion(TipoVoid.getInstance(), $parametros),
                     "main",
                     $definicionesVariables,
                     $sentencias);
@@ -233,7 +234,7 @@ tipo_simple returns [Tipo ast]:
             | 'char' { $ast = TipoChar.getInstance(); }
             ;
 
-tipo returns [Tipo ast] locals [List<List<DefinicionVar>> lineasDefiniciones = new ArrayList<>()]:
+tipo returns [Tipo ast] locals [List<DefinicionVar> lineasDefiniciones = new ArrayList<>()]:
             '[' INT_CONSTANT ']' tipo {
                 $ast = new TipoArray(
                     $tipo.ast,
@@ -241,18 +242,16 @@ tipo returns [Tipo ast] locals [List<List<DefinicionVar>> lineasDefiniciones = n
             }
 
             | '[' (var_definition {
-                List<DefinicionVar> linea = $var_definition.ast;
-                $lineasDefiniciones.add(linea);
+                $lineasDefiniciones.addAll($var_definition.ast);
+
             })+ ']' {
                 List<CampoRecord> camposRegistro = new ArrayList<>();
 
-                for(List<DefinicionVar> lineaCampo : $lineasDefiniciones) {
-                    for(DefinicionVar variable : lineaCampo) {
-                        camposRegistro.add(new CampoRecord(
-                            variable.getLinea(),
-                            variable.getColumna(),
-                            variable.ast));
-                    }
+                for(DefinicionVar variable : $lineasDefiniciones) {
+                    camposRegistro.add(new CampoRecord(
+                        variable.getLinea(),
+                        variable.getColumna(),
+                        variable));
                 }
 
                 $ast = new TipoRecord(camposRegistro);
@@ -285,7 +284,7 @@ function_definition returns [DefinicionFunc ast] locals [List<DefinicionVar> par
     List<DefinicionVar> definicionesVariables = new ArrayList<>(),
     List<Sentencia> sentencias = new ArrayList<>()]:
 
-            START='function' ID function_type '{' (var_definition { $definicionesVariables.add($var_definition.ast); })* (statement { $sentencias.add($statement.ast); } )* '}' {
+            START='function' ID function_type '{' (var_definition { $definicionesVariables.addAll($var_definition.ast); })* (statement { $sentencias.add($statement.ast); } )* '}' {
                 $ast = new DefinicionFunc(
                     $START.getLine(),
                     $START.getCharPositionInLine() + 1,
