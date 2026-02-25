@@ -14,9 +14,12 @@ import ast.sentencia.*;
 // --- Tokens en orden correcto ---
 
 program returns [Programa ast] locals [List<Definicion> defs = new ArrayList<>()]:
-            (definition { $defs.add($definition.ast); } )*
-            main=main_function_definition
-            EOF {
+            (
+                var_definition { $defs.addAll($var_definition.ast); }
+                    |
+                function_definition { $defs.add($function_definition.ast); }
+            )*
+            main=main_function_definition EOF {
                 $defs.add($main.ast);
                 $ast = new Programa($defs);
             }
@@ -241,10 +244,7 @@ tipo returns [Tipo ast] locals [List<DefinicionVar> lineasDefiniciones = new Arr
                     LexerHelper.lexemeToInt($INT_CONSTANT.text));
             }
 
-            | '[' (var_definition {
-                $lineasDefiniciones.addAll($var_definition.ast);
-
-            })+ ']' {
+            | '[' (var_definition { $lineasDefiniciones.addAll($var_definition.ast); })+ ']' {
                 List<CampoRecord> camposRegistro = new ArrayList<>();
 
                 for(DefinicionVar variable : $lineasDefiniciones) {
@@ -260,11 +260,6 @@ tipo returns [Tipo ast] locals [List<DefinicionVar> lineasDefiniciones = new Arr
             | tipo_simple {
                 $ast = $tipo_simple.ast;
             }
-            ;
-
-definition returns [Definicion ast]:
-            var_definition
-            | function_definition
             ;
 
 var_definition returns [List<DefinicionVar> ast = new ArrayList<>()] locals [List<Variable> ids = new ArrayList<>()]:
