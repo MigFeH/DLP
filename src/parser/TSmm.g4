@@ -14,10 +14,26 @@ import ast.sentencia.*;
 // --- Tokens en orden correcto ---
 
 program returns [Programa ast] locals [List<Definicion> defs = new ArrayList<>()]:
-            (definition { $defs.add($definition.ast); } )* {
+            (definition { $defs.add($definition.ast); } )*
+            main=main_function_definition EOF {
+                $defs.add($main.ast);
                 $ast = new Programa($defs);
             }
-            'function' 'main' '(' ')' ':' 'void' '{' var_definition* statement* '}' EOF
+            ;
+
+main_function_definition returns [DefinicionFunc ast] locals [
+    List<DefinicionVar> definicionesVariables = new ArrayList<>(),
+    List<Sentencia> sentencias = new ArrayList<>()]:
+
+            START='function' 'main' '(' ')' ':' 'void' '{' (var_definition { $definicionesVariables.add($var_definition.ast); })* (statement { $sentencias.add($statement.ast); } )* '}' {
+                $ast = new DefinicionFunc(
+                    $START.getLine(),
+                    $START.getCharPositionInLine() + 1,
+                    new TipoFuncion(TipoVoid.getInstance(), new ArrayList<DefinicionVar>()),
+                    "main",
+                    $definicionesVariables,
+                    $sentencias);
+            }
             ;
 
 expression returns [Expresion ast] locals [Variable variable, List<Expresion> argumentos]:
