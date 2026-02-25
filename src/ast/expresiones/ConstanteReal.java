@@ -1,8 +1,8 @@
-package ast.constantes;
+package ast.expresiones;
 
 import ast.locatable.AbstractLocatable;
 
-public class ConstanteReal extends AbstractLocatable {
+public class ConstanteReal extends AbstractLocatable implements Expresion {
 
     private double valor;
 

@@ -1,4 +1,6 @@
 package ast.expresiones;
 
-public interface Expresion {
+import ast.locatable.Locatable;
+
+public interface Expresion extends Locatable {
 }
