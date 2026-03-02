@@ -245,13 +245,15 @@ tipo returns [Tipo ast] locals [List<DefinicionVar> lineasDefiniciones = new Arr
             }
 
             | '[' (var_definition { $lineasDefiniciones.addAll($var_definition.ast); })+ ']' {
+                /* Con add no tenemos promocion de tipos hacia arriba, pero con addAll si */
                 List<CampoRecord> camposRegistro = new ArrayList<>();
 
                 for(DefinicionVar variable : $lineasDefiniciones) {
                     camposRegistro.add(new CampoRecord(
                         variable.getLinea(),
                         variable.getColumna(),
-                        variable));
+                        variable.getTipo(),
+                        variable.getNombre()));
                 }
 
                 $ast = new TipoRecord(camposRegistro);

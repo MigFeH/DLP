@@ -1210,13 +1210,15 @@ public class TSmmParser extends Parser {
 				setState(267);
 				match(T__9);
 
+				                /* Con add no tenemos promocion de tipos hacia arriba, pero con addAll si */
 				                List<CampoRecord> camposRegistro = new ArrayList<>();
 
 				                for(DefinicionVar variable : _localctx.lineasDefiniciones) {
 				                    camposRegistro.add(new CampoRecord(
 				                        variable.getLinea(),
 				                        variable.getColumna(),
-				                        variable));
+				                        variable.getTipo(),
+				                        variable.getNombre()));
 				                }
 
 				                ((TipoContext)_localctx).ast =  new TipoRecord(camposRegistro);

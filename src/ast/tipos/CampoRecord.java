@@ -5,18 +5,21 @@ import ast.locatable.AbstractLocatable;
 
 public class CampoRecord extends AbstractLocatable {
 
-    private DefinicionVar campo;
+    private Tipo tipo;
+    private String nombre;
 
-    public CampoRecord(int linea, int columna, DefinicionVar campo) {
+    public CampoRecord(int linea, int columna, Tipo tipo, String nombre) {
         super(linea, columna);
-        this.campo = campo;
+        this.tipo = tipo;
+        this.nombre = nombre;
     }
 
-    public DefinicionVar getCampo() {
-        return campo;
+    public Tipo getTipo() {
+        return tipo;
     }
 
-    public void setCampo(DefinicionVar campo) {
-        this.campo = campo;
+    public String getNombre() {
+        return nombre;
     }
+
 }
