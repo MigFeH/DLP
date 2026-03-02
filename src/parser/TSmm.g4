@@ -80,12 +80,12 @@ expression returns [Expresion ast] locals [Variable variable, List<Expresion> ar
                     $e2.ast);
             }
 
-            | e1=expression '.' e2=expression {
+            | e1=expression '.' ID {
                 $ast = new AccesoCampo(
                     $e1.ast.getLinea(),
                     $e1.ast.getColumna(),
                     $e1.ast,
-                    $e2.ast);
+                    $ID.text);
             }
 
             | '(' e1=expression 'as' tipo_simple ')' {
@@ -162,7 +162,8 @@ expression returns [Expresion ast] locals [Variable variable, List<Expresion> ar
             }
             ;
 
-statement returns [Sentencia ast] locals [List<Expresion> parametros = new ArrayList<>()]:
+statement returns [Sentencia ast] locals [List<Expresion> parametros = new ArrayList<>(),
+List<Sentencia> contenidoElse = new ArrayList<>()]:
             START='log' (e1=expression ',' { $parametros.add($e1.ast); })* e2=expression ';' {
                 $parametros.add($e2.ast);
                 $ast = new Log(
@@ -187,13 +188,13 @@ statement returns [Sentencia ast] locals [List<Expresion> parametros = new Array
                     $e2.ast);
             }
 
-            | START='if' '(' condicion=expression ')' cuerpoIf=cuerpo_condicional ('else' cuerpoElse=cuerpo_condicional)? {
+            | START='if' '(' condicion=expression ')' cuerpoIf=cuerpo_condicional ('else' cuerpoElse=cuerpo_condicional { $contenidoElse = $cuerpoElse.ast; })? {
                 $ast = new If(
                     $START.getLine(),
                     $START.getCharPositionInLine() + 1,
                     $condicion.ast,
                     $cuerpoIf.ast,
-                    $cuerpoElse.ast);
+                    $contenidoElse);
             }
 
             | START='while' '(' condicion=expression ')' cuerpo=cuerpo_condicional {

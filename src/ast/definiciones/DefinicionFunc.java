@@ -7,7 +7,7 @@ import java.util.List;
 
 public class DefinicionFunc extends AbstractDefinicion {
 
-    private List<DefinicionVar> definicionesVariables;
+    private List<DefinicionVar> definicionesVariables; // la alternativa es eliminar esta lista y hacer que DefinicionVar implemente la interfaz Sentencia
     private List<Sentencia> sentencias;
 
     public DefinicionFunc(int linea, int columna,

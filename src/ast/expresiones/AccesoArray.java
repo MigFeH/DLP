@@ -5,7 +5,7 @@ import ast.locatable.AbstractLocatable;
 public class AccesoArray extends AbstractLocatable implements Expresion {
 
     private Expresion izquierda;
-    private Expresion derecha;
+    private Expresion derecha; // la parte derecha es el interior de []
 
     public AccesoArray(int linea, int columna,
                        Expresion izquierda,
