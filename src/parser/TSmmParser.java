@@ -6,6 +6,7 @@ import ast.expresiones.*;
 import ast.definiciones.*;
 import ast.tipos.*;
 import ast.sentencia.*;
+import errorhandler.*;
 
 import org.antlr.v4.runtime.atn.*;
 import org.antlr.v4.runtime.dfa.DFA;
@@ -1212,8 +1213,21 @@ public class TSmmParser extends Parser {
 
 				                /* Con add no tenemos promocion de tipos hacia arriba, pero con addAll si */
 				                List<CampoRecord> camposRegistro = new ArrayList<>();
+				                List<String> nombresCamposRegistro = new ArrayList<>();
 
 				                for(DefinicionVar variable : _localctx.lineasDefiniciones) {
+
+				                    // Comprobacion de errores semanticos //
+
+				                    // Comprobacion: duplicated field
+				                    if(nombresCamposRegistro.contains(variable.getNombre())) {
+				                        ((TipoContext)_localctx).ast =  new ErrorType("duplicated field", variable);
+				                    } else {
+				                        nombresCamposRegistro.add(variable.getNombre());
+				                    }
+
+				                    // ---------------------------------- //
+
 				                    camposRegistro.add(new CampoRecord(
 				                        variable.getLinea(),
 				                        variable.getColumna(),

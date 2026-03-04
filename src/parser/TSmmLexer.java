@@ -6,6 +6,7 @@ import ast.expresiones.*;
 import ast.definiciones.*;
 import ast.tipos.*;
 import ast.sentencia.*;
+import errorhandler.*;
 
 import org.antlr.v4.runtime.Lexer;
 import org.antlr.v4.runtime.CharStream;

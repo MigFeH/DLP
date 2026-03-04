@@ -17,9 +17,6 @@ public class ErrorType implements Tipo {
 
     @Override
     public String toString() {
-        return "ErrorType{" +
-                "causa='" + causa + '\'' +
-                ", localizacion=" + localizacion +
-                '}';
+        return "Error: " + causa + " at line: " + localizacion.getLinea() + " column: " + localizacion.getColumna();
     }
 }

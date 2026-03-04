@@ -5,6 +5,7 @@ import ast.expresiones.*;
 import ast.definiciones.*;
 import ast.tipos.*;
 import ast.sentencia.*;
+import errorhandler.*;
 }
 
 // para generar el parser: control + shift + g
@@ -247,8 +248,21 @@ tipo returns [Tipo ast] locals [List<DefinicionVar> lineasDefiniciones = new Arr
             | '[' (var_definition { $lineasDefiniciones.addAll($var_definition.ast); })+ ']' {
                 /* Con add no tenemos promocion de tipos hacia arriba, pero con addAll si */
                 List<CampoRecord> camposRegistro = new ArrayList<>();
+                List<String> nombresCamposRegistro = new ArrayList<>();
 
                 for(DefinicionVar variable : $lineasDefiniciones) {
+
+                    // Comprobacion de errores semanticos //
+
+                    // Comprobacion: duplicated field
+                    if(nombresCamposRegistro.contains(variable.getNombre())) {
+                        $ast = new ErrorType("duplicated field", variable);
+                    } else {
+                        nombresCamposRegistro.add(variable.getNombre());
+                    }
+
+                    // ---------------------------------- //
+
                     camposRegistro.add(new CampoRecord(
                         variable.getLinea(),
                         variable.getColumna(),
