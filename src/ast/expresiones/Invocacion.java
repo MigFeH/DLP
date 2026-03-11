@@ -1,11 +1,13 @@
 package ast.expresiones;
 
+import ast.ASTNode;
 import ast.locatable.AbstractLocatable;
 import ast.sentencia.Sentencia;
+import visitor.Visitor;
 
 import java.util.List;
 
-public class Invocacion extends AbstractLocatable implements Expresion, Sentencia {
+public class Invocacion extends AbstractExpresion implements Sentencia, ASTNode {
 
     private Variable invocado;
     private List<Expresion> argumentos;
@@ -24,6 +26,11 @@ public class Invocacion extends AbstractLocatable implements Expresion, Sentenci
 
     public List<Expresion> getArgumentos() {
         return this.argumentos;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 
 }

@@ -1,6 +1,9 @@
 package ast.tipos;
 
-public class TipoChar implements Tipo {
+import ast.ASTNode;
+import visitor.Visitor;
+
+public class TipoChar implements Tipo, ASTNode {
 
     private static TipoChar instance;
 
@@ -11,5 +14,10 @@ public class TipoChar implements Tipo {
             instance = new TipoChar();
         }
         return instance;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 }

@@ -1,8 +1,10 @@
 package ast.expresiones;
 
+import ast.ASTNode;
 import ast.locatable.AbstractLocatable;
+import visitor.Visitor;
 
-public class MenosUnario extends AbstractLocatable implements Expresion {
+public class MenosUnario extends AbstractExpresion implements ASTNode {
 
     private Expresion operando;
 
@@ -14,6 +16,11 @@ public class MenosUnario extends AbstractLocatable implements Expresion {
 
     public Expresion getOperando() {
         return this.operando;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 
 }

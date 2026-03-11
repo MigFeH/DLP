@@ -1,8 +1,9 @@
 package ast.expresiones;
 
-import ast.locatable.AbstractLocatable;
+import ast.ASTNode;
+import visitor.Visitor;
 
-public class AccesoArray extends AbstractLocatable implements Expresion {
+public class AccesoArray extends AbstractExpresion implements ASTNode {
 
     private Expresion izquierda;
     private Expresion derecha; // la parte derecha es el interior de []
@@ -21,6 +22,11 @@ public class AccesoArray extends AbstractLocatable implements Expresion {
 
     public Expresion getDerecha() {
         return this.derecha;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 
 }

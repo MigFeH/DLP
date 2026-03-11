@@ -1,10 +1,11 @@
 package ast;
 
 import ast.definiciones.Definicion;
+import visitor.Visitor;
 
 import java.util.List;
 
-public class Programa {
+public class Programa implements ASTNode {
 
     private List<Definicion> definiciones;
 
@@ -16,4 +17,8 @@ public class Programa {
         return this.definiciones;
     }
 
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
+    }
 }

@@ -1,10 +1,12 @@
 package ast.tipos;
 
+import ast.ASTNode;
 import ast.definiciones.DefinicionVar;
+import visitor.Visitor;
 
 import java.util.List;
 
-public class TipoFuncion implements Tipo {
+public class TipoFuncion implements Tipo, ASTNode {
 
     private Tipo tipoRetorno;
     private List<DefinicionVar> parametros;
@@ -20,5 +22,10 @@ public class TipoFuncion implements Tipo {
 
     public List<DefinicionVar> getParametros() {
         return this.parametros;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 }

@@ -1,9 +1,11 @@
 package ast.tipos;
 
+import ast.ASTNode;
 import ast.definiciones.DefinicionVar;
 import ast.locatable.AbstractLocatable;
+import visitor.Visitor;
 
-public class CampoRecord extends AbstractLocatable {
+public class CampoRecord extends AbstractLocatable implements ASTNode {
 
     private Tipo tipo;
     private String nombre;
@@ -22,4 +24,8 @@ public class CampoRecord extends AbstractLocatable {
         return nombre;
     }
 
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
+    }
 }

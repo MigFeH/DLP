@@ -1,8 +1,10 @@
 package ast.expresiones;
 
+import ast.ASTNode;
 import ast.locatable.AbstractLocatable;
+import visitor.Visitor;
 
-public class Aritmetico extends AbstractLocatable implements Expresion {
+public class Aritmetico extends AbstractExpresion implements ASTNode {
 
     private Expresion izquierda;
     private String operador;
@@ -28,6 +30,11 @@ public class Aritmetico extends AbstractLocatable implements Expresion {
 
     public Expresion getDerecha() {
         return this.derecha;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 
 }

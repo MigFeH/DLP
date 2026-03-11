@@ -1,8 +1,10 @@
 package ast.expresiones;
 
+import ast.ASTNode;
 import ast.locatable.AbstractLocatable;
+import visitor.Visitor;
 
-public class Comparador extends AbstractLocatable implements Expresion {
+public class Comparador extends AbstractExpresion implements ASTNode {
 
     private Expresion izquierda;
     private String operador;
@@ -30,4 +32,8 @@ public class Comparador extends AbstractLocatable implements Expresion {
         return this.derecha;
     }
 
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
+    }
 }

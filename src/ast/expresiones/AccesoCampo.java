@@ -1,8 +1,10 @@
 package ast.expresiones;
 
+import ast.ASTNode;
 import ast.locatable.AbstractLocatable;
+import visitor.Visitor;
 
-public class AccesoCampo extends AbstractLocatable implements Expresion {
+public class AccesoCampo extends AbstractExpresion implements ASTNode {
 
     private Expresion izquierda;
     private String derecha; // la parte derecha del punto
@@ -21,6 +23,11 @@ public class AccesoCampo extends AbstractLocatable implements Expresion {
 
     public String getDerecha() {
         return this.derecha;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 
 }

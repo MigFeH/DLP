@@ -1,8 +1,10 @@
 package ast.expresiones;
 
+import ast.ASTNode;
 import ast.locatable.AbstractLocatable;
+import visitor.Visitor;
 
-public class ConstanteCaracter extends AbstractLocatable implements Expresion {
+public class ConstanteCaracter extends AbstractExpresion implements ASTNode {
 
     private char valor;
 
@@ -14,5 +16,10 @@ public class ConstanteCaracter extends AbstractLocatable implements Expresion {
 
     public char getValor() {
         return valor;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 }

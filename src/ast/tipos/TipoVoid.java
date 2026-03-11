@@ -1,6 +1,9 @@
 package ast.tipos;
 
-public class TipoVoid implements Tipo {
+import ast.ASTNode;
+import visitor.Visitor;
+
+public class TipoVoid implements Tipo, ASTNode {
 
     private static TipoVoid instance;
 
@@ -11,5 +14,10 @@ public class TipoVoid implements Tipo {
             instance = new TipoVoid();
         }
         return instance;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 }

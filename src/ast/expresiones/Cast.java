@@ -1,9 +1,11 @@
 package ast.expresiones;
 
+import ast.ASTNode;
 import ast.locatable.AbstractLocatable;
 import ast.tipos.Tipo;
+import visitor.Visitor;
 
-public class Cast extends AbstractLocatable implements Expresion{
+public class Cast extends AbstractExpresion implements ASTNode {
 
     private Expresion izquierda;
     private Tipo derecha;
@@ -24,4 +26,8 @@ public class Cast extends AbstractLocatable implements Expresion{
         return this.derecha;
     }
 
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
+    }
 }

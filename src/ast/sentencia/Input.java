@@ -1,11 +1,13 @@
 package ast.sentencia;
 
+import ast.ASTNode;
 import ast.expresiones.Expresion;
 import ast.locatable.AbstractLocatable;
+import visitor.Visitor;
 
 import java.util.List;
 
-public class Input extends AbstractLocatable implements Sentencia {
+public class Input extends AbstractLocatable implements Sentencia, ASTNode {
 
     private List<Expresion> expresiones;
 
@@ -19,4 +21,8 @@ public class Input extends AbstractLocatable implements Sentencia {
         return this.expresiones;
     }
 
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
+    }
 }

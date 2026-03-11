@@ -1,6 +1,9 @@
 package ast.tipos;
 
-public class TipoArray implements Tipo {
+import ast.ASTNode;
+import visitor.Visitor;
+
+public class TipoArray implements Tipo, ASTNode {
 
     private Tipo tipoElemento;
     private int size;
@@ -16,5 +19,10 @@ public class TipoArray implements Tipo {
 
     public int getSize() {
         return this.size;
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 }
