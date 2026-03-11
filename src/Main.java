@@ -5,7 +5,6 @@ import ast.ASTNode;
 import errorhandler.ErrorHandler;
 import parser.TSmmLexer;
 import parser.TSmmParser;
-import semantic.TypeCheckingVisitor;
 import visitor.LValueVisitor;
 import visitor.Visitor;
 

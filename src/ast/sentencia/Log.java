@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Log extends AbstractLocatable implements Sentencia, ASTNode {
 
+    // Imprime por consola (un System.out.println())
+
     private List<Expresion> expresiones;
 
     public Log(int linea, int columna,

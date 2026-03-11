@@ -154,7 +154,7 @@ expression returns [Expresion ast] locals [Variable variable, List<Expresion> ar
                     $ID.text);
 
                 $argumentos = new ArrayList<>();
-            } '(' ((e1=expression ',' { $argumentos.add($e1.ast); })* e2=expression { $argumentos.add($e2.ast); })? ')' {
+            } '(' (e1=expression { $argumentos.add($e1.ast); } (',' e2=expression { $argumentos.add($e2.ast); })* )? ')' {
                 $ast = new Invocacion(
                     $e1.ast.getLinea(),
                     $e1.ast.getColumna(),

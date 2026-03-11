@@ -1,12 +1,11 @@
 package ast.tipos;
 
-import ast.ASTNode;
 import ast.definiciones.DefinicionVar;
 import visitor.Visitor;
 
 import java.util.List;
 
-public class TipoFuncion implements Tipo, ASTNode {
+public class TipoFuncion implements Tipo {
 
     private Tipo tipoRetorno;
     private List<DefinicionVar> parametros;

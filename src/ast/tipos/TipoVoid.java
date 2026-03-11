@@ -1,9 +1,8 @@
 package ast.tipos;
 
-import ast.ASTNode;
 import visitor.Visitor;
 
-public class TipoVoid implements Tipo, ASTNode {
+public class TipoVoid implements Tipo {
 
     private static TipoVoid instance;
 

@@ -1,4 +1,6 @@
 package ast.tipos;
 
-public interface Tipo {
+import ast.ASTNode;
+
+public interface Tipo extends ASTNode {
 }

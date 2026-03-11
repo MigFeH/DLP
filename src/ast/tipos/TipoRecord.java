@@ -1,11 +1,10 @@
 package ast.tipos;
 
-import ast.ASTNode;
 import visitor.Visitor;
 
 import java.util.List;
 
-public class TipoRecord implements Tipo, ASTNode {
+public class TipoRecord implements Tipo {
 
     private List<CampoRecord> campos;
 

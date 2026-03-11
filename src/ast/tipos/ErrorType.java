@@ -1,7 +1,8 @@
-package errorhandler;
+package ast.tipos;
 
 import ast.locatable.Locatable;
-import ast.tipos.Tipo;
+import errorhandler.ErrorHandler;
+import visitor.Visitor;
 
 public class ErrorType implements Tipo {
 
@@ -18,5 +19,10 @@ public class ErrorType implements Tipo {
     @Override
     public String toString() {
         return "Error: " + causa + " at line: " + localizacion.getLinea() + " column: " + localizacion.getColumna();
+    }
+
+    @Override
+    public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
+        return v.visit(this, pt);
     }
 }

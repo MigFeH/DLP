@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Input extends AbstractLocatable implements Sentencia, ASTNode {
 
+    // Lee de consola un valor y se lo asigna a las expresiones (un console.in())
+
     private List<Expresion> expresiones;
 
     public Input(int linea, int columna,

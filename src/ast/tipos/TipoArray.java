@@ -1,9 +1,8 @@
 package ast.tipos;
 
-import ast.ASTNode;
 import visitor.Visitor;
 
-public class TipoArray implements Tipo, ASTNode {
+public class TipoArray implements Tipo {
 
     private Tipo tipoElemento;
     private int size;
