@@ -1,11 +1,8 @@
 package visitor;
 
-import ast.Programa;
-import ast.definiciones.Definicion;
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;
 import ast.expresiones.*;
-import ast.sentencia.*;
 import ast.tipos.*;
 import symboltable.SymbolTable;
 
@@ -22,7 +19,7 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
 
         // realizamos sus comprobaciones: variable definida antes de ser usada
         if(v.getDefinicion() == null) {
-            new ErrorType("Variable " + v.getNombre() + " not defined", v);
+            new ErrorType("variable '" + v.getNombre() + "' not defined", v);
         }
 
         return null;
@@ -38,7 +35,7 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
 
         // realizamos sus comprobaciones: definicion unica de la variable en el ambito en el que se encuentra
         if(!st.insert(d)) {
-            new ErrorType("Variable " + d.getNombre() + " already defined in the scope value: " + d.getScope(), d);
+            new ErrorType("variable '" + d.getNombre() + "' already defined in the scope value " + d.getScope(), d);
         }
 
         return null;
@@ -56,27 +53,22 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
 
         // realizamos sus comprobaciones: definicion unica de la funcion en el ambito en el que se encuentra
         if(!st.insert(d)) {
-            new ErrorType("Function " + d.getNombre() + " already defined in the scope value: " + d.getScope(), d);
+            new ErrorType("function '" + d.getNombre() + "' already defined in the scope value " + d.getScope(), d);
         }
 
-
-//        st.set();
-//        st.insert(d);
-//        super.visit(d, pt);
-//        st.reset();
         return null;
     }
 
     @Override
     public Void visit(Invocacion i, Void pt) {
         // recorremos el AST (sus hijos)
-        super.visit(i, pt);
+        i.getArgumentos().forEach(arg -> arg.accept(this, pt));
 
         // no hay atributos que calcular
 
         // realizamos sus comprobaciones: funcion definida antes de ser usada
         if(st.find(i.getInvocado().getNombre()) == null) {
-            new ErrorType("Function " + i.getInvocado().getNombre() + " not defined", i);
+            new ErrorType("function '" + i.getInvocado().getNombre() + "' not defined", i);
         }
 
         return null;
