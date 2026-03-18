@@ -7,6 +7,7 @@ public abstract class AbstractDefinicion extends AbstractLocatable implements De
 
     private Tipo tipo;
     private String nombre;
+    private int scope;
 
     public AbstractDefinicion(int linea, int columna,
                               Tipo tipo, String nombre) {
@@ -23,5 +24,15 @@ public abstract class AbstractDefinicion extends AbstractLocatable implements De
     @Override
     public Tipo getTipo() {
         return this.tipo;
+    }
+
+    @Override
+    public int getScope() {
+        return scope;
+    }
+
+    @Override
+    public void setScope(int scope) {
+        this.scope = scope;
     }
 }

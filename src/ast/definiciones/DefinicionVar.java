@@ -11,6 +11,11 @@ public class DefinicionVar extends AbstractDefinicion implements ASTNode {
         super(linea, columna, tipo, nombre);
     }
 
+    public DefinicionVar(int linea, int columna,
+                         String nombre, Tipo tipo) {
+        this(linea, columna, tipo, nombre);
+    }
+
     @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
         return v.visit(this, pt);

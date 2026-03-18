@@ -1,12 +1,14 @@
 package ast.expresiones;
 
 import ast.ASTNode;
+import ast.definiciones.Definicion;
 import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
 public class Variable extends AbstractExpresion implements ASTNode {
 
     private String nombre;
+    private Definicion definicion;
 
     public Variable(int linea, int columna,
                     String nombre) {
@@ -16,6 +18,14 @@ public class Variable extends AbstractExpresion implements ASTNode {
 
     public String getNombre() {
         return this.nombre;
+    }
+
+    public void setDefinicion(Definicion definicion) {
+        this.definicion = definicion;
+    }
+
+    public Definicion getDefinicion() {
+        return definicion;
     }
 
     @Override

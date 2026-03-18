@@ -7,4 +7,6 @@ import ast.tipos.Tipo;
 public interface Definicion extends Locatable {
     String getNombre();
     Tipo getTipo();
+    int getScope();
+    void setScope(int scope);
 }
