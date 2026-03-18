@@ -15,157 +15,70 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
 
     @Override
     public Void visit(Variable v, Void pt) {
-        // recorremos el AST (sus hijos)
-        super.visit(v, pt);
+        // no tiene hijos ==> no los recorremos
 
         // calculamos sus atributos: enlazar la variable con su definicion
+        v.setDefinicion(st.find(v.getNombre()));
 
+        // realizamos sus comprobaciones: variable definida antes de ser usada
+        if(v.getDefinicion() == null) {
+            new ErrorType("Variable " + v.getNombre() + " not defined", v);
+        }
 
-        // realizamos sus comprobaciones
-        return null;
-    }
-
-    @Override
-    public Void visit(Aritmetico a, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(CampoRecord c, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(TipoArray t, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(TipoChar t, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(TipoFuncion t, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(TipoInt t, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(TipoNumber t, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(TipoRecord t, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(TipoVoid t, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(While w, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Return r, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Log l, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Input i, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(If i, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Asignacion a, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Negacion n, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(MenosUnario m, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Logico l, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(ConstanteReal c, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(ConstanteCaracter c, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Comparador c, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(Cast c, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(AccesoCampo a, Void pt) {
-        return null;
-    }
-
-    @Override
-    public Void visit(AccesoArray a, Void pt) {
         return null;
     }
 
     @Override
     public Void visit(DefinicionVar d, Void pt) {
+        // recorremos el AST (sus hijos)
+        super.visit(d, pt);
+
+        // calculamos sus atributos: calcular el ambito en el que se define la variable
+        d.setScope(st.getScope());
+
+        // realizamos sus comprobaciones: definicion unica de la variable en el ambito en el que se encuentra
+        if(!st.insert(d)) {
+            new ErrorType("Variable " + d.getNombre() + " already defined in the scope value: " + d.getScope(), d);
+        }
+
         return null;
     }
 
     @Override
     public Void visit(DefinicionFunc d, Void pt) {
-        set
-                insert
-                visit()
-                reset
+        // recorremos el AST (sus hijos)
+        st.set();
+        super.visit(d, pt);
+        st.reset();
+
+        // calculamos sus atributos: calcular el ambito en el que se define la funcion
+        d.setScope(st.getScope());
+
+        // realizamos sus comprobaciones: definicion unica de la funcion en el ambito en el que se encuentra
+        if(!st.insert(d)) {
+            new ErrorType("Function " + d.getNombre() + " already defined in the scope value: " + d.getScope(), d);
+        }
+
+
+//        st.set();
+//        st.insert(d);
+//        super.visit(d, pt);
+//        st.reset();
         return null;
     }
 
     @Override
     public Void visit(Invocacion i, Void pt) {
-        return null;
-    }
+        // recorremos el AST (sus hijos)
+        super.visit(i, pt);
 
-    @Override
-    public Void visit(ErrorType e, Void pt) {
+        // no hay atributos que calcular
+
+        // realizamos sus comprobaciones: funcion definida antes de ser usada
+        if(st.find(i.getInvocado().getNombre()) == null) {
+            new ErrorType("Function " + i.getInvocado().getNombre() + " not defined", i);
+        }
+
         return null;
     }
 }

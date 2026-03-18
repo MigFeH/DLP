@@ -37,12 +37,6 @@ public abstract class AbstractVisitor<PT, RT> implements Visitor<PT, RT> {
     }
 
     @Override
-    public RT visit(Variable v, PT pt) {
-        v.getDefinicion().accept(this, pt);
-        return null;
-    }
-
-    @Override
     public RT visit(Aritmetico a, PT pt) {
         a.getIzquierda().accept(this, pt);
         a.getDerecha().accept(this, pt);

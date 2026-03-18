@@ -33,7 +33,7 @@ public class LValueVisitor extends AbstractVisitor<Void, Void> { // Void solo ac
 
     @Override
     public Void visit(Variable v, Void pt) {
-        super.visit(v, pt);
+        // no tiene hijos ==> no los recorremos
         v.setLValue(true); // las variables PUEDEN estar a la izquierda de una asignacion
         return null;
     }

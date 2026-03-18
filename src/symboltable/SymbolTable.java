@@ -64,8 +64,20 @@ public class SymbolTable {
 		return null;
 	}
 
-	//package-protected for testing pourposes
+	/**
+	 * package-protected for testing pourposes
+	 * @param id, el id de la definicion a buscar en el scope actual
+	 * @return true si en el scope actual se encuentra una definicion registrada en la tabla de simbolos.
+	 * false en caso contrario.
+	 */
 	boolean findInCurrentScope(String id) {
 		return this.table.get(scope).containsKey(id);
+	}
+
+	/**
+	 * @return el valor de la variable que contabiliza el nivel del ambito actual
+	 */
+	public int getScope() {
+		return scope;
 	}
 }
