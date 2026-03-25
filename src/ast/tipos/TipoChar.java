@@ -32,7 +32,7 @@ public class TipoChar extends AbstractTipo {
         if(other == getInstance() || other == TipoInt.getInstance()) {
             return this;
         }
-        return new ErrorType("El tipo \"char\" no soporta una operacion aritmetica con un tipo \"" + other + "\" a la derecha", localizacionDelError);
+        return new ErrorType("El tipo \"char\" no soporta una operacion aritmetica con un tipo \"" + other + "\"", localizacionDelError);
     }
 
     @Override

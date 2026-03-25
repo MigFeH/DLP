@@ -41,7 +41,7 @@ public class TipoInt extends AbstractTipo {
         } else if(other == TipoNumber.getInstance()) {
             return other;
         }
-        return new ErrorType("El tipo \"int\" no soporta una operacion aritmetica con un tipo \"" + other + "\" a la derecha", localizacionDelError);
+        return new ErrorType("El tipo \"int\" no soporta una operacion aritmetica con un tipo \"" + other + "\"", localizacionDelError);
     }
 
     @Override
