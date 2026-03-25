@@ -10,20 +10,7 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
 
     private SymbolTable st = new SymbolTable();
 
-    @Override
-    public Void visit(Variable v, Void pt) {
-        // no tiene hijos ==> no los recorremos
 
-        // calculamos sus atributos: enlazar la variable con su definicion
-        v.setDefinicion(st.find(v.getNombre()));
-
-        // realizamos sus comprobaciones: variable definida antes de ser usada
-        if(v.getDefinicion() == null) {
-            new ErrorType("variable '" + v.getNombre() + "' not defined", v);
-        }
-
-        return null;
-    }
 
     @Override
     public Void visit(DefinicionVar d, Void pt) {
@@ -60,15 +47,16 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
     }
 
     @Override
-    public Void visit(Invocacion i, Void pt) {
-        // recorremos el AST (sus hijos)
-        i.getArgumentos().forEach(arg -> arg.accept(this, pt));
+    public Void visit(Variable v, Void pt) {
+        // no tiene hijos ==> no los recorremos
 
-        // no hay atributos que calcular
+        // calculamos sus atributos: enlazar la variable con su definicion
+        v.setDefinicion(st.find(v.getNombre()));
 
-        // realizamos sus comprobaciones: funcion definida antes de ser usada
-        if(st.find(i.getInvocado().getNombre()) == null) {
-            new ErrorType("function '" + i.getInvocado().getNombre() + "' not defined", i);
+        // realizamos sus comprobaciones: variable definida antes de ser usada
+        if(v.getDefinicion() == null) {
+            DefinicionVar varDef = ();
+            new ErrorType("variable '" + v.getNombre() + "' not defined", v);
         }
 
         return null;
