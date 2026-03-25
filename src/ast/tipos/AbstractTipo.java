@@ -18,7 +18,9 @@ public abstract class AbstractTipo implements Tipo {
      */
     @Override
     public boolean mustBeLogical(Locatable localizacionDelError) {
-        new ErrorType("El tipo \"" + this + "\" no es de tipo logico", localizacionDelError);
+        if(!(this instanceof ErrorType)) {
+            new ErrorType("El tipo \"" + this + "\" no es de tipo logico", localizacionDelError);
+        }
         return false;
     }
 
@@ -44,18 +46,24 @@ public abstract class AbstractTipo implements Tipo {
     @Override
     public void mustBeSimpleType(Locatable localizacionDelError) {
         // lo USAMOS para comprobar que una funcion retorna y recibe tipos simples
-        new ErrorType("El tipo \"" + this + "\" no es de tipo simple", localizacionDelError);
+        if(!(this instanceof ErrorType)) {
+            new ErrorType("El tipo \"" + this + "\" no es de tipo simple", localizacionDelError);
+        }
     }
 
     @Override
     public void mustBeMain(Locatable localizacionDelError) {
         // lo implementa function y debe comprobar que sea void, que no tenga parametros, que su nombre sea main, etc
-        new ErrorType("El tipo \"" + this + "\" no se corresponde con el tipo de una funcion main", localizacionDelError);
+        if(!(this instanceof ErrorType)) {
+            new ErrorType("El tipo \"" + this + "\" no se corresponde con el tipo de una funcion main", localizacionDelError);
+        }
     }
 
     @Override
     public void mustBeFunctionType(Locatable localizacionDelError) {
-        new ErrorType("El tipo \"" + this + "\" no se corresponde con el tipo de una funcion", localizacionDelError);
+        if(!(this instanceof ErrorType)) {
+            new ErrorType("El tipo \"" + this + "\" no se corresponde con el tipo de una funcion", localizacionDelError);
+        }
     }
 
     @Override
