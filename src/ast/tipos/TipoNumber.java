@@ -2,7 +2,7 @@ package ast.tipos;
 
 import visitor.Visitor;
 
-public class TipoNumber implements Tipo {
+public class TipoNumber extends AbstractTipo {
 
     private static TipoNumber instance;
 

@@ -1,8 +1,9 @@
 package ast.tipos;
 
+import ast.locatable.Locatable;
 import visitor.Visitor;
 
-public class TipoArray implements Tipo {
+public class TipoArray extends AbstractTipo {
 
     private Tipo tipoElemento;
     private int size;
@@ -18,6 +19,11 @@ public class TipoArray implements Tipo {
 
     public int getSize() {
         return this.size;
+    }
+
+    @Override
+    public Tipo aritmetico(Tipo other, Locatable localizacionDelError) {
+        return new ErrorType("El tipo array no soporta una operacion aritmetica", localizacionDelError);
     }
 
     @Override

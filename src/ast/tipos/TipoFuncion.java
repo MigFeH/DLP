@@ -5,7 +5,7 @@ import visitor.Visitor;
 
 import java.util.List;
 
-public class TipoFuncion implements Tipo {
+public class TipoFuncion extends AbstractTipo {
 
     private Tipo tipoRetorno;
     private List<DefinicionVar> parametros;

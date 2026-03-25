@@ -1,8 +1,9 @@
 package ast.tipos;
 
+import ast.locatable.Locatable;
 import visitor.Visitor;
 
-public class TipoChar implements Tipo {
+public class TipoChar extends AbstractTipo {
 
     private static TipoChar instance;
 
@@ -14,6 +15,9 @@ public class TipoChar implements Tipo {
         }
         return instance;
     }
+
+    @Override
+    public void mustBeLogical(Locatable localizacionDelError) {}
 
     @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {

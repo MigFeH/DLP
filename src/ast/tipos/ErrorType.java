@@ -4,7 +4,7 @@ import ast.locatable.Locatable;
 import errorhandler.ErrorHandler;
 import visitor.Visitor;
 
-public class ErrorType implements Tipo {
+public class ErrorType extends AbstractTipo {
 
     private String causa; // la causa del error
     private Locatable localizacion; // la localizacion en la que se ha producido el error (la construccion en la que se ha producido el error)
@@ -19,6 +19,11 @@ public class ErrorType implements Tipo {
     @Override
     public String toString() {
         return "Error: " + causa + " at line: " + localizacion.getLinea() + " column: " + localizacion.getColumna();
+    }
+
+    @Override
+    public Tipo aritmetico(Tipo other, Locatable localizacionDelError) {
+        return new ErrorType("El tipo error no soporta una operacion aritmetica", localizacionDelError);
     }
 
     @Override

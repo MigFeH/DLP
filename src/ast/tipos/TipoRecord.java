@@ -4,7 +4,7 @@ import visitor.Visitor;
 
 import java.util.List;
 
-public class TipoRecord implements Tipo {
+public class TipoRecord extends AbstractTipo {
 
     private List<CampoRecord> campos;
 
