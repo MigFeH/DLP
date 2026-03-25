@@ -1,6 +1,5 @@
 package visitor;
 
-import ast.Programa;
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;
 import ast.expresiones.*;
@@ -144,7 +143,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
         // recorremos el AST (sus hijos)
         super.visit(l, tipo);
 
-        // calculamos sus atributos
+        // no hay atributos que calcular
 
         // realizamos sus comprobaciones
         l.getExpresiones().forEach(expresion -> expresion.getTipo().mustBeSimpleType(l));
@@ -159,47 +158,119 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
 
     @Override
     public Void visit(If i, Tipo tipo) {
-        return super.visit(i, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(i, tipo);
+
+        // no hay atributos que calcular
+
+        // realizamos sus comprobaciones
+        i.getCondicion().getTipo().mustBeLogical(i);
+
+        return null;
     }
 
     @Override
     public Void visit(Asignacion a, Tipo tipo) {
-        return super.visit(a, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(a, tipo);
+
+        // no hay atributos que calcular
+
+        // realizamos sus comprobaciones
+        a.getDerecha().getTipo().mustPromotesTo(a.getIzquierda().getTipo(), a);
+
+        return null;
     }
 
     @Override
     public Void visit(Negacion n, Tipo tipo) {
-        return super.visit(n, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(n, tipo);
+
+        // calculamos sus atributos
+        n.setTipo(n.getOperando().getTipo().logical(n));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
     @Override
     public Void visit(MenosUnario m, Tipo tipo) {
-        return super.visit(m, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(m, tipo);
+
+        // calculamos sus atributos
+        m.setTipo(m.getOperando().getTipo().unaryMinus(m));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
     @Override
     public Void visit(Logico l, Tipo tipo) {
-        return super.visit(l, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(l, tipo);
+
+        // calculamos sus atributos
+        l.setTipo(l.getIzquierda().getTipo().logical(l.getDerecha().getTipo(), l));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
     @Override
     public Void visit(Comparador c, Tipo tipo) {
-        return super.visit(c, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(c, tipo);
+
+        // calculamos sus atributos
+        c.setTipo(c.getIzquierda().getTipo().comparison(c.getDerecha().getTipo(), c));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
     @Override
     public Void visit(Cast c, Tipo tipo) {
-        return super.visit(c, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(c, tipo);
+
+        // calculamos sus atributos
+        c.setTipo(c.getIzquierda().getTipo().cast(c.getDerecha(), c));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
     @Override
     public Void visit(AccesoCampo a, Tipo tipo) {
-        return super.visit(a, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(a, tipo);
+
+        // calculamos sus atributos
+        a.setTipo(a.getIzquierda().getTipo().dot(a.getDerecha(), a));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
     @Override
     public Void visit(AccesoArray a, Tipo tipo) {
-        return super.visit(a, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(a, tipo);
+
+        // calculamos sus atributos
+        a.setTipo(a.getIzquierda().getTipo().squareBrackets(a.getDerecha().getTipo(), a));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
     @Override
@@ -212,13 +283,13 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
         // recorremos el AST (sus hijos)
         super.visit(d, tipo);
 
-        // calculamos sus atributos
+        // no hay atributos que calcular
 
         // realizamos sus comprobaciones
-        if(d.getNombre().equalsIgnoreCase("main")) {
-            d.getTipo().mustBeMain();
+        if (d.getNombre().equalsIgnoreCase("main")) {
+            d.getTipo().mustBeMain(d);
         } else {
-            d.getTipo().mustBeFunctionType();
+            d.getTipo().mustBeFunctionType(d);
         }
 
         return null;
@@ -226,11 +297,16 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
 
     @Override
     public Void visit(Invocacion i, Tipo tipo) {
-        return super.visit(i, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(i, tipo);
+
+        // calculamos sus atributos
+        i.setTipo(
+                i.getTipo().parenthesis(i.getArgumentos().stream().map(Expresion::getTipo).toList(), i));
+
+        // no hay comprobaciones que realizar
+
+        return null;
     }
 
-    @Override
-    public Void visit(ErrorType e, Tipo tipo) {
-        return super.visit(e, tipo);
-    }
 }

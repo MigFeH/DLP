@@ -1,8 +1,10 @@
 package ast.tipos;
 
+import ast.locatable.Locatable;
 import visitor.Visitor;
 
 import java.util.List;
+import java.util.Optional;
 
 public class TipoRecord extends AbstractTipo {
 
@@ -14,6 +16,20 @@ public class TipoRecord extends AbstractTipo {
 
     public List<CampoRecord> getCampos() {
         return this.campos;
+    }
+
+    @Override
+    public Tipo dot(String fieldName, Locatable localizacionDelError) {
+        Optional<CampoRecord> campoRecordAccedido = campos.stream().filter(campoRecord -> campoRecord.getNombre().equals(fieldName)).findFirst();
+        return campoRecordAccedido.isPresent() ?
+                campoRecordAccedido.get().getTipo()
+                    :
+                new ErrorType("Campo record \"" + fieldName + "\" no existente en el record", localizacionDelError);
+    }
+
+    @Override
+    public String toString() {
+        return "record";
     }
 
     @Override

@@ -17,7 +17,36 @@ public class TipoChar extends AbstractTipo {
     }
 
     @Override
-    public void mustBeLogical(Locatable localizacionDelError) {}
+    public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
+        if(other == getInstance() || other == TipoInt.getInstance()) {
+            return this;
+        }
+        return new ErrorType("El tipo \"char\" no promociona al tipo \"" + other + "\"", localizacionDelError);
+    }
+
+    @Override
+    public void mustBeSimpleType(Locatable localizacionDelError) {}
+
+    @Override
+    public Tipo arithmetic(Tipo other, Locatable localizacionDelError) {
+        if(other == getInstance() || other == TipoInt.getInstance()) {
+            return this;
+        }
+        return new ErrorType("El tipo \"char\" no soporta una operacion aritmetica con un tipo \"" + other + "\" a la derecha", localizacionDelError);
+    }
+
+    @Override
+    public Tipo cast(Tipo other, Locatable localizacionDelError) {
+        if(other == getInstance() || other == TipoInt.getInstance() || other == TipoNumber.getInstance()) {
+            return other;
+        }
+        return new ErrorType("Operacion cast no soportada para el tipo \"char\" siendo casteado al tipo \"" + other + "\"", localizacionDelError);
+    }
+
+    @Override
+    public String toString() {
+        return "char";
+    }
 
     @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {

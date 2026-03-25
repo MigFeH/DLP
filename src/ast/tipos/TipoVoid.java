@@ -16,6 +16,11 @@ public class TipoVoid extends AbstractTipo {
     }
 
     @Override
+    public String toString() {
+        return "void";
+    }
+
+    @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
         return v.visit(this, pt);
     }
