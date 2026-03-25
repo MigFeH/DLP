@@ -1,3 +1,7 @@
+int prueba(): void {
+
+}
+
 // Variable and function definitions
 let i, j, n: int;
 let c: char;

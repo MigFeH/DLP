@@ -10,8 +10,6 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
 
     private SymbolTable st = new SymbolTable();
 
-
-
     @Override
     public Void visit(DefinicionVar d, Void pt) {
         // recorremos el AST (sus hijos)
@@ -55,8 +53,11 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
 
         // realizamos sus comprobaciones: variable definida antes de ser usada
         if(v.getDefinicion() == null) {
-            DefinicionVar varDef = ();
-            new ErrorType("variable '" + v.getNombre() + "' not defined", v);
+            new DefinicionVar(
+                    v.getLinea(),
+                    v.getColumna(),
+                    new ErrorType("variable '" + v.getNombre() + "' not defined", v),
+                    v.getNombre());
         }
 
         return null;
