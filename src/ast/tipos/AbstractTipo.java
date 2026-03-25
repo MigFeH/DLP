@@ -37,10 +37,7 @@ public abstract class AbstractTipo implements Tipo {
          * Este metodo puede devolver algo si lo usamos en mas sitios y necesitamos saber el "resultado de la promocion"
          * lo usamos en el log, input, return, asignacion, ...
          * */
-        if(other instanceof ErrorType) {
-            return new ErrorType("El tipo \"" + this + "\" no promociona al tipo \"" + other + "\"", localizacionDelError);
-        }
-        return other;
+        return new ErrorType("El tipo \"" + this + "\" no promociona al tipo \"" + other + "\"", localizacionDelError);
     }
 
     @Override
@@ -79,7 +76,7 @@ public abstract class AbstractTipo implements Tipo {
     @Override
     public Tipo comparison(Tipo other, Locatable localizacionDelError) {
         Tipo tipoInferido = this.mustPromotesTo(other, localizacionDelError);
-        if(!(tipoInferido instanceof ErrorType) && tipoInferido.mustBeLogical(localizacionDelError)) {
+        if(!(other instanceof ErrorType)) {
             return tipoInferido;
         } else {
             return new ErrorType("Operacion comparacion no soportada para el tipo \"" + this + "\" con el tipo \"" + other + "\"", localizacionDelError);
