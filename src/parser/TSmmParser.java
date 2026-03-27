@@ -515,8 +515,8 @@ public class TSmmParser extends Parser {
 				match(T__3);
 
 				                ((ExpressionContext)_localctx).ast =  new Invocacion(
-				                    ((ExpressionContext)_localctx).e1.ast.getLinea(),
-				                    ((ExpressionContext)_localctx).e1.ast.getColumna(),
+				                    ((ExpressionContext)_localctx).ID.getLine(),
+				                    ((ExpressionContext)_localctx).ID.getCharPositionInLine() + 1,
 				                    _localctx.variable,
 				                    _localctx.argumentos);
 				            

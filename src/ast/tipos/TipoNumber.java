@@ -18,7 +18,7 @@ public class TipoNumber extends AbstractTipo {
 
     @Override
     public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoInt.getInstance()) {
+        if(other == getInstance()) {
             return this;
         }
         return new ErrorType("El tipo \"number\" no promociona al tipo \"" + other + "\"", localizacionDelError);

@@ -38,14 +38,34 @@ public class TipoFuncion extends AbstractTipo {
 
     @Override
     public void mustBeFunctionType(Locatable localizacionDelError) {
-        tipoRetorno.mustBeSimpleType(localizacionDelError);
+        if(!(tipoRetorno instanceof TipoVoid)) {
+            tipoRetorno.mustBeSimpleType(localizacionDelError);
+        }
         parametros.forEach(param -> param.getTipo().mustBeSimpleType(localizacionDelError));
     }
 
     @Override
     public Tipo parenthesis(List<Tipo> typeParams, Locatable localizacionDelError) {
-        typeParams.forEach(tipoParametro -> tipoParametro.mustBeSimpleType(localizacionDelError));
+        if(typeParams.size() != parametros.size()) {
+            return new ErrorType("Número de parámetros en la invocación a función incorrecto", localizacionDelError);
+        }
+
+        int index = 0;
+        for(Tipo typeParam : typeParams) {
+            typeParam.mustBeSimpleType(localizacionDelError);
+            Tipo tipoInferido = typeParam.mustPromotesTo(parametros.get(index).getTipo(), localizacionDelError);
+            if(tipoInferido instanceof ErrorType) {
+                return tipoInferido;
+            }
+            index++;
+        }
+
         return this.tipoRetorno;
+    }
+
+    @Override
+    public String toString() {
+        return "function";
     }
 
     @Override

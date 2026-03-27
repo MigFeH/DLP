@@ -281,7 +281,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
     @Override
     public Void visit(DefinicionFunc d, Tipo tipo) {
         // recorremos el AST (sus hijos)
-        super.visit(d, tipo);
+        super.visit(d, ((TipoFuncion) d.getTipo()).getTipoRetorno());
 
         // no hay atributos que calcular
 
@@ -301,8 +301,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
         super.visit(i, tipo);
 
         // calculamos sus atributos
-        i.setTipo(
-                i.getTipo().parenthesis(i.getArgumentos().stream().map(Expresion::getTipo).toList(), i));
+        i.setTipo(i.getInvocado().getTipo().parenthesis(i.getArgumentos().stream().map(Expresion::getTipo).toList(), i));
 
         // no hay comprobaciones que realizar
 
