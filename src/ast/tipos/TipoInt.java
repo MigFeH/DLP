@@ -59,7 +59,10 @@ public class TipoInt extends AbstractTipo {
 
     @Override
     public Tipo logical(Tipo other, Locatable localizacionDelError) {
-        return this;
+        if(other == TipoInt.getInstance()) {
+            return this;
+        }
+        return new ErrorType("El tipo \"int\" junto al tipo \"" + other + "\" no forman un tipo logico", localizacionDelError);
     }
 
     @Override

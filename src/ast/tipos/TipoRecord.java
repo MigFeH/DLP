@@ -24,7 +24,7 @@ public class TipoRecord extends AbstractTipo {
         return campoRecordAccedido.isPresent() ?
                 campoRecordAccedido.get().getTipo()
                     :
-                new ErrorType("Campo record \"" + fieldName + "\" no existente en el record", localizacionDelError);
+                new ErrorType("Campo record \"" + fieldName + "\" no existente", localizacionDelError);
     }
 
     @Override

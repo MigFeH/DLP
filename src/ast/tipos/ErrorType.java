@@ -22,14 +22,26 @@ public class ErrorType extends AbstractTipo {
     }
 
     @Override
+    public boolean mustBeLogical(Locatable localizacionDelError) {
+        return false;
+    }
+
+    @Override
+    public void mustBeSimpleType(Locatable localizacionDelError) {}
+
+    @Override
+    public void mustBeMain(Locatable localizacionDelError) {}
+
+    @Override
+    public void mustBeFunctionType(Locatable localizacionDelError) {}
+
+    @Override
     public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
         return this;
     }
 
     @Override
-    public Tipo arithmetic(Tipo other, Locatable localizacionDelError) {
-        return new ErrorType("El tipo \"error\" no soporta una operacion aritmetica", localizacionDelError);
-    }
+    public Tipo arithmetic(Tipo other, Locatable localizacionDelError) { return this; }
 
     @Override
     public Tipo cast(Tipo other, Locatable localizacionDelError) {
