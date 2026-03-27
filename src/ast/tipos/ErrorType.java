@@ -22,11 +22,6 @@ public class ErrorType extends AbstractTipo {
     }
 
     @Override
-    public boolean mustBeLogical(Locatable localizacionDelError) {
-        return false;
-    }
-
-    @Override
     public void mustBeSimpleType(Locatable localizacionDelError) {}
 
     @Override

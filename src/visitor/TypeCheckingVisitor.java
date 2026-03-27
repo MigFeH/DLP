@@ -73,46 +73,6 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
     }
 
     @Override
-    public Void visit(CampoRecord c, Tipo tipo) {
-        return super.visit(c, tipo);
-    }
-
-    @Override
-    public Void visit(TipoArray t, Tipo tipo) {
-        return super.visit(t, tipo);
-    }
-
-    @Override
-    public Void visit(TipoChar t, Tipo tipo) {
-        return super.visit(t, tipo);
-    }
-
-    @Override
-    public Void visit(TipoFuncion t, Tipo tipo) {
-        return super.visit(t, tipo);
-    }
-
-    @Override
-    public Void visit(TipoInt t, Tipo tipo) {
-        return super.visit(t, tipo);
-    }
-
-    @Override
-    public Void visit(TipoNumber t, Tipo tipo) {
-        return super.visit(t, tipo);
-    }
-
-    @Override
-    public Void visit(TipoRecord t, Tipo tipo) {
-        return super.visit(t, tipo);
-    }
-
-    @Override
-    public Void visit(TipoVoid t, Tipo tipo) {
-        return super.visit(t, tipo);
-    }
-
-    @Override
     public Void visit(While w, Tipo tipo) {
         // recorremos el AST (sus hijos)
         super.visit(w, tipo);
@@ -153,7 +113,15 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
 
     @Override
     public Void visit(Input i, Tipo tipo) {
-        return super.visit(i, tipo);
+        // recorremos el AST (sus hijos)
+        super.visit(i, tipo);
+
+        // no hay atributos que calcular
+
+        // realizamos sus comprobaciones
+        i.getExpresiones().forEach(expresion -> expresion.getTipo().mustBeSimpleType(i));
+
+        return null;
     }
 
     @Override
@@ -271,11 +239,6 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
         // no hay comprobaciones que realizar
 
         return null;
-    }
-
-    @Override
-    public Void visit(DefinicionVar d, Tipo tipo) {
-        return super.visit(d, tipo);
     }
 
     @Override

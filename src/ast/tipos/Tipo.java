@@ -6,7 +6,7 @@ import ast.locatable.Locatable;
 import java.util.List;
 
 public interface Tipo extends ASTNode {
-    boolean mustBeLogical(Locatable localizacionDelError);
+    void mustBeLogical(Locatable localizacionDelError);
     Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError);
     void mustBeSimpleType(Locatable localizacionDelError);
     void mustBeMain(Locatable localizacionDelError);

@@ -27,9 +27,7 @@ public class TipoInt extends AbstractTipo {
     }
 
     @Override
-    public boolean mustBeLogical(Locatable localizacionDelError) {
-        return true;
-    }
+    public void mustBeLogical(Locatable localizacionDelError) {}
 
     @Override
     public void mustBeSimpleType(Locatable localizacionDelError) {}

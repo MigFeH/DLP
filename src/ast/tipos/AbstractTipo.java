@@ -7,23 +7,19 @@ import java.util.List;
 public abstract class AbstractTipo implements Tipo {
 
     /**
-     * Comprueba que, dado un tipo (this), DEBE ser logico.
+     * Comprueba que el tipo DEBE ser logico.
      * En nuesto lenguaje modelamos el tipo boolean con enteros de la siguiente forma:
      *      valor false == 0
      *      valor true != 0
-     * Los tipos logicos (que soportan operaciones logicas [int y char] tendran vacío este metodo).
-     * Los tipos que NO logicos (que NO soportan la operacion) instanciaran un ErrorType
      * @param localizacionDelError, el locatable que puede contener el error
-     * @return true si el tipo this es logico, false en caso contrario
      */
     @Override
-    public boolean mustBeLogical(Locatable localizacionDelError) {
+    public void mustBeLogical(Locatable localizacionDelError) {
         new ErrorType("El tipo \"" + this + "\" no es de tipo logico", localizacionDelError);
-        return false;
     }
 
     /**
-     * Comprueba que, dado un tipo other, el tipo this debe promocionar al tipo other.
+     * Comprueba que, dado un tipo other, el tipo this DEBE promocionar al tipo other.
      * En caso de no cumplirse lo mencionado se instancia un ErrorType.
      * @param other, el tipo al que debe promocionar el tipo this
      * @param localizacionDelError, el locatable que puede contener el error
@@ -70,12 +66,10 @@ public abstract class AbstractTipo implements Tipo {
 
     @Override
     public Tipo comparison(Tipo other, Locatable localizacionDelError) {
-        Tipo tipoInferido = this.mustPromotesTo(other, localizacionDelError);
-        if(!(other instanceof ErrorType)) {
-            return tipoInferido;
-        } else {
-            return new ErrorType("Operacion comparacion no soportada para el tipo \"" + this + "\" con el tipo \"" + other + "\"", localizacionDelError);
+        if(other instanceof ErrorType) {
+            return other;
         }
+        return this.mustPromotesTo(other, localizacionDelError);
     }
 
     @Override
