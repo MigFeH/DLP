@@ -21,7 +21,7 @@ public class TipoNumber extends AbstractTipo {
         if(other == getInstance()) {
             return this;
         }
-        return new ErrorType("El tipo \"number\" no promociona al tipo \"" + other + "\"", localizacionDelError);
+        return super.mustPromotesTo(other, localizacionDelError);
     }
 
     @Override

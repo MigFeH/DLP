@@ -23,7 +23,7 @@ public class TipoInt extends AbstractTipo {
         } else if(other == TipoNumber.getInstance()) {
             return other;
         }
-        return new ErrorType("El tipo \"int\" no promociona al tipo \"" + other + "\"", localizacionDelError);
+        return super.mustPromotesTo(other, localizacionDelError);
     }
 
     @Override

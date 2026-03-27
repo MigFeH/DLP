@@ -35,6 +35,9 @@ public abstract class AbstractTipo implements Tipo {
          * Este metodo puede devolver algo si lo usamos en mas sitios y necesitamos saber el "resultado de la promocion"
          * lo usamos en el log, input, return, asignacion, ...
          * */
+        if(other instanceof ErrorType) {
+            return other;
+        }
         return new ErrorType("El tipo \"" + this + "\" no promociona al tipo \"" + other + "\"", localizacionDelError);
     }
 
@@ -83,6 +86,9 @@ public abstract class AbstractTipo implements Tipo {
     @Override
     public Tipo squareBrackets(Tipo other, Locatable localizacionDelError) {
         // other es el tipo del indice del array. other debe ser int o promocionar a int. this sera el TipoArray. El tipo que se retorna en este metodo es el tipo de los elementos del array
+        if(other instanceof ErrorType) {
+            return other;
+        }
         return new ErrorType("Operacion acceso array no soportada para el tipo \"" + this + "\"", localizacionDelError);
     }
 

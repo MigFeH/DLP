@@ -21,7 +21,7 @@ public class TipoChar extends AbstractTipo {
         if(other == getInstance() || other == TipoInt.getInstance()) {
             return this;
         }
-        return new ErrorType("El tipo \"char\" no promociona al tipo \"" + other + "\"", localizacionDelError);
+        return super.mustPromotesTo(other, localizacionDelError);
     }
 
     @Override
