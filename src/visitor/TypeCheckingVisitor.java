@@ -146,7 +146,7 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
         // no hay atributos que calcular
 
         // realizamos sus comprobaciones
-        l.getExpresiones().forEach(expresion -> expresion.getTipo().mustBeLogical(l));
+        l.getExpresiones().forEach(expresion -> expresion.getTipo().mustBeSimpleType(l));
 
         return null;
     }
