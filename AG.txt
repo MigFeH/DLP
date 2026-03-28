@@ -3,7 +3,7 @@ G:
     (2) ConstanteInt: expresion -> INT_CONSTANT
     (3) ConstanteReal: expresion -> REAL_CONSTANT
     (4) ConstanteCaracter: expresion -> CHAR_CONSTANT
-    (5) Aritmetico: expresion1 -> expresion2 (+|-|*|/) expresion3
+    (5) Aritmetico: expresion1 -> expresion2 (+|-|*|/|%) expresion3
     (6) While: sentencia1 -> expresion sentencia2*
     (7) Return: sentencia -> expresion
     (8) Log: sentencia -> expresion*
