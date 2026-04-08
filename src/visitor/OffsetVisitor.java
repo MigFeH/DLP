@@ -26,7 +26,7 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
      */
 
     private int globalBytesAcumulator;
-    private int paramBytesAcumulador;
+    private int paramBytesAcumulator;
     private int localBytesAcumulator;
 
     @Override
@@ -38,8 +38,8 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
             globalBytesAcumulator += d.getTipo().numberOfBytes();
         } else {
             if(pt) { // el padre es el TipoFuncion. La variable es un parametro
-                d.setOffset(4 + paramBytesAcumulador);
-                paramBytesAcumulador += d.getTipo().numberOfBytes();
+                d.setOffset(4 + paramBytesAcumulator);
+                paramBytesAcumulator += d.getTipo().numberOfBytes();
             } else { // el padre es el DefinicionFunc. La variable es una variable local
                 localBytesAcumulator += d.getTipo().numberOfBytes();
                 d.setOffset(-localBytesAcumulator);
@@ -51,7 +51,7 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
 
     @Override
     public Void visit(TipoFuncion t, Boolean pt) {
-        paramBytesAcumulador = 0;
+        paramBytesAcumulator = 0;
 
         for(int i = t.getParametros().size() - 1; i >= 0; i--) {
             t.getParametros().get(i).accept(this, true);
