@@ -28,6 +28,15 @@ public class TipoRecord extends AbstractTipo {
     }
 
     @Override
+    public int numberOfBytes() {
+        int sumatorioNumeroBytes = 0;
+        for(CampoRecord campo : campos) {
+            sumatorioNumeroBytes += campo.getTipo().numberOfBytes();
+        }
+        return sumatorioNumeroBytes;
+    }
+
+    @Override
     public String toString() {
         return "record";
     }

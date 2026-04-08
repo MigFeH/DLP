@@ -205,4 +205,10 @@ public abstract class AbstractTipo implements Tipo {
     public Tipo logical(Locatable localizacionDelError) {
         return new ErrorType("El tipo \"" + this + "\" no es un tipo logico", localizacionDelError);
     }
+
+    @Override
+    public int numberOfBytes() {
+        throw new UnsupportedOperationException();
+    }
+
 }

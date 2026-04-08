@@ -203,4 +203,10 @@ public abstract class AbstractVisitor<PT, RT> implements Visitor<PT, RT> {
     public RT visit(ErrorType e, PT pt) {
         return null;
     }
+
+    @Override
+    public RT visit(Variable v, PT pt) {
+        // no tiene hijos ==> no los recorremos
+        return null;
+    }
 }

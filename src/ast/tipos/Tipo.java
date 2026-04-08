@@ -21,4 +21,6 @@ public interface Tipo extends ASTNode {
     Tipo cast(Tipo other, Locatable localizacionDelError);
     Tipo logical(Tipo other, Locatable localizacionDelError);
     Tipo logical(Locatable localizacionDelError);
+
+    int numberOfBytes();
 }

@@ -24,4 +24,6 @@ public class TipoVoid extends AbstractTipo {
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
         return v.visit(this, pt);
     }
+
+
 }

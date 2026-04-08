@@ -44,6 +44,11 @@ public class TipoChar extends AbstractTipo {
     }
 
     @Override
+    public int numberOfBytes() {
+        return 1;
+    }
+
+    @Override
     public String toString() {
         return "char";
     }

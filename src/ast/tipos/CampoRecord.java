@@ -9,6 +9,7 @@ public class CampoRecord extends AbstractLocatable implements ASTNode {
 
     private Tipo tipo;
     private String nombre;
+    private int offset;
 
     public CampoRecord(int linea, int columna, Tipo tipo, String nombre) {
         super(linea, columna);
@@ -22,6 +23,14 @@ public class CampoRecord extends AbstractLocatable implements ASTNode {
 
     public String getNombre() {
         return nombre;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
     @Override

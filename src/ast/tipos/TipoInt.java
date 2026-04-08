@@ -69,6 +69,11 @@ public class TipoInt extends AbstractTipo {
     }
 
     @Override
+    public int numberOfBytes() {
+        return 2;
+    }
+
+    @Override
     public String toString() {
         return "int";
     }

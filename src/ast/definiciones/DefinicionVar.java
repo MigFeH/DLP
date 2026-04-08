@@ -6,6 +6,8 @@ import visitor.Visitor;
 
 public class DefinicionVar extends AbstractDefinicion implements ASTNode {
 
+    private int offset;
+
     public DefinicionVar(int linea, int columna,
                          Tipo tipo, String nombre) {
         super(linea, columna, tipo, nombre);
@@ -14,6 +16,14 @@ public class DefinicionVar extends AbstractDefinicion implements ASTNode {
     public DefinicionVar(int linea, int columna,
                          String nombre, Tipo tipo) {
         this(linea, columna, tipo, nombre);
+    }
+
+    public int getOffset() {
+        return this.offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 
     @Override
