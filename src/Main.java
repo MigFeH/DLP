@@ -6,10 +6,7 @@ import ast.ASTNode;
 import errorhandler.ErrorHandler;
 import parser.TSmmLexer;
 import parser.TSmmParser;
-import visitor.IdentificationVisitor;
-import visitor.LValueVisitor;
-import visitor.TypeCheckingVisitor;
-import visitor.Visitor;
+import visitor.*;
 
 public class Main {
 
@@ -36,6 +33,9 @@ public class Main {
 
 		Visitor<Tipo, Void> typeCheckingVisitor = new TypeCheckingVisitor();
 		ast.accept(typeCheckingVisitor, null);
+
+		Visitor<Boolean, Void> offsetVisitor = new OffsetVisitor();
+		ast.accept(offsetVisitor, null);
 
 		// * Check errors
 		if(ErrorHandler.getInstance().anyError()){

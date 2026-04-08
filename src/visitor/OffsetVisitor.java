@@ -8,6 +8,23 @@ import ast.tipos.TipoRecord;
 
 public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
 
+
+    /**
+     * |----------------------------|
+     * |                            |
+     * |    Memoria estatica:       |
+     * |        variables globales  |
+     * |                            |
+     * |----------------------------|
+     * |                            |
+     * |    Memoria dinamica:       |
+     * |        variables locales,  |
+     * |        campos de record    |
+     * |        y parametros        |
+     * |                            |
+     * | ---------------------------|
+     */
+
     private int globalBytesAcumulator;
     private int paramBytesAcumulador;
     private int localBytesAcumulator;
@@ -24,8 +41,8 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
                 d.setOffset(4 + paramBytesAcumulador);
                 paramBytesAcumulador += d.getTipo().numberOfBytes();
             } else { // el padre es el DefinicionFunc. La variable es una variable local
-                d.setOffset(-localBytesAcumulator);
                 localBytesAcumulator += d.getTipo().numberOfBytes();
+                d.setOffset(-localBytesAcumulator);
             }
         }
 
@@ -34,21 +51,23 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
 
     @Override
     public Void visit(TipoFuncion t, Boolean pt) {
-        // calculamos el offset de los parametros con un for-each y un acumulador local
+        paramBytesAcumulador = 0;
 
-        // recorrer los param de der a izq (NO VISITAMOS LOS HIJOS CON SUPER AQUI)
         for(int i = t.getParametros().size() - 1; i >= 0; i--) {
             t.getParametros().get(i).accept(this, true);
         }
-
-        paramBytesAcumulador = 0;
 
         return null;
     }
 
     @Override
-    public Void visit(DefinicionFunc d, Boolean aBoolean) {
+    public Void visit(DefinicionFunc d, Boolean pt) {
         localBytesAcumulator = 0;
+
+        d.getTipo().accept(this, pt);
+        for(DefinicionVar definicionVar : d.getDefinicionesVariables()) {
+            definicionVar.accept(this, false);
+        }
 
         return null;
     }
