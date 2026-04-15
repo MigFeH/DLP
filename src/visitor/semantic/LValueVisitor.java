@@ -1,10 +1,7 @@
-package visitor;
+package visitor.semantic;
 import ast.expresiones.*;
 import ast.sentencia.*;
-import ast.tipos.*;
 import ast.tipos.ErrorType;
-
-import java.util.List;
 
 public class LValueVisitor extends AbstractVisitor<Void, Void> { // Void solo acepta null ==> los visit's de este visitor solo recibe parametros y retorna null's
 

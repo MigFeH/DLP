@@ -23,4 +23,5 @@ public interface Tipo extends ASTNode {
     Tipo logical(Locatable localizacionDelError);
 
     int numberOfBytes();
+    char suffix();
 }

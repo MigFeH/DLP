@@ -1,4 +1,4 @@
-package visitor;
+package visitor.semantic;
 
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;

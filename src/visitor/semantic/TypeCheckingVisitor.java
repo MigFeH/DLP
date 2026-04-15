@@ -1,7 +1,6 @@
-package visitor;
+package visitor.semantic;
 
 import ast.definiciones.DefinicionFunc;
-import ast.definiciones.DefinicionVar;
 import ast.expresiones.*;
 import ast.sentencia.*;
 import ast.tipos.*;

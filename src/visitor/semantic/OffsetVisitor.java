@@ -1,4 +1,4 @@
-package visitor;
+package visitor.semantic;
 
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;
@@ -68,6 +68,8 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
         for(DefinicionVar definicionVar : d.getDefinicionesVariables()) {
             definicionVar.accept(this, false);
         }
+
+        d.setByteLocalSum(localBytesAcumulator);
 
         return null;
     }
