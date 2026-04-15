@@ -5,6 +5,9 @@ import codegen.CodeGenerator;
 
 public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
+    // Value: dominio = Expression
+    //      Calcula el valor de la expresion y me lo deja en el tope de la pila
+
     private AddressCGVisitor address;
 
     public ValueCGVisitor(CodeGenerator cg) {
@@ -24,31 +27,46 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     @Override
     public Void visit(Aritmetico a, Void p) {
+        a.getIzquierda().accept(this, p);
+        cg.convertTo(a.getIzquierda().getTipo(), a.getTipo());
+        a.getDerecha().accept(this, p);
+        cg.convertTo(a.getDerecha().getTipo(), a.getTipo());
+        cg.arithmetic(a.getOperador(), a.getTipo().suffix());
         return null;
     }
 
     @Override
     public Void visit(Cast c, Void p) {
+        c.getIzquierda().accept(this, p);
+        cg.convertTo(c.getIzquierda().getTipo(), c.getDerecha());
         return null;
     }
 
     @Override
     public Void visit(Comparador c, Void p) {
+        c.getIzquierda().accept(this, p);
+        cg.convertTo(c.getIzquierda().getTipo(), c.getTipo());
+        c.getDerecha().accept(this, p);
+        cg.convertTo(c.getDerecha().getTipo(), c.getTipo());
+        cg.comparison(c.getOperador(), c.getTipo().suffix());
         return null;
     }
 
     @Override
     public Void visit(ConstanteCaracter c, Void p) {
+        cg.push(c.getTipo().suffix(), (int) c.getValor());
         return null;
     }
 
     @Override
     public Void visit(ConstanteInt c, Void p) {
+        cg.push(c.getTipo().suffix(), c.getValor());
         return null;
     }
 
     @Override
     public Void visit(ConstanteReal c, Void p) {
+        cg.push(c.getTipo().suffix(), c.getValor());
         return null;
     }
 
@@ -59,6 +77,9 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     @Override
     public Void visit(Logico l, Void p) {
+        l.getIzquierda().accept(this, p);
+        l.getDerecha().accept(this, p);
+        cg.logical(l.getOperador());
         return null;
     }
 
@@ -69,6 +90,8 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     @Override
     public Void visit(Negacion n, Void p) {
+        n.getOperando().accept(this, p);
+        cg.logical("!");
         return null;
     }
 

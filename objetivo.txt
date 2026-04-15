@@ -1,11 +1,11 @@
 Generar el codigo MAPL para
-- Programs
-- Input statements
-- Print statements
-- Literals
-- Variables
-- Assignments
-- Arithmetic, comparison and logical expressions
-- VarDefinitions (global / local)
-- FunDefinitions
-- Casts
+- Programs [HECHO]
+- Input statements [HECHO]
+- Print statements [HECHO]
+- Literals [HECHO]
+- Variables [HECHO]
+- Assignments [HECHO]
+- Arithmetic [HECHO], comparison [HECHO] and logical expressions [HECHO]
+- VarDefinitions (global / local) [HECHO]
+- FunDefinitions [HECHO]
+- Casts [HECHO]

@@ -1,9 +1,9 @@
 
-#source	"input.txt"
+#source "input.txt"
 
 	' * char c (offset 0)
 	' * int i (offset 1)
-	' * real r (offset 3)
+	' * number r (offset 3)
 
 ' Invocation to the main function
 call main
@@ -225,4 +225,4 @@ halt
 	' * Write
 	pushb	10
 	outb
-	ret	0, 4, 0
+	ret 0, 4, 0

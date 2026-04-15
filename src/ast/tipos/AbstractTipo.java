@@ -211,4 +211,8 @@ public abstract class AbstractTipo implements Tipo {
         throw new UnsupportedOperationException();
     }
 
+    @Override
+    public char suffix() {
+        throw new UnsupportedOperationException();
+    }
 }

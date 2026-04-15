@@ -74,6 +74,11 @@ public class TipoInt extends AbstractTipo {
     }
 
     @Override
+    public char suffix() {
+        return 'i';
+    }
+
+    @Override
     public String toString() {
         return "int";
     }

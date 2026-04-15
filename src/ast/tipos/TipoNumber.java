@@ -54,6 +54,11 @@ public class TipoNumber extends AbstractTipo {
     }
 
     @Override
+    public char suffix() {
+        return 'f';
+    }
+
+    @Override
     public String toString() {
         return "number";
     }

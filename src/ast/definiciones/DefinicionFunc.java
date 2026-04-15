@@ -11,6 +11,7 @@ public class DefinicionFunc extends AbstractDefinicion implements ASTNode {
 
     private List<DefinicionVar> definicionesVariables; // la alternativa es eliminar esta lista y hacer que DefinicionVar implemente la interfaz Sentencia
     private List<Sentencia> sentencias;
+    private int localBytesSum;
 
     public DefinicionFunc(int linea, int columna,
                           Tipo tipo, String nombre,
@@ -32,5 +33,13 @@ public class DefinicionFunc extends AbstractDefinicion implements ASTNode {
     @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
         return v.visit(this, pt);
+    }
+
+    public void setLocalBytesSum(int localBytesSum) {
+        this.localBytesSum = localBytesSum;
+    }
+
+    public int getLocalBytesSum() {
+        return this.localBytesSum;
     }
 }

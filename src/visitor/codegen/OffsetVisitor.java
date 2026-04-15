@@ -1,10 +1,11 @@
-package visitor.semantic;
+package visitor.codegen;
 
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;
 import ast.tipos.CampoRecord;
 import ast.tipos.TipoFuncion;
 import ast.tipos.TipoRecord;
+import visitor.semantic.AbstractVisitor;
 
 public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
 
@@ -69,7 +70,7 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
             definicionVar.accept(this, false);
         }
 
-        d.setByteLocalSum(localBytesAcumulator);
+        d.setLocalBytesSum(localBytesAcumulator);
 
         return null;
     }

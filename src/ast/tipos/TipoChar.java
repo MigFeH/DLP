@@ -30,7 +30,9 @@ public class TipoChar extends AbstractTipo {
     @Override
     public Tipo arithmetic(Tipo other, Locatable localizacionDelError) {
         if(other == getInstance() || other == TipoInt.getInstance()) {
-            return this;
+            return TipoInt.getInstance();
+        } else if(other == TipoNumber.getInstance()) {
+            return other;
         }
         return new ErrorType("El tipo \"char\" no soporta una operacion aritmetica con un tipo \"" + other + "\"", localizacionDelError);
     }
@@ -46,6 +48,11 @@ public class TipoChar extends AbstractTipo {
     @Override
     public int numberOfBytes() {
         return 1;
+    }
+
+    @Override
+    public char suffix() {
+        return 'b';
     }
 
     @Override
