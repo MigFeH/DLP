@@ -21,6 +21,7 @@ public class CodeGenerator {
      */
 
     private PrintWriter out;
+    private int contadorIdLabel = 0;
 
     public CodeGenerator(String outputFilename, String sourceFilename) {
         try {
@@ -50,13 +51,18 @@ public class CodeGenerator {
         out.flush();
     }
 
-    public void store(char suffix) {
-        out.println("\tstore" + suffix);
+    public void store(Tipo tipo) {
+        out.println("\tstore" + tipo.suffix());
         out.flush();
     }
 
-    public <T> void push(char suffix, T value) {
-        out.println("\tpush" + suffix + "\t" + value);
+    public <T> void push(Tipo tipo, T value) {
+        out.println("\tpush" + tipo.suffix() + "\t" + value);
+        out.flush();
+    }
+
+    public void pusha(int value) {
+        out.println("\tpusha\t" + value);
         out.flush();
     }
 
@@ -100,13 +106,13 @@ public class CodeGenerator {
         out.flush();
     }
 
-    public void in(char suffix) {
-        out.println("\tin" + suffix);
+    public void in(Tipo tipo) {
+        out.println("\tin" + tipo.suffix());
         out.flush();
     }
 
-    public void out(char suffix) {
-        out.println("\tout" + suffix);
+    public void out(Tipo tipo) {
+        out.println("\tout" + tipo.suffix());
         out.flush();
     }
 
@@ -117,79 +123,79 @@ public class CodeGenerator {
         this.newLine();
     }
 
-    public void arithmetic(String operador, char suffix) {
+    public void arithmetic(String operador, Tipo tipo) {
         switch(operador) {
             case "+":
-                this.add(suffix);
+                this.add(tipo);
                 break;
 
             case "-":
-                this.sub(suffix);
+                this.sub(tipo);
                 break;
 
             case "*":
-                this.mul(suffix);
+                this.mul(tipo);
                 break;
 
             case "/":
-                this.div(suffix);
+                this.div(tipo);
                 break;
 
             case "%":
-                this.mod(suffix);
+                this.mod(tipo);
                 break;
         }
     }
 
-    public void mod(char suffix) {
-        out.println("\tmod" + suffix);
+    public void mod(Tipo tipo) {
+        out.println("\tmod" + tipo.suffix());
         out.flush();
     }
 
-    public void div(char suffix) {
-        out.println("\tdiv" + suffix);
+    public void div(Tipo tipo) {
+        out.println("\tdiv" + tipo.suffix());
         out.flush();
     }
 
-    public void mul(char suffix) {
-        out.println("\tmul" + suffix);
+    public void mul(Tipo tipo) {
+        out.println("\tmul" + tipo.suffix());
         out.flush();
     }
 
-    public void sub(char suffix) {
-        out.println("\tsub" + suffix);
+    public void sub(Tipo tipo) {
+        out.println("\tsub" + tipo.suffix());
         out.flush();
     }
 
-    public void add(char suffix) {
-        out.println("\tadd" + suffix);
+    public void add(Tipo tipo) {
+        out.println("\tadd" + tipo.suffix());
         out.flush();
     }
 
-    public void comparison(String operador, char suffix) {
+    public void comparison(String operador, Tipo tipo) {
         switch(operador) {
             case ">":
-                out.println("\tgt" + suffix);
+                out.println("\tgt" + tipo.suffix());
                 break;
 
             case "<":
-                out.println("\tlt" + suffix);
+                out.println("\tlt" + tipo.suffix());
                 break;
 
             case ">=":
-                out.println("\tge" + suffix);
+                out.println("\tge" + tipo.suffix());
                 break;
 
             case "<=":
-                out.println("\tle" + suffix);
+                out.println("\tle" + tipo.suffix());
                 break;
 
             case "==":
-                out.println("\teq" + suffix);
+                out.println("\teq" + tipo.suffix());
                 break;
 
             case "!=":
-                out.println("\tne" + suffix);
+                out.println("\tne" + tipo.suffix());
                 break;
         }
         out.flush();
@@ -212,8 +218,22 @@ public class CodeGenerator {
         out.flush();
     }
 
-    public void load(char suffix) {
-        out.println("\tload" + suffix);
+    public void load(Tipo tipo) {
+        out.println("\tload" + tipo.suffix());
+        out.flush();
+    }
+
+    public String getLabel() {
+        return "label" + contadorIdLabel++;
+    }
+
+    public void jmp(String label) {
+        out.println("\tjmp " + label);
+        out.flush();
+    }
+
+    public void jz(String label) {
+        out.println("\tjz " + label);
         out.flush();
     }
 }

@@ -5,6 +5,7 @@ import ast.expresiones.Expresion;
 import ast.sentencia.*;
 import ast.Programa;
 import ast.tipos.TipoFuncion;
+import ast.tipos.TipoInt;
 import ast.tipos.TipoVoid;
 import codegen.CodeGenerator;
 
@@ -20,6 +21,9 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         super(cg);
         this.address = new AddressCGVisitor(cg);
         this.value = new ValueCGVisitor(cg);
+
+        this.address.setValueCGVisitor(this.value);
+        this.value.setAddressCGVisitor(this.address);
     }
 
     @Override
@@ -47,10 +51,24 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         a.getIzquierda().accept(address, p);
         a.getDerecha().accept(value, p);
         cg.convertTo(a.getDerecha().getTipo(), a.getIzquierda().getTipo());
-        cg.store(a.getIzquierda().getTipo().suffix());
+        cg.store(a.getIzquierda().getTipo());
         return null;
     }
 
+    /**
+     * execute[[If: stmt1 -> expr stmt2* stmt3*]]() =
+     * 	    String cond = cg.getLabel();
+     * 	    String else = cg.getLabel();
+     * 	    cond <:>
+     * 	    value[[expr]]() // evaluamos la condición
+     * 	    cg.convertTo(expr.type, TipoInt.getInstance());
+     * 	    <jz> else
+     * 	    stmt2*.forEach(s -> execute[[s]]())
+     * 	    <jmp> end
+     * 	    else <:>
+     * 	    stmt3*.forEach(s -> execute[[s]]())
+     * 	    end <:>
+     */
     @Override
     public Void visit(If i, Void p) {
         return null;
@@ -63,8 +81,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
             cg.commentLineNumber(i.getLinea());
             cg.comment(" * Read", true);
             exp.accept(address, p);
-            cg.in(exp.getTipo().suffix());
-            cg.store(exp.getTipo().suffix());
+            cg.in(exp.getTipo());
+            cg.store(exp.getTipo());
         }
         return null;
     }
@@ -76,7 +94,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
             cg.commentLineNumber(l.getLinea());
             cg.comment(" * Write", true);
             exp.accept(value, p);
-            cg.out(exp.getTipo().suffix());
+            cg.out(exp.getTipo());
         }
         return null;
     }
@@ -86,8 +104,29 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+    /**
+     * execute[[While: stmt1 -> expr stmt2*]]() =
+     * 	    String cond = cg.getLabel();
+     * 	    String end = cg.getLabel();
+     * 	    cond <:>
+     * 	    value[[expr]]()
+     * 	    cg.convertTo(expr.type, TipoInt.getInstance())
+     * 	    <jz> end
+     * 	    stmt2*.forEach(s -> execute[[s]]())
+     * 	    <jmp> cond
+     * 	    end <:>
+     */
     @Override
     public Void visit(While w, Void p) {
+        String cond = cg.getLabel();
+        String end = cg.getLabel();
+        cg.label(cond);
+        w.getCondicion().accept(value, p);
+        cg.convertTo(w.getCondicion().getTipo(), TipoInt.getInstance());
+        cg.jz(end);
+        w.getCuerpo().forEach(s -> s.accept(this, p));
+        cg.jmp(cond);
+        cg.label(end);
         return null;
     }
 
