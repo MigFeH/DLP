@@ -26,6 +26,20 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         this.value.setAddressCGVisitor(this.address);
     }
 
+    /**
+     * execute[[Programa: programa -> definicion*]]() =
+     *      for(Definicion def: definicion*) {
+     *          if(def instanceof DefinicionVar) {
+     *              execute[[def]]()
+     *          }
+     *      }
+     *      cg.invocationToMain();
+     *      for(Definicion def: definicion*) {
+     *          if(def instanceof DefinicionFunc) {
+     *              execute[[def]]()
+     *          }
+     *      }
+     */
     @Override
     public Void visit(Programa pr, Void p) {
         for(Definicion def: pr.getDefiniciones()) {
@@ -43,6 +57,15 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+    /**
+     * execute[[Asignacion: sentencia -> expresion1 expresion2]]() =
+     *      <#line> sentencia.getLinea()
+     *      <' * Assignment>
+     *      address[[expresion1]]()
+     *      value[[expresion2]]()
+     *      cg.convertTo(expresion2.type, expresion1.type);
+     *      <store + expresion1.type.suffix()>
+     */
     @Override
     public Void visit(Asignacion a, Void p) {
         cg.newLine();
@@ -59,6 +82,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
      * execute[[If: stmt1 -> expr stmt2* stmt3*]]() =
      * 	    String cond = cg.getLabel();
      * 	    String else = cg.getLabel();
+     * 	    String end = cg.getLabel();
      * 	    cond <:>
      * 	    value[[expr]]() // evaluamos la condición
      * 	    cg.convertTo(expr.type, TipoInt.getInstance());
@@ -71,9 +95,31 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
      */
     @Override
     public Void visit(If i, Void p) {
+        String cond = cg.getLabel();
+        String labelElse = cg.getLabel();
+        String end = cg.getLabel();
+        cg.label(cond);
+        i.getCondicion().accept(value, p);
+        cg.convertTo(i.getCondicion().getTipo(), TipoInt.getInstance());
+        cg.jz(labelElse);
+        i.getCuerpo().forEach(s -> s.accept(this, p));
+        cg.jmp(end);
+        cg.label(labelElse);
+        i.getCuerpoElse().forEach(s -> s.accept(this, p));
+        cg.label(end);
         return null;
     }
 
+    /**
+     * execute[[Input: sentencia -> expresion*]]() =
+     *      for(Expresion exp: expresion*) {
+     *          <#line> sentencia.getLinea()
+     *          <' * Read>
+     *          address[[exp]]()
+     *          <in + exp.type.suffix()>
+     *          <store + exp.type.suffix()>
+     *      }
+     */
     @Override
     public Void visit(Input i, Void p) {
         for(Expresion exp: i.getExpresiones()) {
@@ -87,6 +133,15 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+    /**
+     * execute[[Log: sentencia -> expresion*]]() =
+     *      for(Expresion exp: expresion*) {
+     *          <#line> sentencia.getLinea()
+     *          <' * Write>
+     *          value[[exp]]()
+     *          <out + exp.type.suffix()>
+     *      }
+     */
     @Override
     public Void visit(Log l, Void p) {
         for(Expresion exp: l.getExpresiones()) {
@@ -130,6 +185,34 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+    /**
+     * execute[[DefinicionFunc: definicion1 -> tipo ID definicion2* sentencia*]]() =
+     *      <#line> definicion1.getLinea()
+     *      ID <:>
+     *      <' * Parameters>
+     *
+     *      int bytesParamsTotal = 0;
+     *      for(DefinicionVar param: tipo.getParametros()) {
+     *          execute[[param]]()
+     *          bytesParamsTotal += param.type.numberOfBytes();
+     *      }
+     *
+     *      <' * Local variables>
+     *      for(DefinicionVar local: definicion2*) {
+     *          execute[[local]]()
+     *      }
+     *
+     *      <enter> definicion1.getLocalBytesSum()
+     *      for(Sentencia st: sentencia*) {
+     *          execute[[st]]();
+     *      }
+     *      <ret> (
+     *          tipo.getTipoRetorno() instanceof TipoVoid ?
+     *              0 : tipo.getTipoRetorno().numberOfBytes(),
+     *          definicion1.getLocalBytesSum(),
+     *          bytesParamsTotal
+     *      )
+     */
     @Override
     public Void visit(DefinicionFunc d, Void p) {
         cg.newLine();
@@ -162,6 +245,10 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+    /**
+     * execute[[DefinicionVar: definicion -> tipo ID]]() =
+     *      <' * > tipo ID <(offset > + definicion.getOffset() <)>
+     */
     @Override
     public Void visit(DefinicionVar d, Void p) {
         cg.comment(" * " + d.getTipo() + " " + d.getNombre() + " (offset " + d.getOffset() + ")", true);

@@ -24,6 +24,16 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
         this.value = value;
     }
 
+    /**
+     * address[[Variable: exp -> ID]]() =
+     *      if(exp.definition.scope == 0) {
+     * 			<pusha> exp.definition.offset
+     * 		} else {
+     * 			<push bp>
+     * 			<pushi> exp.definition.offset
+     * 			<addi>
+     *      }
+     */
     @Override
     public Void visit(Variable v, Void p) {
         DefinicionVar definicion = (DefinicionVar) v.getDefinicion();
@@ -41,9 +51,9 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * address[[AccesoCampo: expr1 -> expr2 ID]]() =
-     * 	    address[[expr2]]() // la dirección del struct (es la dir base para poder calcular la dir del campo al que queremos acceder, ya que es relativa a la dir del struct)
-     * 	    <pushi> expr2.type.getField(ID).offset // pusheamos (meter en la pila) el offset del campo al que queremos acceder)
-     * 	    <addi> // sumamos la dir base del struct + offset del campo al que queremos acceder => el resultado es la dir base del campo al que queremos acceder
+     * 	    address[[expr2]]()
+     * 	    <pushi> expr2.type.getField(ID).offset
+     * 	    <addi>
      */
     @Override
     public Void visit(AccesoCampo a, Void p) {
@@ -60,12 +70,12 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * address[[AccesoArray: expr1 -> expr2 expr3]]() =
-     * 	    address[[expr2]]() // la dirección del array (es la dir base para poder calcular la dir de la posición a la que queremos acceder, ya que es relativa a la dir del array)
-     * 	    value[[expr3]]() // el valor del índice
-     * 	    cg.convertTo(expr3.type, TipoInt.getInstance()) // para no permitir a['a']
-     * 	    <pushi> expr1.type.numberOfBytes() // expr1 es a[0], y su tipo es el tipo de los elementos del array
-     * 	    <muli> //índice * numberOfBytes del tipo de elementos del array
-     * 	    <addi> // la multiplicación anterior + dirección base del array => el resultado es la dir base de la posición a la que queremos acceder
+     * 	    address[[expr2]]()
+     * 	    value[[expr3]]()
+     * 	    cg.convertTo(expr3.type, TipoInt.getInstance())
+     * 	    <pushi> expr1.type.numberOfBytes()
+     * 	    <muli>
+     * 	    <addi>
      */
     @Override
     public Void visit(AccesoArray a, Void p) {
