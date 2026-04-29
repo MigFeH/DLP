@@ -2,6 +2,7 @@ package visitor.codegen;
 
 import ast.definiciones.*;
 import ast.expresiones.Expresion;
+import ast.expresiones.Invocacion;
 import ast.sentencia.*;
 import ast.Programa;
 import ast.tipos.TipoFuncion;
@@ -12,10 +13,14 @@ import codegen.CodeGenerator;
 public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     // Execute: dominio = Sentencias, Definiciones, Programa (todo menos expresiones y tipos)
-    //      Anota el codigo que se ejecuta para una instruccion de alto nivel
+    //      Anota el codigo que se ejecuta para una instruccion de alto nivel (y, al contrario que value, limpia la pila)
+
+    // Esta clase ExecuteCGVisitor es el "orquestador"
 
     private AddressCGVisitor address;
     private ValueCGVisitor value;
+
+    private DefinicionFunc def;
 
     public ExecuteCGVisitor(CodeGenerator cg) {
         super(cg);
@@ -154,8 +159,37 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+    /**
+     * execute[[Return: sentencia -> expresion]](DefinicionFuncion def) =
+     *      value[[expresion]]()
+     *
+     *      cg.convertTo(expresion.type, def.type.returnType);
+     *
+     *      int bytesParamsTotal = 0;
+     *      for(DefinicionVar param: def.type.parameters) {
+     *          bytesParamsTotal += param.type.numberOfBytes();
+     *      }
+     *
+     *      <ret> def.type.returnType.numberOfBytes(), def.getLocalBytesSum, bytesParamsTotal
+     */
     @Override
     public Void visit(Return r, Void p) {
+        r.getExpresion().accept(value, p);
+        TipoFuncion tipoFuncion = (TipoFuncion) def.getTipo();
+
+        cg.convertTo(r.getExpresion().getTipo(), tipoFuncion.getTipoRetorno());
+
+        int bytesParamsTotal = 0;
+        for(DefinicionVar param: tipoFuncion.getParametros()) {
+            bytesParamsTotal += param.getTipo().numberOfBytes();
+        }
+
+        cg.ret(
+                tipoFuncion.getTipoRetorno().numberOfBytes(),
+                def.getLocalBytesSum(),
+                bytesParamsTotal
+        );
+
         return null;
     }
 
@@ -204,14 +238,16 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
      *
      *      <enter> definicion1.getLocalBytesSum()
      *      for(Sentencia st: sentencia*) {
-     *          execute[[st]]();
+     *          execute[[st]](definicion1);
      *      }
-     *      <ret> (
-     *          tipo.getTipoRetorno() instanceof TipoVoid ?
-     *              0 : tipo.getTipoRetorno().numberOfBytes(),
-     *          definicion1.getLocalBytesSum(),
-     *          bytesParamsTotal
-     *      )
+     *
+     *      if(type.returnType == TipoVoid.getInstance()) {
+     *          <ret> (
+     *              0,
+     *              definicion1.getLocalBytesSum(),
+     *              bytesParamsTotal
+     *          )
+     *      }
      */
     @Override
     public Void visit(DefinicionFunc d, Void p) {
@@ -233,15 +269,18 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         }
 
         cg.enter(d.getLocalBytesSum());
+        this.def = d;
         for(Sentencia st: d.getSentencias()) {
             st.accept(this, p);
         }
-        cg.ret(
-                tipoFuncion.getTipoRetorno() instanceof TipoVoid ?
-                        0 : tipoFuncion.getTipoRetorno().numberOfBytes(),
-                d.getLocalBytesSum(),
-                bytesParamsTotal
-        );
+
+        if(tipoFuncion.getTipoRetorno() == TipoVoid.getInstance()) {
+            cg.ret(
+                    0,
+                    d.getLocalBytesSum(),
+                    bytesParamsTotal
+            );
+        }
         return null;
     }
 
@@ -252,6 +291,26 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
     @Override
     public Void visit(DefinicionVar d, Void p) {
         cg.comment(" * " + d.getTipo() + " " + d.getNombre() + " (offset " + d.getOffset() + ")", true);
+        return null;
+    }
+
+    /**
+     * execute[[Invocacion: sentencia -> expresion1 expresion2*]]() =
+     *      value[[(Expresion) sentencia]]()
+     *
+     * 	    if (expresion1.type.returnType != TipoVoid.getInstance()) {
+     * 		    <pop> expresion1.type.returnType.suffix()
+     * 	    }
+     */
+    @Override
+    public Void visit(Invocacion i, Void p) {
+        i.accept(value, p);
+        TipoFuncion tipoFuncion = (TipoFuncion) i.getInvocado().getDefinicion().getTipo();
+
+        if (tipoFuncion.getTipoRetorno() != TipoVoid.getInstance()) {
+            cg.pop(tipoFuncion.getTipoRetorno());
+        }
+
         return null;
     }
 }

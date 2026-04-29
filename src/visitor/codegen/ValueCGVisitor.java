@@ -1,6 +1,7 @@
 package visitor.codegen;
 
 import ast.expresiones.*;
+import ast.tipos.TipoFuncion;
 import codegen.CodeGenerator;
 
 public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
@@ -120,8 +121,30 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+    /**
+     * value[[Invocacion: expresion1 -> expresion2 expresion3*]]() =
+     * 	    for(int i = 0; i < expresion3*.size(); i++) {
+     * 		    value[[expresion3*.get(i)]]()
+     *
+     * 		    cg.convertTo(expresion3*.get(i).type, expresion2.type.parameters.get(i).type);
+     * 	    }
+     *
+     * 	    <call> expresion2.name
+     */
     @Override
     public Void visit(Invocacion i, Void p) {
+        for(int index = 0; index < i.getArgumentos().size(); index++) {
+            i.getArgumentos().get(index).accept(this, p);
+
+            TipoFuncion tipoFuncion = (TipoFuncion) i.getInvocado().getDefinicion().getTipo();
+            cg.convertTo(
+                    i.getArgumentos().get(index).getTipo(),
+                    tipoFuncion.getParametros().get(index).getTipo()
+            );
+        }
+
+        cg.call(i.getInvocado().getNombre());
+
         return null;
     }
 

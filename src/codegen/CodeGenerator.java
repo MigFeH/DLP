@@ -236,4 +236,14 @@ public class CodeGenerator {
         out.println("\tjz " + label);
         out.flush();
     }
+
+    public void pop(Tipo tipo) {
+        out.println("\tpop" + tipo.suffix());
+        out.flush();
+    }
+
+    public void call(String nombre) {
+        out.println("\tcall " + nombre);
+        out.flush();
+    }
 }
