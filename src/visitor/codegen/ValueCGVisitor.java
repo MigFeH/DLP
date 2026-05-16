@@ -253,4 +253,39 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
         cg.load(v.getTipo());
         return null;
     }
+
+    /**
+     * value[[OperadorTernario: expresion1 -> expresion2 expresion3 expresion4]]() =
+     *      String labelSalidaFalse = cg.getLabel();
+     *      String labelEnd = cg.getLabel();
+     *      value[[expresion2]]()
+     *      cg.convertTo(expresion2.type, TipoInt.getInstance());
+     *      <jz> labelSalidaFalse
+     *      value[[expresion3]]()
+     *      cg.convertTo(expresion3.type, expresion1.type);
+     *      <jmp> labelEnd
+     *      labelSalidaFalse <:>
+     *      value[[expresion4]]()
+     *      cg.convertTo(expresion4.type, expresion1.type);
+     *      labelEnd <:>
+     */
+    @Override
+    public Void visit(OperadorTernario o, Void p) {
+        String labelSalidaFalse = cg.getLabel();
+        String labelEnd = cg.getLabel();
+        o.getCondicion().accept(this, p);
+        cg.convertTo(o.getCondicion().getTipo(), TipoInt.getInstance());
+        cg.jz(labelSalidaFalse);
+        o.getSalidaTrue().accept(this, p);
+        cg.convertTo(o.getSalidaTrue().getTipo(), o.getTipo());
+        cg.jmp(labelEnd);
+        cg.label(labelSalidaFalse);
+        o.getSalidaFalse().accept(this, p);
+        cg.convertTo(o.getSalidaFalse().getTipo(), o.getTipo());
+        cg.label(labelEnd);
+
+
+
+        return null;
+    }
 }

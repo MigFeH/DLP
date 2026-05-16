@@ -210,4 +210,12 @@ public abstract class AbstractVisitor<PT, RT> implements Visitor<PT, RT> {
         // no tiene hijos ==> no los recorremos
         return null;
     }
+
+    @Override
+    public RT visit(OperadorTernario o, PT pt) {
+        o.getCondicion().accept(this, pt);
+        o.getSalidaTrue().accept(this, pt);
+        o.getSalidaFalse().accept(this, pt);
+        return null;
+    }
 }

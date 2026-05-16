@@ -161,6 +161,16 @@ expression returns [Expresion ast] locals [Variable variable, List<Expresion> ar
                     $variable,
                     $argumentos);
             }
+
+            | <assoc = right> condicion=expression '?' salida_true=expression ':' salida_false=expression {
+                $ast = new OperadorTernario(
+                    $condicion.ast.getLinea(),
+                    $condicion.ast.getColumna(),
+                    $condicion.ast,
+                    $salida_true.ast,
+                    $salida_false.ast
+                );
+            }
             ;
 
 statement returns [Sentencia ast] locals [List<Expresion> parametros = new ArrayList<>(),

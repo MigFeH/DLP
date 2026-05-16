@@ -53,7 +53,15 @@ public class ErrorType extends AbstractTipo {
         return this;
     }
 
+    @Override
+    public Tipo ternaryOperator(Tipo tipoSalidaTrue, Tipo tipoSalidaFalse, Locatable localizacionDelError) {
+        return this;
+    }
 
+    @Override
+    public Tipo mustBeSameType(Tipo other, Locatable localizacionDelError) {
+        return this;
+    }
 
     @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {

@@ -1,0 +1,23 @@
+function p(): void {}
+
+function main(): void {
+    let i, j, h, max: int;
+    let d: number;
+
+    i = 'a';
+    d = i > 0 ? 1.1 : 0.1;
+
+    log d; // shows 1.1
+    log d > 0 ? 'G' : 'L'; // shows G
+
+    j = 0;
+    h = 100;
+    max = i > j ? (i > h ? i : h) : (j > h ? j : h);
+
+    log max; // shows 100
+    log i > 90 ? 'A' : i > 80 ? 'B' : 'C'; // shows A (right associative)
+    log 3.3 ? 'a' : 'b'; // error: type of first operand must be promotable (subtype of) int
+
+    d = i > 0 ? 1.1 : 'a'; // error: typeOf(1.1) != typeOf('a')
+    log 0 ? p() : p(); // error: void is not a valid type for second and third operands
+}

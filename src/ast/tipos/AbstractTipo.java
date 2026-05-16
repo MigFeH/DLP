@@ -1,5 +1,6 @@
 package ast.tipos;
 
+import ast.expresiones.OperadorTernario;
 import ast.locatable.Locatable;
 
 import java.util.List;
@@ -107,5 +108,37 @@ public abstract class AbstractTipo implements Tipo {
     @Override
     public boolean isSimpleType() {
         return false;
+    }
+
+    @Override
+    public Tipo ternaryOperator(Tipo tipoSalidaTrue, Tipo tipoSalidaFalse, Locatable localizacionDelError) {
+        Tipo tipoCondicion = this.mustPromotesTo(TipoInt.getInstance(), localizacionDelError);
+
+        if(tipoCondicion instanceof ErrorType) {
+            return tipoCondicion;
+        }
+
+        Tipo tipoSalidas = tipoSalidaTrue.mustBeSameType(tipoSalidaFalse, localizacionDelError);
+        if(tipoSalidas instanceof ErrorType) {
+            return tipoSalidas;
+        }
+
+        if(tipoSalidaTrue.isSimpleType()) {
+            return tipoSalidaTrue;
+        }
+
+        return new ErrorType("El tipo de las salidas del operador ternario no es de tipo simple", localizacionDelError);
+    }
+
+    @Override
+    public Tipo mustBeSameType(Tipo other, Locatable localizacionDelError) {
+        if(other instanceof ErrorType) {
+            return other;
+        }
+
+        if(this.toString().equals(other.toString())) {
+            return this;
+        }
+        return new ErrorType("El tipo \"" + this + "\" y el tipo \"" + other + "\" no son el mismo", localizacionDelError);
     }
 }

@@ -1,6 +1,7 @@
 package ast.tipos;
 
 import ast.ASTNode;
+import ast.expresiones.OperadorTernario;
 import ast.locatable.Locatable;
 
 import java.util.List;
@@ -26,4 +27,8 @@ public interface Tipo extends ASTNode {
     char suffix();
 
     boolean isSimpleType();
+
+    Tipo ternaryOperator(Tipo tipoSalidaTrue, Tipo tipoSalidaFalse, Locatable localizacionDelError);
+
+    Tipo mustBeSameType(Tipo other, Locatable localizacionDelError);
 }

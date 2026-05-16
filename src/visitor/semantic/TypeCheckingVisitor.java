@@ -270,4 +270,16 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
         return null;
     }
 
+    @Override
+    public Void visit(OperadorTernario o, Tipo tipo) {
+        // recorremos el AST (sus hijos)
+        super.visit(o, tipo);
+
+        // calculamos sus atributos
+        o.setTipo(o.getCondicion().getTipo().ternaryOperator(o.getSalidaTrue().getTipo(), o.getSalidaFalse().getTipo(), o));
+
+        // no hay comprobaciones que realizar
+
+        return null;
+    }
 }
