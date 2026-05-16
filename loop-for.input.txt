@@ -1,0 +1,25 @@
+function main(): void {
+  let i, j, k: int;
+
+  log 'L','o','o','p', ' ', 'f', 'o','r', ' ', 'e', 'a','s','y',' ', 'v','e','r','s','i','o','n','\n';
+  for(k = 0; k < 10; k = k + 1) {
+    log 'k', '=', k, '\n';
+  }
+
+  for(i = 0; i < 10; i = i + 1) {
+    for(j = 0; j < 10; j = j + 1) {
+        log 'i', '=', i, '|',  'j', '=', j, '\n';
+    }
+  }
+
+  log 'L','o','o','p', ' ', 'f', 'o','r', ' ', 'h', 'a','r','d',' ', 'v','e','r','s','i','o','n','\n';
+  for(let a: int = 0; a < 10; a = a + 1) {
+    log 'a', '=', a, '\n';
+  }
+
+  for(let b: int = 0; b < 10; b = b + 1) {
+    for(let c: int = 0; c < 10; c = c + 1) {
+        log 'b', '=', b, '|', 'c', '=', c, '\n';
+    }
+  }
+}
