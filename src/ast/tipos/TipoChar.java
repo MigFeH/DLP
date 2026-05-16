@@ -44,7 +44,7 @@ public class TipoChar extends AbstractTipo {
         if(other.isSimpleType()) {
             return other;
         }
-        return new ErrorType("Operacion cast no soportada para el tipo \"char\" siendo casteado al tipo \"" + other + "\"", localizacionDelError);
+        return super.cast(other, localizacionDelError);
     }
 
     @Override

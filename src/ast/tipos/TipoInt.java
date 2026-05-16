@@ -52,7 +52,7 @@ public class TipoInt extends AbstractTipo {
         if(other.isSimpleType()) {
             return other;
         }
-        return new ErrorType("Operacion cast no soportada para el tipo \"int\" siendo casteado al tipo \"" + other + "\"", localizacionDelError);
+        return super.cast(other, localizacionDelError);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class TipoInt extends AbstractTipo {
         if(other == TipoInt.getInstance() || other == TipoChar.getInstance()) {
             return this;
         }
-        return new ErrorType("El tipo \"int\" junto al tipo \"" + other + "\" no forman un tipo logico", localizacionDelError);
+        return super.logical(other, localizacionDelError);
     }
 
     @Override
