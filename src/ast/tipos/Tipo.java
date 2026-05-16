@@ -24,4 +24,6 @@ public interface Tipo extends ASTNode {
 
     int numberOfBytes();
     char suffix();
+
+    boolean isSimpleType();
 }

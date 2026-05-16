@@ -29,7 +29,7 @@ public class TipoNumber extends AbstractTipo {
 
     @Override
     public Tipo arithmetic(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoInt.getInstance()) {
+        if(other.isSimpleType()) {
             return this;
         }
         return new ErrorType("El tipo \"number\" no soporta una operacion aritmetica con un tipo \"" + other + "\"", localizacionDelError);
@@ -42,10 +42,23 @@ public class TipoNumber extends AbstractTipo {
 
     @Override
     public Tipo cast(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoInt.getInstance() || other == TipoChar.getInstance()) {
+        if(other.isSimpleType()) {
             return other;
         }
-        return new ErrorType("Operacion cast no soportada para el tipo \"number\" siendo casteado al tipo \"" + other + "\"", localizacionDelError);
+        return super.cast(other, localizacionDelError);
+    }
+
+    @Override
+    public Tipo comparison(Tipo other, Locatable localizacionDelError) {
+        if(other.isSimpleType()) {
+            return TipoInt.getInstance();
+        }
+        return super.comparison(other, localizacionDelError);
+    }
+
+    @Override
+    public boolean isSimpleType() {
+        return true;
     }
 
     @Override

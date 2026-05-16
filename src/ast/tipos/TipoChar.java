@@ -18,8 +18,10 @@ public class TipoChar extends AbstractTipo {
 
     @Override
     public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoInt.getInstance()) {
+        if(other == getInstance()) {
             return this;
+        } else if(other == TipoInt.getInstance()) {
+            return other;
         }
         return super.mustPromotesTo(other, localizacionDelError);
     }
@@ -39,10 +41,23 @@ public class TipoChar extends AbstractTipo {
 
     @Override
     public Tipo cast(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoInt.getInstance() || other == TipoNumber.getInstance()) {
+        if(other.isSimpleType()) {
             return other;
         }
         return new ErrorType("Operacion cast no soportada para el tipo \"char\" siendo casteado al tipo \"" + other + "\"", localizacionDelError);
+    }
+
+    @Override
+    public Tipo comparison(Tipo other, Locatable localizacionDelError) {
+        if(other.isSimpleType()) {
+            return TipoInt.getInstance();
+        }
+        return super.comparison(other, localizacionDelError);
+    }
+
+    @Override
+    public boolean isSimpleType() {
+        return true;
     }
 
     @Override

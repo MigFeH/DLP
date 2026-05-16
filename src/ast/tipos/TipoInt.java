@@ -49,18 +49,31 @@ public class TipoInt extends AbstractTipo {
 
     @Override
     public Tipo cast(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoChar.getInstance() || other == TipoNumber.getInstance()) {
+        if(other.isSimpleType()) {
             return other;
         }
         return new ErrorType("Operacion cast no soportada para el tipo \"int\" siendo casteado al tipo \"" + other + "\"", localizacionDelError);
     }
 
     @Override
+    public boolean isSimpleType() {
+        return true;
+    }
+
+    @Override
     public Tipo logical(Tipo other, Locatable localizacionDelError) {
-        if(other == TipoInt.getInstance()) {
+        if(other == TipoInt.getInstance() || other == TipoChar.getInstance()) {
             return this;
         }
         return new ErrorType("El tipo \"int\" junto al tipo \"" + other + "\" no forman un tipo logico", localizacionDelError);
+    }
+
+    @Override
+    public Tipo comparison(Tipo other, Locatable localizacionDelError) {
+        if(other.isSimpleType()) {
+            return this;
+        }
+        return super.comparison(other, localizacionDelError);
     }
 
     @Override
