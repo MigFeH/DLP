@@ -22,16 +22,11 @@ public class TipoArray extends AbstractTipo {
     }
 
     @Override
-    public Tipo arithmetic(Tipo other, Locatable localizacionDelError) {
-        return new ErrorType("El tipo array no soporta una operacion aritmetica", localizacionDelError);
-    }
-
-    @Override
     public Tipo squareBrackets(Tipo other, Locatable localizacionDelError) {
-        if(!(other.mustPromotesTo(TipoInt.getInstance(), localizacionDelError) instanceof ErrorType)) {
-            return tipoElemento;
+        if(other == TipoInt.getInstance() || other == TipoChar.getInstance()) {
+            return this.tipoElemento;
         }
-        return new ErrorType("Operacion acceso array no soportada para el tipo del indice \"" + other + "\"", localizacionDelError);
+        return super.squareBrackets(other, localizacionDelError);
     }
 
     @Override
