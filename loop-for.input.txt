@@ -1,6 +1,24 @@
+let array: [11]char;
+
+function initialize(): void {
+  array[0] = 'H';
+  array[1] = 'o';
+  array[2] = 'l';
+  array[3] = 'a';
+  array[4] = '_';
+  array[5] = 'M';
+  array[6] = 'u';
+  array[7] = 'n';
+  array[8] = 'd';
+  array[9] = 'o';
+  array[10] = '!';
+}
+
 function main(): void {
   let i, j, k: int;
   let z: char;
+
+  initialize();
 
   log 'L','o','o','p', ' ', 'f', 'o','r', ' ', 'e', 'a','s','y',' ', 'v','e','r','s','i','o','n','\n';
   for(k = 0; k < 10; k = k + 1) {
@@ -28,7 +46,12 @@ function main(): void {
     log 'z', '=', z, '\n';
   }
 
-  for(a = 0; a < 10; a = a + 1) {
-    log 'a', '=', a, '\n';
+  //for(a = 0; a < 10; a = a + 1) {
+    //log 'a', '=', a, '\n';
+  //}
+
+  log 'R','e','c','o','r','r','i','e','n','d','o', ' ', 'u','n',' ', 'a','r','r','a','y','\n';
+  for(let i: int = 0; i < 11; i = i + 1) {
+    log 'a','r','r','a','y','[',i,']','=',array[i],'\n';
   }
 }
