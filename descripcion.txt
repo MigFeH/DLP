@@ -1,16 +1,16 @@
-PROGRAMA [HECHO]
+PROGRAMA 
 ========
 Un programa es una secuencia de definiciones. 
 Las definiciones pueden ser de variables o de funciones.
 
-DEFINICION DE VARIABLE [HECHO]
+DEFINICION DE VARIABLE 
 ======================
 La sintaxis de la definici�n de una variable empieza con la palabra 
 reservada "let", seguida de una lista (con al menos un elemento) de 
 identificadores separados por comas y finaliza con ":" y un tipo. 
 Las definiciones de variables terminan mediante el caracter ";"
 
-DEFINICION DE FUNCION [HECHO]
+DEFINICION DE FUNCION 
 ======================
 Las funciones se definen mediante la palabra reservada "function" el
  identificador de la funci�n, una lista de parametros separados 
@@ -25,7 +25,7 @@ o m�s sentencias.
 La funcion "main" es obligatoria, no devuelve nada, no recibe par�metros y 
 debe estar declarada en �ltimo lugar.
 
-TIPOS [HECHO]
+TIPOS 
 =====
 Los tipos simples son "int", "number" y "char".
 Los arrays se pueden crear con el constructor de tipos "[]",
@@ -34,7 +34,7 @@ Los arrays se pueden crear con el constructor de tipos "[]",
 Los registros no tienen identificador, y los campos son declarados
  como variables dentro de "[" "]".
 
-SENTENCIAS [HECHO]
+SENTENCIAS 
 ==========
 La sentencia de escritura consiste en la palabra reservada "log" seguida de una lista de una o m�s expresiones separadas por comas.
 La sentencia de lectura consiste en la palabra reservada "input" seguida de una lista de una o m�s expresiones separadas por comas.
@@ -45,7 +45,7 @@ La sentencia de retorno consiste en la palabra reservada "return" seguida de una
 La invocaci�n a una funci�n sin retorno (se denomina procedimiento) ser� siempre una sentencia.
 Todas las sentencias excepto "if-else" y "while" finalizan con ";".
 
-EXPRESIONES [HECHO]
+EXPRESIONES 
 ===========
 La invocaci�n a una funci�n podr� ser tambi�n una expresi�n cuando retorne un valor.
 La conversi�n expl�cita a tipos simples (cast) se escribe entre par�ntesis '(' ')' y sigue la sintaxis <expresi�n> "as" <tipo>. 
@@ -54,13 +54,13 @@ Las expresiones est�n formadas por:
 - Identificadores
 - Los siguientes operadores aplicados a una o dos expresiones (por 
 orden de precedencia descendente):
-		( )			Non associative [HECHO]
-		[]			Non associative [HECHO]
- 		.			Left associative [HECHO]
-        CAST     	Non associative [HECHO]
-		- (unary)	Non associative [HECHO]
-        !			Non associative [HECHO]
-		* / %		Left associative [HECHO]
-		+ -			Left associative [HECHO]
-	> >= < <= != ==	Left associative [HECHO]
-		&& ||		Left associative [HECHO]
+		( )			Non associative 
+		[]			Non associative 
+ 		.			Left associative 
+        CAST     	Non associative 
+		- (unary)	Non associative 
+        !			Non associative 
+		* / %		Left associative 
+		+ -			Left associative 
+	> >= < <= != ==	Left associative 
+		&& ||		Left associative 
