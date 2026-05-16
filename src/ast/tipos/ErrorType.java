@@ -4,6 +4,8 @@ import ast.locatable.Locatable;
 import errorhandler.ErrorHandler;
 import visitor.Visitor;
 
+import java.util.List;
+
 public class ErrorType extends AbstractTipo {
 
     private String causa; // la causa del error
@@ -36,6 +38,26 @@ public class ErrorType extends AbstractTipo {
     }
 
     @Override
+    public Tipo comparison(Tipo other, Locatable localizacionDelError) {
+        return this;
+    }
+
+    @Override
+    public Tipo unaryMinus(Locatable localizacionDelError) {
+        return this;
+    }
+
+    @Override
+    public Tipo squareBrackets(Tipo other, Locatable localizacionDelError) {
+        return this;
+    }
+
+    @Override
+    public Tipo dot(String fieldName, Locatable localizacionDelError) {
+        return this;
+    }
+
+    @Override
     public Tipo arithmetic(Tipo other, Locatable localizacionDelError) { return this; }
 
     @Override
@@ -54,14 +76,12 @@ public class ErrorType extends AbstractTipo {
     }
 
     @Override
-    public Tipo ternaryOperator(Tipo tipoSalidaTrue, Tipo tipoSalidaFalse, Locatable localizacionDelError) {
+    public Tipo parenthesis(List<Tipo> typeParams, Locatable localizacionDelError) {
         return this;
     }
 
     @Override
-    public Tipo mustBeSameType(Tipo other, Locatable localizacionDelError) {
-        return this;
-    }
+    public void mustBeLogical(Locatable localizacionDelError) {}
 
     @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
