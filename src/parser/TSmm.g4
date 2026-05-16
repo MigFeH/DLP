@@ -181,12 +181,8 @@ List<Sentencia> contenidoElse = new ArrayList<>()]:
                     $parametros);
             }
 
-            | e1=expression '=' e2=expression ';' {
-                $ast = new Asignacion(
-                    $e1.ast.getLinea(),
-                    $e1.ast.getColumna(),
-                    $e1.ast,
-                    $e2.ast);
+            | asignacion_sin_punto_coma ';' {
+                $ast = $asignacion_sin_punto_coma.ast;
             }
 
             | START='if' '(' condicion=expression ')' cuerpoIf=cuerpo_condicional ('else' cuerpoElse=cuerpo_condicional { $contenidoElse = $cuerpoElse.ast; })? {
@@ -224,6 +220,52 @@ List<Sentencia> contenidoElse = new ArrayList<>()]:
                     $ID.getCharPositionInLine() + 1,
                     invocado,
                     $parametros);
+            }
+
+            | START='for' '(' inicio_bucle_for ';' fin=expression ';' salto=asignacion_sin_punto_coma ')' cuerpo_condicional {
+                $ast = new For(
+                    $START.getLine(),
+                    $START.getCharPositionInLine() + 1,
+                    $inicio_bucle_for.ast,
+                    $fin.ast,
+                    $salto.ast,
+                    $cuerpo_condicional.ast
+                );
+            }
+            ;
+
+asignacion_sin_punto_coma returns [Sentencia ast]:
+            e1=expression '=' e2=expression {
+                $ast = new Asignacion(
+                    $e1.ast.getLinea(),
+                    $e1.ast.getColumna(),
+                    $e1.ast,
+                    $e2.ast);
+            }
+            ;
+
+inicio_bucle_for returns [List<Sentencia> ast = new ArrayList<>()]:
+            asignacion_sin_punto_coma { $ast.add($asignacion_sin_punto_coma.ast); }
+            | definicion_inicializacion_simple { $ast.addAll($definicion_inicializacion_simple.ast); }
+            ;
+
+definicion_inicializacion_simple returns [List<Sentencia> ast = new ArrayList<>()]:
+            'let' ID ':' tipo '=' expression {
+                Variable var = new Variable($ID.getLine(), $ID.getCharPositionInLine() + 1, $ID.text);
+
+                $ast.add(new DefinicionVar(
+                    var.getLinea(),
+                    var.getColumna(),
+                    $tipo.ast,
+                    var.getNombre()
+                ));
+
+                $ast.add(new Asignacion(
+                    var.getLinea(),
+                    var.getColumna(),
+                    var,
+                    $expression.ast
+                ));
             }
             ;
 

@@ -380,4 +380,32 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
         return null;
     }
+
+    /**
+     * execute[[For: sentencia1 -> sentencia2* expresion sentencia3 sentencia4*]]() =
+     *      String labelCondicion = cg.getLabel();
+     *      String labelFin = cg.getLabel();
+     *      sentencia2*.forEach(s -> execute[[s]]())
+     *      labelCondicion <:>
+     *      value[[expresion]]()
+     *      <jz> labelFin
+     *      sentencia4*.forEach(s -> execute[[s]]())
+     *      execute[[sentencia3]]()
+     *      <jmp> labelCondicion
+     *      labelFin <:>
+     */
+    @Override
+    public Void visit(For f, Void p) {
+        String labelCondicion = cg.getLabel();
+        String labelFin = cg.getLabel();
+        f.getInicio().forEach(s -> s.accept(this, p));
+        cg.label(labelCondicion);
+        f.getFin().accept(this.value, p);
+        cg.jz(labelFin);
+        f.getCuerpo().forEach(s -> s.accept(this, p));
+        f.getSalto().accept(this, p);
+        cg.jmp(labelCondicion);
+        cg.label(labelFin);
+        return null;
+    }
 }

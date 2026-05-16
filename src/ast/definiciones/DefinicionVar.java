@@ -1,10 +1,11 @@
 package ast.definiciones;
 
 import ast.ASTNode;
+import ast.sentencia.Sentencia;
 import ast.tipos.Tipo;
 import visitor.Visitor;
 
-public class DefinicionVar extends AbstractDefinicion implements ASTNode {
+public class DefinicionVar extends AbstractDefinicion implements ASTNode, Sentencia {
 
     private int offset;
 

@@ -210,4 +210,13 @@ public abstract class AbstractVisitor<PT, RT> implements Visitor<PT, RT> {
         // no tiene hijos ==> no los recorremos
         return null;
     }
+
+    @Override
+    public RT visit(For f, PT pt) {
+        f.getInicio().forEach(s -> s.accept(this, pt));
+        f.getFin().accept(this, pt);
+        f.getSalto().accept(this, pt);
+        f.getCuerpo().forEach(s -> s.accept(this, pt));
+        return null;
+    }
 }

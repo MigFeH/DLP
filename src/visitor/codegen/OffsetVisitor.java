@@ -2,6 +2,8 @@ package visitor.codegen;
 
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;
+import ast.sentencia.For;
+import ast.sentencia.Sentencia;
 import ast.tipos.CampoRecord;
 import ast.tipos.TipoFuncion;
 import ast.tipos.TipoRecord;
@@ -68,6 +70,10 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
         d.getTipo().accept(this, pt);
         for(DefinicionVar definicionVar : d.getDefinicionesVariables()) {
             definicionVar.accept(this, false);
+        }
+
+        for(Sentencia sentencia : d.getSentencias()) {
+            sentencia.accept(this, false);
         }
 
         d.setLocalBytesSum(localBytesAcumulator);
