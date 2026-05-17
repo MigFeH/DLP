@@ -213,6 +213,9 @@ public abstract class AbstractVisitor<PT, RT> implements Visitor<PT, RT> {
 
     @Override
     public RT visit(ForEach f, PT pt) {
+        f.getIterador().accept(this, pt);
+        f.getDatos().accept(this, pt);
+        f.getCuerpo().forEach(s -> s.accept(this, pt));
         return null;
     }
 }
