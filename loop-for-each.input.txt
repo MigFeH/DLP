@@ -1,0 +1,33 @@
+let array: [11]char;
+
+function initialize(): void {
+  array[0] = 'H';
+  array[1] = 'o';
+  array[2] = 'l';
+  array[3] = 'a';
+  array[4] = '_';
+  array[5] = 'M';
+  array[6] = 'u';
+  array[7] = 'n';
+  array[8] = 'd';
+  array[9] = 'o';
+  array[10] = '!';
+}
+
+function main(): void {
+  let a: char;
+
+  initialize();
+
+  for(a in array) {
+    log a;
+  }
+
+  log '\n';
+
+  for(let b:char in array) {
+    log b;
+  }
+
+  log '\n';
+}
