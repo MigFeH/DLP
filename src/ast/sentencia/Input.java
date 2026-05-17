@@ -1,13 +1,12 @@
 package ast.sentencia;
 
-import ast.ASTNode;
 import ast.expresiones.Expresion;
 import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
 import java.util.List;
 
-public class Input extends AbstractLocatable implements Sentencia, ASTNode {
+public class Input extends AbstractLocatable implements Sentencia {
 
     // Lee de consola un valor y se lo asigna a las expresiones (un console.in())
 

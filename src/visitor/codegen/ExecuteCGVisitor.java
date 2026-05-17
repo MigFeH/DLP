@@ -97,10 +97,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * execute[[If: sentencia1 -> expresion sentencia2* sentencia3*]]() =
-     * 	    String cond = cg.getLabel();
      * 	    String labelElse = cg.getLabel();
      * 	    String end = cg.getLabel();
-     * 	    cond <:>
      * 	    value[[expresion]]()
      * 	    cg.convertTo(expresion.type, TipoInt.getInstance());
      * 	    <jz> else
@@ -112,17 +110,11 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
      */
     @Override
     public Void visit(If i, Void p) {
-        // obtenemos label para la seccion de la condicion
-        String cond = cg.getLabel();
-
         // obtenemos label para la seccion del else
         String labelElse = cg.getLabel();
 
         // obtenemos label para la seccion posterior a la seccion del else
         String end = cg.getLabel();
-
-        // escribimos la label de la condicion
-        cg.label(cond);
 
         // evaluamos la condicion y dejamos el resultado en el tope de la pila
         i.getCondicion().accept(value, p);

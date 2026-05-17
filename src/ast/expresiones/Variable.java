@@ -1,11 +1,9 @@
 package ast.expresiones;
 
-import ast.ASTNode;
 import ast.definiciones.Definicion;
-import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class Variable extends AbstractExpresion implements ASTNode {
+public class Variable extends AbstractExpresion {
 
     private String nombre;
     private Definicion definicion;

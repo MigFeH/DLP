@@ -1,10 +1,8 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class MenosUnario extends AbstractExpresion implements ASTNode {
+public class MenosUnario extends AbstractExpresion {
 
     private Expresion operando;
 

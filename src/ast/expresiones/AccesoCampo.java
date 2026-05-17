@@ -1,10 +1,8 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class AccesoCampo extends AbstractExpresion implements ASTNode {
+public class AccesoCampo extends AbstractExpresion {
 
     private Expresion izquierda;
     private String derecha; // la parte derecha del punto
