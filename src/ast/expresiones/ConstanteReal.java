@@ -1,10 +1,8 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class ConstanteReal extends AbstractExpresion implements ASTNode {
+public class ConstanteReal extends AbstractExpresion {
 
     private double valor;
 
