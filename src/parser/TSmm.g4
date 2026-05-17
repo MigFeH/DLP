@@ -206,6 +206,16 @@ List<Sentencia> contenidoElse = new ArrayList<>()]:
                     $cuerpo.ast);
             }
 
+            | START='for' '(' iterador=expression 'in' datos=expression ')' cuerpo=cuerpo_condicional {
+                $ast = new ForEach(
+                    $START.getLine(),
+                    $START.getCharPositionInLine() + 1,
+                    $iterador.ast,
+                    $datos.ast,
+                    $cuerpo.ast
+                );
+            }
+
             | START='return' expression ';' {
                 $ast = new Return(
                     $START.getLine(),

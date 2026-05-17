@@ -1,4 +1,8 @@
 let array: [11]char;
+let record: [
+    let first: [4]char;
+    let second: [6]char;
+];
 
 function initialize(): void {
   array[0] = 'H';
