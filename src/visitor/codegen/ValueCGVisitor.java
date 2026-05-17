@@ -56,7 +56,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
      *      cg.convertTo(expresion2.type, expresion1.type);
      *      value[[expresion3]]()
      *      cg.convertTo(expresion3.type, expresion1.type);
-     *      cg.arithmetic(expresion1.getOperador(), expresion1.type);
+     *      cg.arithmetic(expresion1.operador, expresion1.type);
      */
     @Override
     public Void visit(Aritmetico a, Void p) {
@@ -98,7 +98,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
      *      cg.convertTo(expresion2.type, expresion1.type);
      *      value[[expresion3]]()
      *      cg.convertTo(expresion3.type, expresion1.type);
-     *      cg.comparison(expresion1.getOperador(), expresion1.type);
+     *      cg.comparison(expresion1.operador, expresion1.type);
      */
     @Override
     public Void visit(Comparador c, Void p) {
@@ -121,7 +121,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * value[[ConstanteCaracter: expresion -> CHAR_CONSTANT]]() =
-     *      <push> expresion.type.suffix() expresion.getValor()
+     *      <push> expresion.type.suffix() expresion.valor
      */
     @Override
     public Void visit(ConstanteCaracter c, Void p) {
@@ -132,7 +132,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * value[[ConstanteInt: expresion -> INT_CONSTANT]]() =
-     *      <push> expresion.type.suffix() expresion.getValor()
+     *      <push> expresion.type.suffix() expresion.valor
      */
     @Override
     public Void visit(ConstanteInt c, Void p) {
@@ -143,7 +143,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * value[[ConstanteReal: expresion -> REAL_CONSTANT]]() =
-     *      <push> expresion.type.suffix() expresion.getValor()
+     *      <push> expresion.type.suffix() expresion.valor
      */
     @Override
     public Void visit(ConstanteReal c, Void p) {
@@ -186,7 +186,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
      * value[[Logico: expresion1 -> expresion2 (&& | ||) expresion3]]() =
      *      value[[expresion2]]()
      *      value[[expresion3]]()
-     *      cg.logical(expresion1.getOperador());
+     *      cg.logical(expresion1.operador);
      */
     @Override
     public Void visit(Logico l, Void p) {

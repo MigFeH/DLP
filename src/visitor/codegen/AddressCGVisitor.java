@@ -25,12 +25,12 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
     }
 
     /**
-     * address[[Variable: exp -> ID]]() =
-     *      if(exp.definition.scope == 0) {
-     * 			<pusha> exp.definition.offset
+     * address[[Variable: expresion -> ID]]() =
+     *      if(expresion.definition.scope == 0) {
+     * 			<pusha> expresion.definition.offset
      * 		} else {
      * 			<push bp>
-     * 			<pushi> exp.definition.offset
+     * 			<pushi> expresion.definition.offset
      * 			<addi>
      *      }
      */
@@ -50,9 +50,9 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
     }
 
     /**
-     * address[[AccesoCampo: expr1 -> expr2 ID]]() =
-     * 	    address[[expr2]]()
-     * 	    <pushi> expr2.type.getField(ID).offset
+     * address[[AccesoCampo: expresion1 -> expresion2 ID]]() =
+     * 	    address[[expresion2]]()
+     * 	    <pushi> expresion2.type.getField(ID).offset
      * 	    <addi>
      */
     @Override
@@ -69,11 +69,11 @@ public class AddressCGVisitor extends AbstractCGVisitor<Void, Void> {
     }
 
     /**
-     * address[[AccesoArray: expr1 -> expr2 expr3]]() =
-     * 	    address[[expr2]]()
-     * 	    value[[expr3]]()
-     * 	    cg.convertTo(expr3.type, TipoInt.getInstance())
-     * 	    <pushi> expr1.type.numberOfBytes()
+     * address[[AccesoArray: expresion1 -> expresion2 expresion3]]() =
+     * 	    address[[expresion2]]()
+     * 	    value[[expresion3]]()
+     * 	    cg.convertTo(expresion3.type, TipoInt.getInstance())
+     * 	    <pushi> expresion1.type.numberOfBytes()
      * 	    <muli>
      * 	    <addi>
      */
