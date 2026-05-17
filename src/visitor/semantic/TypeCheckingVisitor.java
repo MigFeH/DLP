@@ -270,4 +270,16 @@ public class TypeCheckingVisitor extends AbstractVisitor<Tipo, Void> {
         return null;
     }
 
+    @Override
+    public Void visit(DoWhile d, Tipo tipo) {
+        // recorremos el AST (sus hijos)
+        super.visit(d, tipo);
+
+        // no hay atributos que calcular
+
+        // realizamos sus comprobaciones
+        d.getCondicion().getTipo().mustBeLogical(d);
+
+        return null;
+    }
 }

@@ -206,6 +206,15 @@ List<Sentencia> contenidoElse = new ArrayList<>()]:
                     $cuerpo.ast);
             }
 
+            | START='do' cuerpo=cuerpo_condicional 'while' '(' condicion=expression ')' ';' {
+                $ast = new DoWhile(
+                    $START.getLine(),
+                    $START.getCharPositionInLine() + 1,
+                    $cuerpo.ast,
+                    $condicion.ast
+                );
+            }
+
             | START='return' expression ';' {
                 $ast = new Return(
                     $START.getLine(),

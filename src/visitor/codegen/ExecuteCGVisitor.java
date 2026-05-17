@@ -380,4 +380,24 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
         return null;
     }
+
+    /**
+     * execute[[DoWhile: sentencia1 -> sentencia2* expresion]]() =
+     *      String labelInicio = cg.getLabel();
+     *      labelInicio <:>
+     *      sentencia2*.forEach(s -> execute[[s]]())
+     *      value[[expresion]]()
+     *      cg.convertTo(expresion.type, TipoInt.getInstance());
+     *      <jnz> labelInicio
+     */
+    @Override
+    public Void visit(DoWhile d, Void p) {
+        String labelInicio = cg.getLabel();
+        cg.label(labelInicio);
+        d.getCuerpo().forEach(s -> s.accept(this, p));
+        d.getCondicion().accept(this.value, p);
+        cg.convertTo(d.getCondicion().getTipo(), TipoInt.getInstance());
+        cg.jnz(labelInicio);
+        return null;
+    }
 }

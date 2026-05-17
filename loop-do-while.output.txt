@@ -1,0 +1,68 @@
+
+#source "loop-do-while.input.txt"
+
+
+' Invocation to the main function
+call main
+halt
+
+
+#line	1
+ main:
+	' * Parameters
+	' * Local variables
+	' * int i (offset -2)
+	enter	2
+
+#line	4
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	pushi	0
+	storei
+ label0:
+
+#line	6
+	' * Write
+	pushb	105
+	outb
+
+#line	6
+	' * Write
+	pushb	61
+	outb
+
+#line	6
+	' * Write
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	outi
+
+#line	6
+	' * Write
+	pushb	10
+	outb
+
+#line	7
+	' * Assignment
+	push	bp
+	pushi	-2
+	addi
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	1
+	addi
+	storei
+	push	bp
+	pushi	-2
+	addi
+	loadi
+	pushi	10
+	lti
+	jnz label0
+	ret 0, 2, 0

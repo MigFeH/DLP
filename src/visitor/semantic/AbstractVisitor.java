@@ -210,4 +210,11 @@ public abstract class AbstractVisitor<PT, RT> implements Visitor<PT, RT> {
         // no tiene hijos ==> no los recorremos
         return null;
     }
+
+    @Override
+    public RT visit(DoWhile d, PT pt) {
+        d.getCuerpo().forEach(s -> s.accept(this, pt));
+        d.getCondicion().accept(this, pt);
+        return null;
+    }
 }
