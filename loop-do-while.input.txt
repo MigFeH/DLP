@@ -1,0 +1,9 @@
+function main(): void {
+  let i: int;
+
+  i = 0;
+  do {
+    log 'i', '=', i, '\n';
+    i = i + 1;
+  } while(i < 10);
+}
