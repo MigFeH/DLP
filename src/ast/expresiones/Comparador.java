@@ -1,10 +1,8 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class Comparador extends AbstractExpresion implements ASTNode {
+public class Comparador extends AbstractExpresion {
 
     private Expresion izquierda;
     private String operador;

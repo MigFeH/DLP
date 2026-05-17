@@ -1,11 +1,10 @@
 package ast.sentencia;
 
-import ast.ASTNode;
 import ast.expresiones.Expresion;
 import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class Asignacion extends AbstractLocatable implements Sentencia, ASTNode {
+public class Asignacion extends AbstractLocatable implements Sentencia {
 
     private Expresion izquierda;
     private Expresion derecha;

@@ -1,9 +1,8 @@
 package ast.expresiones;
 
-import ast.ASTNode;
 import visitor.Visitor;
 
-public class AccesoArray extends AbstractExpresion implements ASTNode {
+public class AccesoArray extends AbstractExpresion {
 
     private Expresion izquierda;
     private Expresion derecha; // la parte derecha es el interior de []
