@@ -27,4 +27,6 @@ function main(): void {
         log 'l', '=', l, '\n';
         l /= 2;
     }
+
+    i += i;
 }

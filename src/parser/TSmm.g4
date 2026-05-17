@@ -181,6 +181,23 @@ List<Sentencia> contenidoElse = new ArrayList<>()]:
                     $parametros);
             }
 
+            | e1=expression OP=('*' | '/' | '%' | '+' | '-') '=' e2=expression ';' {
+                Aritmetico arith = new Aritmetico(
+                    $e2.ast.getLinea(),
+                    $e2.ast.getColumna(),
+                    $e1.ast,
+                    $OP.text,
+                    $e2.ast
+                );
+
+                $ast = new Asignacion(
+                    $e1.ast.getLinea(),
+                    $e1.ast.getColumna(),
+                    $e1.ast,
+                    arith
+                );
+            }
+
             | e1=expression '=' e2=expression ';' {
                 $ast = new Asignacion(
                     $e1.ast.getLinea(),
