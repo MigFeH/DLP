@@ -1,13 +1,12 @@
 package ast.sentencia;
 
-import ast.ASTNode;
 import ast.expresiones.Expresion;
 import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
 import java.util.List;
 
-public class Log extends AbstractLocatable implements Sentencia, ASTNode {
+public class Log extends AbstractLocatable implements Sentencia {
 
     // Imprime por consola (un System.out.println())
 

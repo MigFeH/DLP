@@ -1,13 +1,11 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import ast.sentencia.Sentencia;
 import visitor.Visitor;
 
 import java.util.List;
 
-public class Invocacion extends AbstractExpresion implements Sentencia, ASTNode {
+public class Invocacion extends AbstractExpresion implements Sentencia {
 
     private Variable invocado;
     private List<Expresion> argumentos;
