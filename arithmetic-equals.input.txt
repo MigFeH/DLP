@@ -1,0 +1,30 @@
+funcion main(): void {
+    let i, j, k, l: int;
+
+    i = 0;
+    while(i < 10) {
+        log 'i', '=', i, '\n';
+        i += 1;
+    }
+
+    log '\n';
+    j = 10;
+    while(j > 0) {
+        log 'j', '=', j, '\n';
+        j -= 1;
+    }
+
+    log '\n';
+    k = 1;
+    while(k <= 20) {
+        log 'k', '=', k, '\n';
+        k *= 2;
+    }
+
+    log '\n';
+    l = 20;
+    while(l > 1) {
+        log 'l', '=', l, '\n';
+        l /= 2;
+    }
+}
