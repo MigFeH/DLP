@@ -19,12 +19,13 @@ function main(): void {
 
   initialize();
 
+  log 'L','o','o','p', ' ', 'f', 'o', 'r', ' ', 'e', 'a','c', 'h', ' ', 'e', 'a','s','y',' ', 'v','e','r','s','i','o','n','\n';
   for(a in array) {
     log a;
   }
 
   log '\n';
-
+    log 'L','o','o','p', ' ', 'f', 'o', 'r', ' ', 'e', 'a','c', 'h', ' ', 'h', 'a','r','d',' ', 'v','e','r','s','i','o','n','\n';
   for(let b:char in array) {
     log b;
   }
