@@ -1,4 +1,4 @@
-funcion main(): void {
+function main(): void {
     let i, j, k, l: int;
 
     i = 0;
