@@ -164,7 +164,8 @@ expression returns [Expresion ast] locals [Variable variable, List<Expresion> ar
             ;
 
 statement returns [Sentencia ast] locals [List<Expresion> parametros = new ArrayList<>(),
-List<Sentencia> contenidoElse = new ArrayList<>()]:
+List<Sentencia> contenidoElse = new ArrayList<>(),
+boolean arithEquals = false]:
             START='log' (e1=expression ',' { $parametros.add($e1.ast); })* e2=expression ';' {
                 $parametros.add($e2.ast);
                 $ast = new Log(
@@ -181,29 +182,24 @@ List<Sentencia> contenidoElse = new ArrayList<>()]:
                     $parametros);
             }
 
-            | e1=expression OP=('*' | '/' | '%' | '+' | '-') '=' e2=expression ';' {
-                Aritmetico arith = new Aritmetico(
-                    $e2.ast.getLinea(),
-                    $e2.ast.getColumna(),
+            | e1=expression (OP=('*' | '/' | '%' | '+' | '-') { $arithEquals = true; } )? '=' e2=expression ';' {
+                if($arithEquals) {
+                    Aritmetico arith = new Aritmetico(
+                        $e2.ast.getLinea(),
+                        $e2.ast.getColumna(),
+                        $e1.ast,
+                        $OP.text,
+                        $e2.ast
+                    );
+                    $e2.ast = arith;
+                }
+
+                $ast = new Asignacion(
+                    $e1.ast.getLinea(),
+                    $e1.ast.getColumna(),
                     $e1.ast,
-                    $OP.text,
                     $e2.ast
                 );
-
-                $ast = new Asignacion(
-                    $e1.ast.getLinea(),
-                    $e1.ast.getColumna(),
-                    $e1.ast,
-                    arith
-                );
-            }
-
-            | e1=expression '=' e2=expression ';' {
-                $ast = new Asignacion(
-                    $e1.ast.getLinea(),
-                    $e1.ast.getColumna(),
-                    $e1.ast,
-                    $e2.ast);
             }
 
             | START='if' '(' condicion=expression ')' cuerpoIf=cuerpo_condicional ('else' cuerpoElse=cuerpo_condicional { $contenidoElse = $cuerpoElse.ast; })? {
