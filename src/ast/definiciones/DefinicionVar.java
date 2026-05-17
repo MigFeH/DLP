@@ -1,9 +1,10 @@
 package ast.definiciones;
 
+import ast.sentencia.Sentencia;
 import ast.tipos.Tipo;
 import visitor.Visitor;
 
-public class DefinicionVar extends AbstractDefinicion {
+public class DefinicionVar extends AbstractDefinicion implements Sentencia {
 
     private int offset;
 
