@@ -1,10 +1,8 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class Logico extends AbstractExpresion implements ASTNode {
+public class Logico extends AbstractExpresion {
 
     private Expresion izquierda;
     private String operador;

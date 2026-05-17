@@ -1,11 +1,9 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import ast.tipos.Tipo;
 import visitor.Visitor;
 
-public class Cast extends AbstractExpresion implements ASTNode {
+public class Cast extends AbstractExpresion {
 
     private Expresion izquierda;
     private Tipo derecha;

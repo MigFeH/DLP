@@ -1,10 +1,8 @@
 package ast.expresiones;
 
-import ast.ASTNode;
-import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class ConstanteInt extends AbstractExpresion implements ASTNode {
+public class ConstanteInt extends AbstractExpresion {
 
     private int valor;
 

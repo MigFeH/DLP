@@ -1,11 +1,9 @@
 package ast.tipos;
 
-import ast.ASTNode;
-import ast.definiciones.DefinicionVar;
 import ast.locatable.AbstractLocatable;
 import visitor.Visitor;
 
-public class CampoRecord extends AbstractLocatable implements ASTNode {
+public class CampoRecord extends AbstractLocatable {
 
     private Tipo tipo;
     private String nombre;
