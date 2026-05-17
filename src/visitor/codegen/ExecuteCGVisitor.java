@@ -96,18 +96,18 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
     }
 
     /**
-     * execute[[If: stmt1 -> expr stmt2* stmt3*]]() =
+     * execute[[If: sentencia1 -> expresion sentencia2* sentencia3*]]() =
      * 	    String cond = cg.getLabel();
      * 	    String labelElse = cg.getLabel();
      * 	    String end = cg.getLabel();
      * 	    cond <:>
-     * 	    value[[expr]]()
-     * 	    cg.convertTo(expr.type, TipoInt.getInstance());
+     * 	    value[[expresion]]()
+     * 	    cg.convertTo(expresion.type, TipoInt.getInstance());
      * 	    <jz> else
-     * 	    stmt2*.forEach(s -> execute[[s]]())
+     * 	    sentencia2*.forEach(s -> execute[[s]]())
      * 	    <jmp> end
      * 	    else <:>
-     * 	    stmt3*.forEach(s -> execute[[s]]())
+     * 	    sentencia3*.forEach(s -> execute[[s]]())
      * 	    end <:>
      */
     @Override
@@ -241,14 +241,14 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
     }
 
     /**
-     * execute[[While: stmt1 -> expr stmt2*]]() =
+     * execute[[While: sentencia1 -> expresion sentencia2*]]() =
      * 	    String cond = cg.getLabel();
      * 	    String end = cg.getLabel();
      * 	    cond <:>
-     * 	    value[[expr]]()
-     * 	    cg.convertTo(expr.type, TipoInt.getInstance())
+     * 	    value[[expresion]]()
+     * 	    cg.convertTo(expresion.type, TipoInt.getInstance())
      * 	    <jz> end
-     * 	    stmt2*.forEach(s -> execute[[s]]())
+     * 	    sentencia2*.forEach(s -> execute[[s]]())
      * 	    <jmp> cond
      * 	    end <:>
      */
