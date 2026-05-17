@@ -210,4 +210,9 @@ public abstract class AbstractVisitor<PT, RT> implements Visitor<PT, RT> {
         // no tiene hijos ==> no los recorremos
         return null;
     }
+
+    @Override
+    public RT visit(ForEach f, PT pt) {
+        return null;
+    }
 }
