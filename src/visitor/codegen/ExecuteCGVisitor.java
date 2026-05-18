@@ -415,48 +415,64 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         f.getIterador().accept(this.address, p);
 
         if(f.getDatos().getTipo() instanceof TipoArray) {
+            // apilamos la direccion base de la estructura de datos que recorremos
             f.getDatos().accept(this.address, p);
 
-            // valor indice
+            // apilamos el valor del indice
             cg.pushBP();
             cg.push(TipoInt.getInstance(), -3);
             cg.add(TipoInt.getInstance());
             cg.load(TipoInt.getInstance());
-            //----------------------------------
 
+            // apilamos el numberOfBytes del tipo de elemento del array que recorremos
             cg.push(TipoInt.getInstance(), ((TipoArray) f.getDatos().getTipo()).getTipoElemento().numberOfBytes());
+
+            // dejamos en el tope de la pila el resultado de hacer: indice * numberOfBytes(array.elementtype)
             cg.mul(TipoInt.getInstance());
+
+            // dejamos en el tope de la pila el resultado de hacer: dir de mem base del array + (indice * numberOfBytes(array.elementtype))
             cg.add(TipoInt.getInstance());
 
+            // dejamos en el tope de la pila el valor: array[indice]
             cg.load(f.getIterador().getTipo()); // son del mismo tipo tanto el iterador como el tipo de dato del array, asi que nos da igual poner como param el tipo del iterador o el de los elementos del array
         } else if(f.getDatos().getTipo() instanceof TipoRecord) {
             // luego lo implementas
         }
 
+        // almacenamos en el iterador el valor de la estructura de datos que recorremos correspondiente a la iteracion
         cg.store(f.getIterador().getTipo());
 
-
+        // "ejecutamos" el cuerpo del for each
         f.getCuerpo().forEach(s -> s.accept(this, p));
 
-        // en este punto de la ejecucion tiene que quedar en la pila SOLO el indice
+        // apilamos la dir de mem del indice
         cg.pushBP();
         cg.push(TipoInt.getInstance(), -3);
         cg.add(TipoInt.getInstance());
-        cg.dup(TipoInt.getInstance());
+
+        // clonamos el valor del tope de la pila (la dir de mem del indice)
         cg.dup(TipoInt.getInstance());
 
+        // clonamos el valor del tope de la pila (la dir de mem del indice)
+        // y dejamos en el tope de la pila el valor del indice actual
+        cg.dup(TipoInt.getInstance());
         cg.load(TipoInt.getInstance());
 
+        // incrementamos en una unidad el valor actual del indice
         cg.push(TipoInt.getInstance(), 1);
         cg.add(TipoInt.getInstance());
+
+        // almacenamos el nuevo valor del indice en el mencionado
         cg.store(TipoInt.getInstance());
 
+        // apilamos el nuevo valor del indice
         cg.load(TipoInt.getInstance());
 
+        // saltamos incondicionalmente a la label de la "condicion"
         cg.jmp(labelCondicion);
 
+        // mostramos la label del fin del forEach
         cg.label(labelFin);
-
 
         return null;
     }

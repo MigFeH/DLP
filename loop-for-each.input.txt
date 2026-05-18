@@ -1,7 +1,7 @@
 let array: [11]char;
 let record: [
-    let first: [4]char;
-    let second: [6]char;
+    let numbers: [5]char;
+    let letters: [5]char;
 ];
 
 function initialize(): void {
@@ -16,16 +16,41 @@ function initialize(): void {
   array[8] = 'd';
   array[9] = 'o';
   array[10] = '!';
+
+
+  record.numbers[0] = '0';
+  record.numbers[1] = '1';
+  record.numbers[2] = '2';
+  record.numbers[3] = '3';
+  record.numbers[4] = '4';
+
+  record.letters[0] = 'a';
+  record.letters[1] = 'b';
+  record.letters[2] = 'c';
+  record.letters[3] = 'd';
+  record.letters[4] = 'e';
 }
 
 function main(): void {
-  let a: char;
+  let a, c: char;
+  let b: [5]char;
 
   initialize();
 
   log 'L','o','o','p', ' ', 'f', 'o', 'r', ' ', 'e', 'a','c', 'h', ' ', 'e', 'a','s','y',' ', 'v','e','r','s','i','o','n','\n';
+  log 'A','r','r','a','y',' ','v','e','r','s','i','o','n','\n';
   for(a in array) {
     log a;
+  }
+
+  log '\n';
+  log 'R','e','c','o','r','d',' ','v','e','r','s','i','o','n','\n';
+  for(b in record) {
+    // cada b es un array de chars
+    log b, '\n';
+    for(c in b) {
+      log c;
+    }
   }
 
   log '\n';
