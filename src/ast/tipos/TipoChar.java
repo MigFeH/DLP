@@ -20,7 +20,7 @@ public class TipoChar extends AbstractTipo {
     public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
         if(other == getInstance()) {
             return this;
-        } else if(other == TipoInt.getInstance()) {
+        } else if(other == TipoInt.getInstance() || other == TipoNumber.getInstance()) {
             return other;
         }
         return super.mustPromotesTo(other, localizacionDelError);
