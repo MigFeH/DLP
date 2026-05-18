@@ -62,7 +62,7 @@ halt
 	pushi	1
 	muli
 	addi
-	pushb	95
+	pushb	32
 	storeb
 
 #line	13

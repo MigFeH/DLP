@@ -9,7 +9,7 @@ function initialize(): void {
   array[1] = 'o';
   array[2] = 'l';
   array[3] = 'a';
-  array[4] = '_';
+  array[4] = ' ';
   array[5] = 'M';
   array[6] = 'u';
   array[7] = 'n';
