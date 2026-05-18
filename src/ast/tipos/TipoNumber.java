@@ -18,7 +18,7 @@ public class TipoNumber extends AbstractTipo {
 
     @Override
     public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance()) {
+        if(other == TipoNumber.getInstance()) {
             return this;
         }
         return super.mustPromotesTo(other, localizacionDelError);
