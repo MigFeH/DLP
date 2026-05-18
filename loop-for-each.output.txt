@@ -131,7 +131,7 @@ halt
 	' * Parameters
 	' * Local variables
 	' * char a (offset -1)
-	enter	1
+	enter	3
 	call initialize
 
 #line	26
@@ -268,12 +268,14 @@ halt
 	' * Write
 	pushb	10
 	outb
-	pusha	21
+	push	bp
+	pushi	-3
+	addi
 	dupi
 	pushi	0
 	storei
- label0:
 	loadi
+ label0:
 	pushi	11
 	lti
 	jz label1
@@ -281,7 +283,9 @@ halt
 	pushi	-1
 	addi
 	pusha	0
-	pusha	21
+	push	bp
+	pushi	-3
+	addi
 	loadi
 	pushi	1
 	muli
@@ -296,13 +300,16 @@ halt
 	addi
 	loadb
 	outb
-	pusha	21
+	push	bp
+	pushi	-3
+	addi
 	dupi
 	dupi
 	loadi
 	pushi	1
 	addi
 	storei
+	loadi
 	jmp label0
  label1:
 
@@ -450,4 +457,4 @@ halt
 	' * Write
 	pushb	10
 	outb
-	ret 0, 1, 0
+	ret 0, 3, 0

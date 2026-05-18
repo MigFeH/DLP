@@ -19,7 +19,6 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
     private ValueCGVisitor value;
 
     private DefinicionFunc def;
-    private Programa program;
 
     public ExecuteCGVisitor(CodeGenerator cg) {
         super(cg);
@@ -46,8 +45,6 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
      */
     @Override
     public Void visit(Programa pr, Void p) {
-        this.program = pr;
-
         // procesamos las definiciones de variables globales
         for(Definicion def: pr.getDefiniciones()) {
             if(def instanceof DefinicionVar) {
@@ -380,22 +377,31 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
      */
     @Override
     public Void visit(ForEach f, Void p) {
-        // valor v[i] = dir mem v + (i * nob(v[i]))
-
         // obtenemos la label correspondiente a la "condicion" del forEach
         String labelCondicion = cg.getLabel();
 
         String labelFin = cg.getLabel();
 
-        cg.pusha(this.program.getGlobalBytes());
+        // dejamos en el tope de la pila la dir de memoria del indice implicito usado para recorrer la estructura de datos
+        cg.pushBP();
+        cg.push(TipoInt.getInstance(), -3);
+        cg.add(TipoInt.getInstance());
+
+        // duplicamos la dir de memoria calculada
         cg.dup(TipoInt.getInstance());
+
+        // dejamos en el tope de la pila el valor inicial del indice
         cg.push(TipoInt.getInstance(), 0);
+
+        // almacenamos el valor inicial del indice en dicha variable local
         cg.store(TipoInt.getInstance());
+
+        // cargamos el valor almacenado en la variable local del indice
+        cg.load(TipoInt.getInstance());
 
         // mostramos la label de la "condicion" del forEach
         cg.label(labelCondicion);
 
-        cg.load(TipoInt.getInstance());
 
         if(f.getDatos().getTipo() instanceof TipoArray) {
             cg.push(TipoInt.getInstance(),((TipoArray) f.getDatos().getTipo()).getSize());
@@ -413,8 +419,14 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
         if(f.getDatos().getTipo() instanceof TipoArray) {
             f.getDatos().accept(this.address, p);
-            cg.pusha(this.program.getGlobalBytes());
+
+            // valor indice
+            cg.pushBP();
+            cg.push(TipoInt.getInstance(), -3);
+            cg.add(TipoInt.getInstance());
             cg.load(TipoInt.getInstance());
+            //----------------------------------
+
             cg.push(TipoInt.getInstance(), ((TipoArray) f.getDatos().getTipo()).getTipoElemento().numberOfBytes());
             cg.mul(TipoInt.getInstance());
             cg.add(TipoInt.getInstance());
@@ -426,18 +438,23 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
         cg.store(f.getIterador().getTipo());
 
-        //...
 
         f.getCuerpo().forEach(s -> s.accept(this, p));
 
         // en este punto de la ejecucion tiene que quedar en la pila SOLO el indice
-        cg.pusha(this.program.getGlobalBytes());
+        cg.pushBP();
+        cg.push(TipoInt.getInstance(), -3);
+        cg.add(TipoInt.getInstance());
         cg.dup(TipoInt.getInstance());
         cg.dup(TipoInt.getInstance());
+
         cg.load(TipoInt.getInstance());
+
         cg.push(TipoInt.getInstance(), 1);
         cg.add(TipoInt.getInstance());
         cg.store(TipoInt.getInstance());
+
+        cg.load(TipoInt.getInstance());
 
         cg.jmp(labelCondicion);
 

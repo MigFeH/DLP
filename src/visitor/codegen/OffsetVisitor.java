@@ -1,8 +1,9 @@
 package visitor.codegen;
 
-import ast.Programa;
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;
+import ast.sentencia.ForEach;
+import ast.sentencia.Sentencia;
 import ast.tipos.CampoRecord;
 import ast.tipos.TipoFuncion;
 import ast.tipos.TipoRecord;
@@ -71,6 +72,10 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
             definicionVar.accept(this, false);
         }
 
+        for(Sentencia s : d.getSentencias()) {
+            s.accept(this, false);
+        }
+
         d.setLocalBytesSum(localBytesAcumulator);
 
         return null;
@@ -90,10 +95,10 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
     }
 
     @Override
-    public Void visit(Programa p, Boolean pt) {
-        super.visit(p, pt);
+    public Void visit(ForEach f, Boolean pt) {
+        super.visit(f, pt);
 
-        p.setGlobalBytes(this.globalBytesAcumulator);
+        localBytesAcumulator += 2; // para que se reserve espacio para el indice
 
         return null;
     }

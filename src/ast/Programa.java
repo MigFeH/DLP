@@ -8,7 +8,6 @@ import java.util.List;
 public class Programa implements ASTNode {
 
     private List<Definicion> definiciones;
-    private int globalBytes;
 
     public Programa(List<Definicion> definiciones) {
         this.definiciones = definiciones;
@@ -16,14 +15,6 @@ public class Programa implements ASTNode {
 
     public List<Definicion> getDefiniciones() {
         return this.definiciones;
-    }
-
-    public int getGlobalBytes() {
-        return globalBytes;
-    }
-
-    public void setGlobalBytes(int globalBytes) {
-        this.globalBytes = globalBytes;
     }
 
     @Override
