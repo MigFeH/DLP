@@ -52,6 +52,11 @@ public class TipoRecord extends AbstractTipo {
     }
 
     @Override
+    public int getNumberOfElements() {
+        return this.campos.size();
+    }
+
+    @Override
     public String toString() {
         return "record";
     }

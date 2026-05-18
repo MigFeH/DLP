@@ -113,4 +113,9 @@ public abstract class AbstractTipo implements Tipo {
     public boolean isSimpleType() {
         return false;
     }
+
+    @Override
+    public int getNumberOfElements() {
+        throw new UnsupportedOperationException();
+    }
 }

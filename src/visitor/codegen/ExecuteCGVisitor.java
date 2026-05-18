@@ -402,20 +402,17 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         // mostramos la label de la "condicion" del forEach
         cg.label(labelCondicion);
 
+        // apilamos el numero de elementos que contiene la estructura de datos que recorremos
+        cg.push(TipoInt.getInstance(), f.getDatos().getTipo().getNumberOfElements());
 
-        if(f.getDatos().getTipo() instanceof TipoArray) {
-            cg.push(TipoInt.getInstance(),((TipoArray) f.getDatos().getTipo()).getSize());
-        } else if(f.getDatos().getTipo() instanceof TipoRecord) {
-            cg.push(TipoInt.getInstance(), ((TipoRecord) f.getDatos().getTipo()).getCampos().size());
-        }
-
+        // realizamos la comprobacion de que el indice sea menor que el numero de elementos de la estructura que recorremos
         cg.comparison("<", TipoInt.getInstance());
 
+        // saltamos a la label fin si el indice no es menor que el numero de elementos de la estructura de datos que recorremos
         cg.jz(labelFin);
 
         // apilamos la direccion del elemento iterador
         f.getIterador().accept(this.address, p);
-
 
         if(f.getDatos().getTipo() instanceof TipoArray) {
             f.getDatos().accept(this.address, p);

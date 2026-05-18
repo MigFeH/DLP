@@ -46,6 +46,11 @@ public class TipoArray extends AbstractTipo {
     }
 
     @Override
+    public int getNumberOfElements() {
+        return this.size;
+    }
+
+    @Override
     public String toString() {
         return "array";
     }
