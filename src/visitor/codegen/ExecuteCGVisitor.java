@@ -5,9 +5,7 @@ import ast.expresiones.Expresion;
 import ast.expresiones.Invocacion;
 import ast.sentencia.*;
 import ast.Programa;
-import ast.tipos.TipoFuncion;
-import ast.tipos.TipoInt;
-import ast.tipos.TipoVoid;
+import ast.tipos.*;
 import codegen.CodeGenerator;
 
 public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
@@ -21,6 +19,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
     private ValueCGVisitor value;
 
     private DefinicionFunc def;
+    private Programa program;
 
     public ExecuteCGVisitor(CodeGenerator cg) {
         super(cg);
@@ -47,6 +46,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
      */
     @Override
     public Void visit(Programa pr, Void p) {
+        this.program = pr;
+
         // procesamos las definiciones de variables globales
         for(Definicion def: pr.getDefiniciones()) {
             if(def instanceof DefinicionVar) {
@@ -369,6 +370,79 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         if (tipoFuncion.getTipoRetorno() != TipoVoid.getInstance()) {
             cg.pop(tipoFuncion.getTipoRetorno());
         }
+
+        return null;
+    }
+
+    /**
+     * execute[[ForEach: sentencia1 -> expresion1 expresion2 sentencia2*]]() =
+     *      value
+     */
+    @Override
+    public Void visit(ForEach f, Void p) {
+        // valor v[i] = dir mem v + (i * nob(v[i]))
+
+        // obtenemos la label correspondiente a la "condicion" del forEach
+        String labelCondicion = cg.getLabel();
+
+        String labelFin = cg.getLabel();
+
+        cg.pusha(this.program.getGlobalBytes());
+        cg.dup(TipoInt.getInstance());
+        cg.push(TipoInt.getInstance(), 0);
+        cg.store(TipoInt.getInstance());
+
+        // mostramos la label de la "condicion" del forEach
+        cg.label(labelCondicion);
+
+        cg.load(TipoInt.getInstance());
+        cg.dup(TipoInt.getInstance());
+
+        if(f.getDatos().getTipo() instanceof TipoArray) {
+            cg.push(TipoInt.getInstance(),((TipoArray) f.getDatos().getTipo()).getSize());
+        } else if(f.getDatos().getTipo() instanceof TipoRecord) {
+            cg.push(TipoInt.getInstance(), ((TipoRecord) f.getDatos().getTipo()).getCampos().size());
+        }
+
+        cg.comparison("<", TipoInt.getInstance());
+
+        cg.jz(labelFin);
+
+        // apilamos la direccion del elemento iterador
+        f.getIterador().accept(this.address, p);
+
+
+        if(f.getDatos().getTipo() instanceof TipoArray) {
+            f.getDatos().accept(this.address, p);
+            cg.pusha(this.program.getGlobalBytes());
+            cg.load(TipoInt.getInstance());
+            cg.push(TipoInt.getInstance(), ((TipoArray) f.getDatos().getTipo()).getTipoElemento().numberOfBytes());
+            cg.mul(TipoInt.getInstance());
+            cg.add(TipoInt.getInstance());
+
+            cg.load(f.getIterador().getTipo()); // son del mismo tipo tanto el iterador como el tipo de dato del array, asi que nos da igual poner como param el tipo del iterador o el de los elementos del array
+        } else if(f.getDatos().getTipo() instanceof TipoRecord) {
+            // luego lo implementas
+        }
+
+        cg.store(f.getIterador().getTipo());
+
+        //...
+
+        f.getCuerpo().forEach(s -> s.accept(this, p));
+
+        // en este punto de la ejecucion tiene que quedar en la pila SOLO el indice
+        cg.pusha(this.program.getGlobalBytes());
+        cg.dup(TipoInt.getInstance());
+        cg.load(TipoInt.getInstance());
+        cg.push(TipoInt.getInstance(), 1);
+        cg.add(TipoInt.getInstance());
+        cg.store(TipoInt.getInstance());
+
+        cg.jmp(labelCondicion);
+
+        cg.label(labelFin);
+
 
         return null;
     }

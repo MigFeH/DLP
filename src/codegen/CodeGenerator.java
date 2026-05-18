@@ -246,4 +246,9 @@ public class CodeGenerator {
         out.println("\tcall " + nombre);
         out.flush();
     }
+
+    public void dup(Tipo tipo) {
+        out.println("\tdup" + tipo.suffix());
+        out.flush();
+    }
 }

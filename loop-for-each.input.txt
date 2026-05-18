@@ -29,10 +29,10 @@ function main(): void {
   }
 
   log '\n';
-    log 'L','o','o','p', ' ', 'f', 'o', 'r', ' ', 'e', 'a','c', 'h', ' ', 'h', 'a','r','d',' ', 'v','e','r','s','i','o','n','\n';
-  for(let b:char in array) {
-    log b;
-  }
+  log 'L','o','o','p', ' ', 'f', 'o', 'r', ' ', 'e', 'a','c', 'h', ' ', 'h', 'a','r','d',' ', 'v','e','r','s','i','o','n','\n';
+  //for(let b:char in array) {
+    //log b;
+  //}
 
   log '\n';
 }

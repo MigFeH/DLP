@@ -35,6 +35,11 @@ public abstract class AbstractTipo implements Tipo {
     }
 
     @Override
+    public void mustBeIterable(Tipo tipoIterador, Locatable localizacionDelError) {
+        new ErrorType("El tipo \"" + this + "\" no es iterable", localizacionDelError);
+    }
+
+    @Override
     public Tipo arithmetic(Tipo other, Locatable localizacionDelError) {
         if(other instanceof ErrorType) {
             return other;

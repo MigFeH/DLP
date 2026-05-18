@@ -2,6 +2,7 @@ package ast.tipos;
 
 import ast.ASTNode;
 import ast.locatable.Locatable;
+import ast.sentencia.ForEach;
 
 import java.util.List;
 
@@ -11,6 +12,7 @@ public interface Tipo extends ASTNode {
     void mustBeSimpleType(Locatable localizacionDelError);
     void mustBeMain(Locatable localizacionDelError);
     void mustBeFunctionType(Locatable localizacionDelError);
+    void mustBeIterable(Tipo tipoIterador, Locatable localizacionDelError);
 
     Tipo arithmetic(Tipo other, Locatable localizacionDelError);
     Tipo comparison(Tipo other, Locatable localizacionDelError);

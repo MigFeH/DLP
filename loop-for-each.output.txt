@@ -1,0 +1,453 @@
+
+#source "loop-for-each.input.txt"
+
+	' * array array (offset 0)
+	' * record record (offset 11)
+
+' Invocation to the main function
+call main
+halt
+
+
+#line	7
+ initialize:
+	' * Parameters
+	' * Local variables
+	enter	0
+
+#line	8
+	' * Assignment
+	pusha	0
+	pushi	0
+	pushi	1
+	muli
+	addi
+	pushb	72
+	storeb
+
+#line	9
+	' * Assignment
+	pusha	0
+	pushi	1
+	pushi	1
+	muli
+	addi
+	pushb	111
+	storeb
+
+#line	10
+	' * Assignment
+	pusha	0
+	pushi	2
+	pushi	1
+	muli
+	addi
+	pushb	108
+	storeb
+
+#line	11
+	' * Assignment
+	pusha	0
+	pushi	3
+	pushi	1
+	muli
+	addi
+	pushb	97
+	storeb
+
+#line	12
+	' * Assignment
+	pusha	0
+	pushi	4
+	pushi	1
+	muli
+	addi
+	pushb	95
+	storeb
+
+#line	13
+	' * Assignment
+	pusha	0
+	pushi	5
+	pushi	1
+	muli
+	addi
+	pushb	77
+	storeb
+
+#line	14
+	' * Assignment
+	pusha	0
+	pushi	6
+	pushi	1
+	muli
+	addi
+	pushb	117
+	storeb
+
+#line	15
+	' * Assignment
+	pusha	0
+	pushi	7
+	pushi	1
+	muli
+	addi
+	pushb	110
+	storeb
+
+#line	16
+	' * Assignment
+	pusha	0
+	pushi	8
+	pushi	1
+	muli
+	addi
+	pushb	100
+	storeb
+
+#line	17
+	' * Assignment
+	pusha	0
+	pushi	9
+	pushi	1
+	muli
+	addi
+	pushb	111
+	storeb
+
+#line	18
+	' * Assignment
+	pusha	0
+	pushi	10
+	pushi	1
+	muli
+	addi
+	pushb	33
+	storeb
+	ret 0, 0, 0
+
+#line	21
+ main:
+	' * Parameters
+	' * Local variables
+	' * char a (offset -1)
+	enter	1
+	call initialize
+
+#line	26
+	' * Write
+	pushb	76
+	outb
+
+#line	26
+	' * Write
+	pushb	111
+	outb
+
+#line	26
+	' * Write
+	pushb	111
+	outb
+
+#line	26
+	' * Write
+	pushb	112
+	outb
+
+#line	26
+	' * Write
+	pushb	32
+	outb
+
+#line	26
+	' * Write
+	pushb	102
+	outb
+
+#line	26
+	' * Write
+	pushb	111
+	outb
+
+#line	26
+	' * Write
+	pushb	114
+	outb
+
+#line	26
+	' * Write
+	pushb	32
+	outb
+
+#line	26
+	' * Write
+	pushb	101
+	outb
+
+#line	26
+	' * Write
+	pushb	97
+	outb
+
+#line	26
+	' * Write
+	pushb	99
+	outb
+
+#line	26
+	' * Write
+	pushb	104
+	outb
+
+#line	26
+	' * Write
+	pushb	32
+	outb
+
+#line	26
+	' * Write
+	pushb	101
+	outb
+
+#line	26
+	' * Write
+	pushb	97
+	outb
+
+#line	26
+	' * Write
+	pushb	115
+	outb
+
+#line	26
+	' * Write
+	pushb	121
+	outb
+
+#line	26
+	' * Write
+	pushb	32
+	outb
+
+#line	26
+	' * Write
+	pushb	118
+	outb
+
+#line	26
+	' * Write
+	pushb	101
+	outb
+
+#line	26
+	' * Write
+	pushb	114
+	outb
+
+#line	26
+	' * Write
+	pushb	115
+	outb
+
+#line	26
+	' * Write
+	pushb	105
+	outb
+
+#line	26
+	' * Write
+	pushb	111
+	outb
+
+#line	26
+	' * Write
+	pushb	110
+	outb
+
+#line	26
+	' * Write
+	pushb	10
+	outb
+	pusha	21
+	dupi
+	pushi	0
+	storei
+ label0:
+	loadi
+	dupi
+	pushi	11
+	lti
+	jz label1
+	push	bp
+	pushi	-1
+	addi
+	pusha	0
+	pusha	21
+	loadi
+	pushi	1
+	muli
+	addi
+	loadb
+	storeb
+
+#line	28
+	' * Write
+	push	bp
+	pushi	-1
+	addi
+	loadb
+	outb
+	pusha	21
+	dupi
+	loadi
+	pushi	1
+	addi
+	storei
+	jmp label0
+ label1:
+
+#line	31
+	' * Write
+	pushb	10
+	outb
+
+#line	32
+	' * Write
+	pushb	76
+	outb
+
+#line	32
+	' * Write
+	pushb	111
+	outb
+
+#line	32
+	' * Write
+	pushb	111
+	outb
+
+#line	32
+	' * Write
+	pushb	112
+	outb
+
+#line	32
+	' * Write
+	pushb	32
+	outb
+
+#line	32
+	' * Write
+	pushb	102
+	outb
+
+#line	32
+	' * Write
+	pushb	111
+	outb
+
+#line	32
+	' * Write
+	pushb	114
+	outb
+
+#line	32
+	' * Write
+	pushb	32
+	outb
+
+#line	32
+	' * Write
+	pushb	101
+	outb
+
+#line	32
+	' * Write
+	pushb	97
+	outb
+
+#line	32
+	' * Write
+	pushb	99
+	outb
+
+#line	32
+	' * Write
+	pushb	104
+	outb
+
+#line	32
+	' * Write
+	pushb	32
+	outb
+
+#line	32
+	' * Write
+	pushb	104
+	outb
+
+#line	32
+	' * Write
+	pushb	97
+	outb
+
+#line	32
+	' * Write
+	pushb	114
+	outb
+
+#line	32
+	' * Write
+	pushb	100
+	outb
+
+#line	32
+	' * Write
+	pushb	32
+	outb
+
+#line	32
+	' * Write
+	pushb	118
+	outb
+
+#line	32
+	' * Write
+	pushb	101
+	outb
+
+#line	32
+	' * Write
+	pushb	114
+	outb
+
+#line	32
+	' * Write
+	pushb	115
+	outb
+
+#line	32
+	' * Write
+	pushb	105
+	outb
+
+#line	32
+	' * Write
+	pushb	111
+	outb
+
+#line	32
+	' * Write
+	pushb	110
+	outb
+
+#line	32
+	' * Write
+	pushb	10
+	outb
+
+#line	37
+	' * Write
+	pushb	10
+	outb
+	ret 0, 1, 0

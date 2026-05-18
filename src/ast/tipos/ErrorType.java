@@ -38,6 +38,9 @@ public class ErrorType extends AbstractTipo {
     }
 
     @Override
+    public void mustBeIterable(Tipo tipoIterador, Locatable localizacionDelError) {}
+
+    @Override
     public Tipo comparison(Tipo other, Locatable localizacionDelError) {
         return this;
     }

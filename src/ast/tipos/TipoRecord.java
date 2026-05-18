@@ -19,6 +19,21 @@ public class TipoRecord extends AbstractTipo {
     }
 
     @Override
+    public void mustBeIterable(Tipo tipoIterador, Locatable localizacionDelError) {
+        if(tipoIterador instanceof ErrorType) {
+            return;
+        }
+
+        if(this.campos.stream().filter(c -> c.getTipo().toString().equals(campos.getFirst().getTipo().toString())).toList().size() != this.campos.size()) {
+            new ErrorType("El tipo de todos los campos del registro no es el mismo", localizacionDelError);
+        } else {
+            if(!this.campos.getFirst().getTipo().toString().equals(tipoIterador.toString())) {
+                new ErrorType("El tipo del elemento iterador (" + tipoIterador.toString() + ") y del " + this.toString() + " (de " + this.campos.getFirst().getTipo().toString() + "'s) que recorre no son el mismo", localizacionDelError);
+            }
+        }
+    }
+
+    @Override
     public Tipo dot(String fieldName, Locatable localizacionDelError) {
         Optional<CampoRecord> campoRecordAccedido = campos.stream().filter(campoRecord -> campoRecord.getNombre().equals(fieldName)).findFirst();
         return campoRecordAccedido.isPresent() ?

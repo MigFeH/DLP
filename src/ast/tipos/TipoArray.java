@@ -22,6 +22,17 @@ public class TipoArray extends AbstractTipo {
     }
 
     @Override
+    public void mustBeIterable(Tipo tipoIterador, Locatable localizacionDelError) {
+        if(tipoIterador instanceof ErrorType) {
+            return;
+        }
+
+        if(!tipoIterador.toString().equals(tipoElemento.toString())) {
+            new ErrorType("El tipo del elemento iterador (" + tipoIterador.toString() + ") y del " + this.toString() + " (de " + tipoElemento.toString() + "'s) que recorre no son el mismo", localizacionDelError);
+        }
+    }
+
+    @Override
     public Tipo squareBrackets(Tipo other, Locatable localizacionDelError) {
         if(other == TipoInt.getInstance() || other == TipoChar.getInstance()) {
             return this.tipoElemento;

@@ -171,4 +171,9 @@ public abstract class AbstractCGVisitor<PT, RT> implements Visitor<PT, RT> {
     public RT visit(ErrorType e, PT pt) {
         throw new UnsupportedOperationException("This string does not supported the operation");
     }
+
+    @Override
+    public RT visit(ForEach f, PT pt) {
+        throw new UnsupportedOperationException("This string does not supported the operation");
+    }
 }

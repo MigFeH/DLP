@@ -1,5 +1,6 @@
 package visitor.codegen;
 
+import ast.Programa;
 import ast.definiciones.DefinicionFunc;
 import ast.definiciones.DefinicionVar;
 import ast.tipos.CampoRecord;
@@ -84,6 +85,15 @@ public class OffsetVisitor extends AbstractVisitor<Boolean, Void> {
             campo.setOffset(recordFieldBytesAcumulator);
             recordFieldBytesAcumulator += campo.getTipo().numberOfBytes();
         }
+
+        return null;
+    }
+
+    @Override
+    public Void visit(Programa p, Boolean pt) {
+        super.visit(p, pt);
+
+        p.setGlobalBytes(this.globalBytesAcumulator);
 
         return null;
     }
