@@ -414,30 +414,26 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         // apilamos la direccion del elemento iterador
         f.getIterador().accept(this.address, p);
 
-        if(f.getDatos().getTipo() instanceof TipoArray) {
-            // apilamos la direccion base de la estructura de datos que recorremos
-            f.getDatos().accept(this.address, p);
+        // apilamos la direccion base de la estructura de datos que recorremos
+        f.getDatos().accept(this.address, p);
 
-            // apilamos el valor del indice
-            cg.pushBP();
-            cg.push(TipoInt.getInstance(), -3);
-            cg.add(TipoInt.getInstance());
-            cg.load(TipoInt.getInstance());
+        // apilamos el valor del indice
+        cg.pushBP();
+        cg.push(TipoInt.getInstance(), -3);
+        cg.add(TipoInt.getInstance());
+        cg.load(TipoInt.getInstance());
 
-            // apilamos el numberOfBytes del tipo de elemento del array que recorremos
-            cg.push(TipoInt.getInstance(), ((TipoArray) f.getDatos().getTipo()).getTipoElemento().numberOfBytes());
+        // apilamos el numberOfBytes del tipo de elemento que contiene la ED que recorremos
+        cg.push(TipoInt.getInstance(), f.getDatos().getTipo().getElementNumberOfBytes(f));
 
-            // dejamos en el tope de la pila el resultado de hacer: indice * numberOfBytes(array.elementtype)
-            cg.mul(TipoInt.getInstance());
+        // dejamos en el tope de la pila el resultado de hacer: indice * numberOfBytes(tipo elemento)
+        cg.mul(TipoInt.getInstance());
 
-            // dejamos en el tope de la pila el resultado de hacer: dir de mem base del array + (indice * numberOfBytes(array.elementtype))
-            cg.add(TipoInt.getInstance());
+        // dejamos en el tope de la pila el resultado de hacer: dir de mem base de la ED + (indice * numberOfBytes(tipo elemento))
+        cg.add(TipoInt.getInstance());
 
-            // dejamos en el tope de la pila el valor: array[indice]
-            cg.load(f.getIterador().getTipo()); // son del mismo tipo tanto el iterador como el tipo de dato del array, asi que nos da igual poner como param el tipo del iterador o el de los elementos del array
-        } else if(f.getDatos().getTipo() instanceof TipoRecord) {
-            // luego lo implementas
-        }
+        // dejamos en el tope de la pila el valor accedido de la ED
+        cg.load(f.getIterador().getTipo()); // son del mismo tipo tanto el iterador como el tipo de dato de la ED, asi que nos da igual poner como param el tipo del iterador o el de los elementos de la ED
 
         // almacenamos en el iterador el valor de la estructura de datos que recorremos correspondiente a la iteracion
         cg.store(f.getIterador().getTipo());

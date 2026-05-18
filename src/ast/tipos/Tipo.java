@@ -30,4 +30,6 @@ public interface Tipo extends ASTNode {
     boolean isSimpleType();
 
     int getNumberOfElements();
+
+    int getElementNumberOfBytes(Locatable localizacionDelError);
 }

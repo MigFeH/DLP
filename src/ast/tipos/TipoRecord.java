@@ -57,6 +57,15 @@ public class TipoRecord extends AbstractTipo {
     }
 
     @Override
+    public int getElementNumberOfBytes(Locatable localizacionDelError) {
+        if(this.campos.isEmpty()) {
+            new ErrorType("No es posible obtener el numero de bytes de un campo del record por estar vacio dicho record", localizacionDelError);
+            return 0;
+        }
+        return this.campos.getFirst().getTipo().numberOfBytes();
+    }
+
+    @Override
     public String toString() {
         return "record";
     }

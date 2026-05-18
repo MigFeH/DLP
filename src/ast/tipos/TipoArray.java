@@ -51,6 +51,11 @@ public class TipoArray extends AbstractTipo {
     }
 
     @Override
+    public int getElementNumberOfBytes(Locatable localizacionDelError) {
+        return this.tipoElemento.numberOfBytes();
+    }
+
+    @Override
     public String toString() {
         return "array";
     }

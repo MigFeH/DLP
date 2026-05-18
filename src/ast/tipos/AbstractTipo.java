@@ -118,4 +118,9 @@ public abstract class AbstractTipo implements Tipo {
     public int getNumberOfElements() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public int getElementNumberOfBytes(Locatable localizacionDelError) {
+        throw new UnsupportedOperationException();
+    }
 }
