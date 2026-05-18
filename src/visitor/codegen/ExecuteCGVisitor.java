@@ -396,7 +396,6 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
         cg.label(labelCondicion);
 
         cg.load(TipoInt.getInstance());
-        cg.dup(TipoInt.getInstance());
 
         if(f.getDatos().getTipo() instanceof TipoArray) {
             cg.push(TipoInt.getInstance(),((TipoArray) f.getDatos().getTipo()).getSize());
@@ -433,6 +432,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
         // en este punto de la ejecucion tiene que quedar en la pila SOLO el indice
         cg.pusha(this.program.getGlobalBytes());
+        cg.dup(TipoInt.getInstance());
         cg.dup(TipoInt.getInstance());
         cg.load(TipoInt.getInstance());
         cg.push(TipoInt.getInstance(), 1);

@@ -274,7 +274,6 @@ halt
 	storei
  label0:
 	loadi
-	dupi
 	pushi	11
 	lti
 	jz label1
@@ -298,6 +297,7 @@ halt
 	loadb
 	outb
 	pusha	21
+	dupi
 	dupi
 	loadi
 	pushi	1
