@@ -18,9 +18,7 @@ public class TipoInt extends AbstractTipo {
 
     @Override
     public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoChar.getInstance()) {
-            return this;
-        } else if(other == TipoNumber.getInstance()) {
+        if(other == TipoInt.getInstance() || other == TipoNumber.getInstance()) {
             return other;
         }
         return super.mustPromotesTo(other, localizacionDelError);
@@ -34,7 +32,7 @@ public class TipoInt extends AbstractTipo {
 
     @Override
     public Tipo arithmetic(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance() || other == TipoChar.getInstance()) {
+        if(other == TipoInt.getInstance() || other == TipoChar.getInstance()) {
             return this;
         } else if(other == TipoNumber.getInstance()) {
             return other;
