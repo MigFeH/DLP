@@ -18,13 +18,14 @@ public class TipoChar extends AbstractTipo {
 
     @Override
     public Tipo mustPromotesTo(Tipo other, Locatable localizacionDelError) {
-        if(other == getInstance()) {
-            return this;
-        } else if(other == TipoInt.getInstance() || other == TipoNumber.getInstance()) {
+        if(other.isSimpleType()) {
             return other;
         }
         return super.mustPromotesTo(other, localizacionDelError);
     }
+
+    @Override
+    public void mustBeLogical(Locatable localizacionDelError) {}
 
     @Override
     public void mustBeSimpleType(Locatable localizacionDelError) {}
@@ -53,6 +54,24 @@ public class TipoChar extends AbstractTipo {
             return TipoInt.getInstance();
         }
         return super.comparison(other, localizacionDelError);
+    }
+
+    @Override
+    public Tipo logical(Locatable localizacionDelError) {
+        return TipoInt.getInstance();
+    }
+
+    @Override
+    public Tipo logical(Tipo other, Locatable localizacionDelError) {
+        if(other == TipoInt.getInstance() || other == TipoChar.getInstance()) {
+            return TipoInt.getInstance();
+        }
+        return super.logical(other, localizacionDelError);
+    }
+
+    @Override
+    public Tipo unaryMinus(Locatable localizacionDelError) {
+        return TipoInt.getInstance();
     }
 
     @Override
