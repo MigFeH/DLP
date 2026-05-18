@@ -373,13 +373,50 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * execute[[ForEach: sentencia1 -> expresion1 expresion2 sentencia2*]]() =
-     *      value
+     *      String labelCondicion = cg.getLabel();
+     *      String labelFin = cg.getLabel();
+     *      <push bp>
+     *      <pushi> -3
+     *      <addi>
+     *      <dupi>
+     *      <pushi> 0
+     *      <storei>
+     *      <loadi>
+     *      labelCondicion <:>
+     *      <pushi> expresion2.tipo.getNumberOfElements()
+     *      <lti>
+     *      <jz> labelFin
+     *      address[[expresion1]]()
+     *      address[[expresion2]]()
+     *      <push bp>
+     *      <pushi> -3
+     *      <addi>
+     *      <loadi>
+     *      <pushi> expresion2.tipo.getElementNumberOfBytes()
+     *      <muli>
+     *      <addi>
+     *      <load> expresion1.tipo.suffix()
+     *      <store> expresion1.tipo.suffix()
+     *      sentencia2*.forEach(s -> execute[[s]]());
+     *      <push bp>
+     *      <pushi> -3
+     *      <addi>
+     *      <dupi>
+     *      <dupi>
+     *      <loadi>
+     *      <pushi> 1
+     *      <addi>
+     *      <storei>
+     *      <loadi>
+     *      <jmp> labelCondicion
+     *      labelFin <:>
      */
     @Override
     public Void visit(ForEach f, Void p) {
         // obtenemos la label correspondiente a la "condicion" del forEach
         String labelCondicion = cg.getLabel();
 
+        // obtenemos la label correspondiente al fin del forEach
         String labelFin = cg.getLabel();
 
         // dejamos en el tope de la pila la dir de memoria del indice implicito usado para recorrer la estructura de datos
