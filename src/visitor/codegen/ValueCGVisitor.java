@@ -123,6 +123,7 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
         return null;
     }
 
+
     /**
      * value[[ConstanteCaracter: expresion -> CHAR_CONSTANT]]() =
      *      <push> expresion.type.suffix() expresion.valor
