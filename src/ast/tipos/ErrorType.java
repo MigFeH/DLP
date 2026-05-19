@@ -84,6 +84,11 @@ public class ErrorType extends AbstractTipo {
     public void mustBeLogical(Locatable localizacionDelError) {}
 
     @Override
+    public Tipo getTipoDominante(Tipo tipo1, Tipo tipo2, Locatable localizacionDelError) {
+        return this;
+    }
+
+    @Override
     public <PT, RT> RT accept(Visitor<PT, RT> v, PT pt) {
         return v.visit(this, pt);
     }
