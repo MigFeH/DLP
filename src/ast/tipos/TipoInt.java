@@ -80,6 +80,18 @@ public class TipoInt extends AbstractTipo {
     }
 
     @Override
+    public Tipo getTipoDominante(Tipo tipo1, Tipo tipo2, Locatable localizacionDelError) {
+        if(tipo1 instanceof ErrorType || tipo2 instanceof ErrorType) {
+            return super.getTipoDominante(tipo1, tipo2, localizacionDelError);
+        }
+
+        if(tipo1 == TipoNumber.getInstance() || tipo2 == TipoNumber.getInstance()) {
+            return TipoNumber.getInstance();
+        }
+        return this;
+    }
+
+    @Override
     public int numberOfBytes() {
         return 2;
     }
