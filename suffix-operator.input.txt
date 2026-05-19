@@ -1,0 +1,26 @@
+function main(): void {
+    let a: int;
+    let b: number;
+    let c: char;
+
+    a = 0;
+    log a, '\n';
+    a++;
+    log a, '\n';
+    a--;
+    log a, '\n';
+
+    b = 1.0;
+    log b, '\n';
+    b++;
+    log b, '\n';
+    b--;
+    log b, '\n';
+
+    c = 'a';
+    log c, '\n';
+    c++;
+    log c, '\n';
+    c--;
+    log c, '\n';
+}
