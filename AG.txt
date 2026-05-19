@@ -27,24 +27,24 @@ R:
     (2) expresion.tipo = TipoInt.getInstance()
     (3) expresion.tipo = TipoNumber.getInstance()
     (4) expresion.tipo = TipoChar.getInstance()
-    (5) expresion1.tipo = expresion2.tipo.arithmetic(expresion3.tipo, expresion1))
-    (6) expresion.tipo.mustBeLogical(sentencia1)
-    (7) expresion.tipo.mustPromotesTo(sentencia.tipoRetorno, sentencia)
-    (8) expresion*.forEach(exp -> exp.tipo.mustBeSimpleType(sentencia))
-    (9) expresion*.forEach(exp -> exp.tipo.mustBeSimpleType(sentencia))
-    (10) expresion.tipo.mustBeLogical(sentencia1)
-    (11) expresion2.tipo.mustPromotesTo(expresion1.tipo, sentencia)
-    (12) expresion1.tipo = expresion2.tipo.logical(expresion1)
-    (13) expresion1.tipo = expresion2.tipo.unaryMinus(expresion1)
-    (14) expresion1.tipo = expresion2.tipo.logical(expresion3.tipo, expresion1)
-    (15) expresion1.tipo = expresion2.tipo.comparison(expresion3.tipo, expresion1)
-    (16) expresion1.tipo = expresion2.tipo.cast(tipo, expresion1)
-    (17) expresion1.tipo = expresion2.tipo.dot(ID, expresion1)
-    (18) expresion1.tipo = expresion2.tipo.squareBrackets(expresion3.tipo, expresion1)
+    (5) expresion1.tipo = expresion2.tipo.arithmetic(expresion3.tipo))
+    (6) expresion.tipo.mustBeLogical()
+    (7) expresion.tipo.mustPromotesTo(sentencia.tipoRetorno)
+    (8) expresion*.forEach(exp -> exp.tipo.mustBeSimpleType())
+    (9) expresion*.forEach(exp -> exp.tipo.mustBeSimpleType())
+    (10) expresion.tipo.mustBeLogical()
+    (11) expresion2.tipo.mustPromotesTo(expresion1.tipo)
+    (12) expresion1.tipo = expresion2.tipo.logical()
+    (13) expresion1.tipo = expresion2.tipo.unaryMinus()
+    (14) expresion1.tipo = expresion2.tipo.logical(expresion3.tipo)
+    (15) expresion1.tipo = expresion2.tipo.comparison(expresion3.tipo)
+    (16) expresion1.tipo = expresion2.tipo.cast(tipo)
+    (17) expresion1.tipo = expresion2.tipo.dot(ID)
+    (18) expresion1.tipo = expresion2.tipo.squareBrackets(expresion3.tipo)
     (19) sentencia*.forEach(sent -> sent.tipoRetorno = tipo.tipoRetorno);
          if (definicion1.nombre.equalsIgnoreCase("main")) {
-             definicion1.tipo.mustBeMain(definicion1);
+             definicion1.tipo.mustBeMain();
          } else {
-             definicion1.tipo.mustBeFunctionType(definicion1);
+             definicion1.tipo.mustBeFunctionType();
          }
-    (20) expresion1.tipo = expresion2.tipo.parenthesis(expresion3*.stream().map(exp -> exp.tipo).toList(), expresion1)
+    (20) expresion1.tipo = expresion2.tipo.parenthesis(expresion3*.stream().map(exp -> exp.tipo).toList())
