@@ -26,4 +26,6 @@ public interface Tipo extends ASTNode {
     char suffix();
 
     boolean isSimpleType();
+
+    Tipo getTipoDominante(Tipo tipo1, Tipo tipo2, Locatable localizacionDelError);
 }
