@@ -141,4 +141,15 @@ public abstract class AbstractTipo implements Tipo {
         }
         return new ErrorType("El tipo \"" + this + "\" y el tipo \"" + other + "\" no son el mismo", localizacionDelError);
     }
+
+    @Override
+    public Tipo getTipoDominante(Tipo tipo1, Tipo tipo2, Locatable localizacionDelError) {
+        if(tipo1 instanceof ErrorType) {
+            return tipo1;
+        }
+        if(tipo2 instanceof ErrorType) {
+            return tipo2;
+        }
+        return new ErrorType("El tipo \"" + this + "\" no soporta la operacion de obtener el tipo dominante entre dos tipos", localizacionDelError);
+    }
 }

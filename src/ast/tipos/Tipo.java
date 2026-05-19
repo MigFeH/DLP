@@ -31,4 +31,6 @@ public interface Tipo extends ASTNode {
     Tipo ternaryOperator(Tipo tipoSalidaTrue, Tipo tipoSalidaFalse, Locatable localizacionDelError);
 
     Tipo mustBeSameType(Tipo other, Locatable localizacionDelError);
+
+    Tipo getTipoDominante(Tipo tipo1, Tipo tipo2, Locatable localizacionDelError);
 }

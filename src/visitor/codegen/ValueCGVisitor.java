@@ -1,6 +1,7 @@
 package visitor.codegen;
 
 import ast.expresiones.*;
+import ast.tipos.Tipo;
 import ast.tipos.TipoFuncion;
 import ast.tipos.TipoInt;
 import codegen.CodeGenerator;
@@ -94,30 +95,34 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
 
     /**
      * value[[Comparador: expresion1 -> expresion2 (>|>=|<|<=|!=|==) expresion3]]() =
+     *      Tipo tipoDominante = expresion1.type.getTipoDominante(expresion2.type, expresion3.type);
      *      value[[expresion2]]()
-     *      cg.convertTo(expresion2.type, expresion1.type);
+     *      cg.convertTo(expresion2.type, tipoDominante);
      *      value[[expresion3]]()
-     *      cg.convertTo(expresion3.type, expresion1.type);
-     *      cg.comparison(expresion1.operador, expresion1.type);
+     *      cg.convertTo(expresion3.type, tipoDominante);
+     *      cg.comparison(expresion1.operador, tipoDominante);
      */
     @Override
     public Void visit(Comparador c, Void p) {
+        Tipo tipoDominante = c.getTipo().getTipoDominante(c.getIzquierda().getTipo(), c.getDerecha().getTipo(), c);
+
         // obtenemos el valor de la parte izq del comparador y lo dejamos en el tope de la pila
         c.getIzquierda().accept(this, p);
 
-        // popeamos y convertimos el tipo del valor de la parte izq del comparador en el tipo del resultado de la comparacion y lo dejamos en el tope de la pila
-        cg.convertTo(c.getIzquierda().getTipo(), c.getTipo());
+        // popeamos y convertimos el tipo del valor de la parte izq del comparador en el tipo dominante de la comparacion y lo dejamos en el tope de la pila
+        cg.convertTo(c.getIzquierda().getTipo(), tipoDominante);
 
         // obtenemos el valor de la parte der del comparador y lo dejamos en el tope de la pila
         c.getDerecha().accept(this, p);
 
-        // popeamos y convertimos el tipo del valor de la parte der del comparador en el tipo del resultado de la comparacion y lo dejamos en el tope de la pila
-        cg.convertTo(c.getDerecha().getTipo(), c.getTipo());
+        // popeamos y convertimos el tipo del valor de la parte der del comparador en el tipo dominante de la comparacion y lo dejamos en el tope de la pila
+        cg.convertTo(c.getDerecha().getTipo(), tipoDominante);
 
         // popeamos dos veces la pila, llevamos a cabo la comparacion y dejamos en el tope de la pila el resultado de la comparacion
-        cg.comparison(c.getOperador(), c.getTipo());
+        cg.comparison(c.getOperador(), tipoDominante);
         return null;
     }
+
 
     /**
      * value[[ConstanteCaracter: expresion -> CHAR_CONSTANT]]() =
