@@ -3,6 +3,7 @@ package visitor.codegen;
 import ast.definiciones.*;
 import ast.expresiones.Expresion;
 import ast.expresiones.Invocacion;
+import ast.expresiones.Sufijo;
 import ast.sentencia.*;
 import ast.Programa;
 import ast.tipos.TipoFuncion;
@@ -370,6 +371,16 @@ public class ExecuteCGVisitor extends AbstractCGVisitor<Void, Void> {
             cg.pop(tipoFuncion.getTipoRetorno());
         }
 
+        return null;
+    }
+
+    /**
+     * execute[[Sufijo: sentencia -> expresion (++|--)]]() =
+     *      value[[(Expresion) sentencia]]()
+     */
+    @Override
+    public Void visit(Sufijo s, Void p) {
+        s.accept(this.value, p);
         return null;
     }
 }

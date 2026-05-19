@@ -1,3 +1,7 @@
+function numberZero(): int {
+    return 0;
+}
+
 function main(): void {
     let a: int;
     let b: number;
@@ -23,4 +27,8 @@ function main(): void {
     log c, '\n';
     c--;
     log c, '\n';
+
+    a = numberZero();
+    log a++, '\n'; // deberia imprimir 0
+    log a, '\n'; // deberia imprimir 1
 }

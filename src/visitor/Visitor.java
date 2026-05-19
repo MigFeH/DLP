@@ -39,4 +39,5 @@ public interface Visitor<PT /* <==ParamType*/, RT /* <== ReturnType*/> {
     RT visit(DefinicionFunc d, PT pt);
     RT visit(Invocacion i, PT pt);
     RT visit(ErrorType e, PT pt);
+    RT visit(Sufijo s, PT pt);
 }

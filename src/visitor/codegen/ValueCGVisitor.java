@@ -258,4 +258,26 @@ public class ValueCGVisitor extends AbstractCGVisitor<Void, Void> {
         cg.load(v.getTipo());
         return null;
     }
+
+    /**
+     * value[[Sufijo: expresion1 -> expresion2 (++|--)]]() =
+     *      address[[expresion2]]()
+     *      value[[expresion2]]()
+     *      cg.convertTo(expresion2.type, expresion1.type);
+     *      <pushi> 1
+     *      cg.convertTo(TipoInt.getInstance(), expresion1.type);
+     *      cg.arithmetic(expresion1.operador, expresion1.type);
+     *      <store> expresion1.type
+     */
+    @Override
+    public Void visit(Sufijo s, Void p) {
+        s.getOperando().accept(this.address, p);
+        s.getOperando().accept(this, p);
+        cg.convertTo(s.getOperando().getTipo(), s.getTipo());
+        cg.push(TipoInt.getInstance(), 1);
+        cg.convertTo(TipoInt.getInstance(), s.getTipo());
+        cg.arithmetic(s.getOperador(), s.getTipo());
+        cg.store(s.getTipo());
+        return null;
+    }
 }

@@ -161,6 +161,17 @@ expression returns [Expresion ast] locals [Variable variable, List<Expresion> ar
                     $variable,
                     $argumentos);
             }
+
+            | expression OP=('++' | '--') {
+                // expresion++ <==> expresion = expresion  + 1
+
+                $ast = new Sufijo(
+                    $expression.ast.getLinea(),
+                    $expression.ast.getColumna(),
+                    $expression.ast,
+                    $OP.text.substring(0, 1)
+                );
+            }
             ;
 
 statement returns [Sentencia ast] locals [List<Expresion> parametros = new ArrayList<>(),
@@ -224,6 +235,17 @@ List<Sentencia> contenidoElse = new ArrayList<>()]:
                     $ID.getCharPositionInLine() + 1,
                     invocado,
                     $parametros);
+            }
+
+            | expression OP=('++' | '--') ';' {
+                // expresion++ <==> expresion = expresion  + 1
+
+                $ast = new Sufijo(
+                    $expression.ast.getLinea(),
+                    $expression.ast.getColumna(),
+                    $expression.ast,
+                    $OP.text.substring(0, 1)
+                );
             }
             ;
 

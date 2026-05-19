@@ -117,4 +117,13 @@ public class LValueVisitor extends AbstractVisitor<Void, Void> { // Void solo ac
         i.setLValue(false); // una invocacion a una funcion/metodo NUNCA puede estar a la izquierda de una asignacion. Ej: sumatorio(datos) = 4
         return null;
     }
+
+    @Override
+    public Void visit(Sufijo s, Void pt) {
+        super.visit(s, pt);
+        if(!s.getOperando().getLValue()) {
+            new ErrorType("Lvalue required", s);
+        }
+        return null;
+    }
 }
