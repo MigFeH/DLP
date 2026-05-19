@@ -32,4 +32,6 @@ public interface Tipo extends ASTNode {
     int getNumberOfElements();
 
     int getElementNumberOfBytes(Locatable localizacionDelError);
+
+    Tipo getTipoDominante(Tipo tipo1, Tipo tipo2, Locatable localizacionDelError);
 }

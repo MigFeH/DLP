@@ -123,4 +123,15 @@ public abstract class AbstractTipo implements Tipo {
     public int getElementNumberOfBytes(Locatable localizacionDelError) {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Tipo getTipoDominante(Tipo tipo1, Tipo tipo2, Locatable localizacionDelError) {
+        if(tipo1 instanceof ErrorType) {
+            return tipo1;
+        }
+        if(tipo2 instanceof ErrorType) {
+            return tipo2;
+        }
+        return new ErrorType("El tipo \"" + this + "\" no soporta la operacion de obtener el tipo dominante entre dos tipos", localizacionDelError);
+    }
 }
