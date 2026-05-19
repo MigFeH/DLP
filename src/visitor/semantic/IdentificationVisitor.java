@@ -60,7 +60,6 @@ public class IdentificationVisitor extends AbstractVisitor<Void, Void> {
                             new ErrorType("variable '" + v.getNombre() + "' not defined", v),
                             v.getNombre());
             v.setDefinicion(errorDefinition);
-            st.insert(errorDefinition);
         }
 
         return null;
