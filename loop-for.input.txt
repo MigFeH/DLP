@@ -16,7 +16,6 @@ function initialize(): void {
 
 function main(): void {
   let i, j, k: int;
-  let z: char;
 
   initialize();
 
@@ -40,10 +39,6 @@ function main(): void {
     for(let c: int = 0; c < 10; c = c + 1) {
         log 'b', '=', b, '|', 'c', '=', c, '\n';
     }
-  }
-
-  for(z = 1; z < 5; z = z + 1) {
-    log 'z', '=', z, '\n';
   }
 
   //for(a = 0; a < 10; a = a + 1) {

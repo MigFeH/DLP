@@ -132,125 +132,124 @@ halt
 	' * int i (offset -2)
 	' * int j (offset -4)
 	' * int k (offset -6)
-	' * char z (offset -7)
-	' * int a (offset -17)
-	' * int c (offset -21)
-	' * int b (offset -19)
-	' * int i (offset -23)
-	enter	23
+	' * int a (offset -16)
+	' * int c (offset -20)
+	' * int b (offset -18)
+	' * int i (offset -22)
+	enter	22
 	call initialize
 
-#line	23
+#line	22
 	' * Write
 	pushb	76
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	111
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	111
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	112
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	32
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	102
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	111
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	114
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	32
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	101
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	97
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	115
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	121
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	32
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	118
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	101
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	114
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	115
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	105
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	111
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	110
 	outb
 
-#line	23
+#line	22
 	' * Write
 	pushb	10
 	outb
 
-#line	24
+#line	23
 	' * Assignment
 	push	bp
 	pushi	-6
@@ -266,17 +265,17 @@ halt
 	lti
 	jz label1
 
-#line	25
+#line	24
 	' * Write
 	pushb	107
 	outb
 
-#line	25
+#line	24
 	' * Write
 	pushb	61
 	outb
 
-#line	25
+#line	24
 	' * Write
 	push	bp
 	pushi	-6
@@ -284,12 +283,12 @@ halt
 	loadi
 	outi
 
-#line	25
+#line	24
 	' * Write
 	pushb	10
 	outb
 
-#line	24
+#line	23
 	' * Assignment
 	push	bp
 	pushi	-6
@@ -304,7 +303,7 @@ halt
 	jmp label0
  label1:
 
-#line	28
+#line	27
 	' * Assignment
 	push	bp
 	pushi	-2
@@ -320,7 +319,7 @@ halt
 	lti
 	jz label3
 
-#line	29
+#line	28
 	' * Assignment
 	push	bp
 	pushi	-4
@@ -336,17 +335,17 @@ halt
 	lti
 	jz label5
 
-#line	30
+#line	29
 	' * Write
 	pushb	105
 	outb
 
-#line	30
+#line	29
 	' * Write
 	pushb	61
 	outb
 
-#line	30
+#line	29
 	' * Write
 	push	bp
 	pushi	-2
@@ -354,22 +353,22 @@ halt
 	loadi
 	outi
 
-#line	30
+#line	29
 	' * Write
 	pushb	124
 	outb
 
-#line	30
+#line	29
 	' * Write
 	pushb	106
 	outb
 
-#line	30
+#line	29
 	' * Write
 	pushb	61
 	outb
 
-#line	30
+#line	29
 	' * Write
 	push	bp
 	pushi	-4
@@ -377,12 +376,12 @@ halt
 	loadi
 	outi
 
-#line	30
+#line	29
 	' * Write
 	pushb	10
 	outb
 
-#line	29
+#line	28
 	' * Assignment
 	push	bp
 	pushi	-4
@@ -397,7 +396,7 @@ halt
 	jmp label4
  label5:
 
-#line	28
+#line	27
 	' * Assignment
 	push	bp
 	pushi	-2
@@ -412,163 +411,163 @@ halt
 	jmp label2
  label3:
 
-#line	34
+#line	33
 	' * Write
 	pushb	76
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	111
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	111
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	112
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	32
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	102
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	111
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	114
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	32
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	104
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	97
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	114
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	100
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	32
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	118
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	101
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	114
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	115
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	105
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	111
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	110
 	outb
 
-#line	34
+#line	33
 	' * Write
 	pushb	10
 	outb
-	' * int a (offset -17)
+	' * int a (offset -16)
 
-#line	35
+#line	34
 	' * Assignment
 	push	bp
-	pushi	-17
+	pushi	-16
 	addi
 	pushi	0
 	storei
  label6:
 	push	bp
-	pushi	-17
+	pushi	-16
 	addi
 	loadi
 	pushi	10
 	lti
 	jz label7
 
-#line	36
+#line	35
 	' * Write
 	pushb	97
 	outb
 
-#line	36
+#line	35
 	' * Write
 	pushb	61
 	outb
 
-#line	36
+#line	35
 	' * Write
 	push	bp
-	pushi	-17
+	pushi	-16
 	addi
 	loadi
 	outi
 
-#line	36
+#line	35
 	' * Write
 	pushb	10
 	outb
 
-#line	35
+#line	34
 	' * Assignment
 	push	bp
-	pushi	-17
+	pushi	-16
 	addi
 	push	bp
-	pushi	-17
+	pushi	-16
 	addi
 	loadi
 	pushi	1
@@ -576,94 +575,94 @@ halt
 	storei
 	jmp label6
  label7:
-	' * int b (offset -19)
+	' * int b (offset -18)
 
-#line	39
+#line	38
 	' * Assignment
 	push	bp
-	pushi	-19
+	pushi	-18
 	addi
 	pushi	0
 	storei
  label8:
 	push	bp
-	pushi	-19
+	pushi	-18
 	addi
 	loadi
 	pushi	10
 	lti
 	jz label9
-	' * int c (offset -21)
+	' * int c (offset -20)
 
-#line	40
+#line	39
 	' * Assignment
 	push	bp
-	pushi	-21
+	pushi	-20
 	addi
 	pushi	0
 	storei
  label10:
 	push	bp
-	pushi	-21
+	pushi	-20
 	addi
 	loadi
 	pushi	10
 	lti
 	jz label11
 
-#line	41
+#line	40
 	' * Write
 	pushb	98
 	outb
 
-#line	41
+#line	40
 	' * Write
 	pushb	61
 	outb
 
-#line	41
+#line	40
 	' * Write
 	push	bp
-	pushi	-19
+	pushi	-18
 	addi
 	loadi
 	outi
 
-#line	41
+#line	40
 	' * Write
 	pushb	124
 	outb
 
-#line	41
+#line	40
 	' * Write
 	pushb	99
 	outb
 
-#line	41
+#line	40
 	' * Write
 	pushb	61
 	outb
 
-#line	41
+#line	40
 	' * Write
 	push	bp
-	pushi	-21
+	pushi	-20
 	addi
 	loadi
 	outi
 
-#line	41
+#line	40
 	' * Write
 	pushb	10
 	outb
 
-#line	40
+#line	39
 	' * Assignment
 	push	bp
-	pushi	-21
+	pushi	-20
 	addi
 	push	bp
-	pushi	-21
+	pushi	-20
 	addi
 	loadi
 	pushi	1
@@ -672,13 +671,13 @@ halt
 	jmp label10
  label11:
 
-#line	39
+#line	38
 	' * Assignment
 	push	bp
-	pushi	-19
+	pushi	-18
 	addi
 	push	bp
-	pushi	-19
+	pushi	-18
 	addi
 	loadi
 	pushi	1
@@ -687,239 +686,181 @@ halt
 	jmp label8
  label9:
 
-#line	45
-	' * Assignment
-	push	bp
-	pushi	-7
-	addi
-	pushi	1
-	i2b
-	storeb
- label12:
-	push	bp
-	pushi	-7
-	addi
-	loadb
-	b2i
-	pushi	5
-	lti
-	jz label13
-
-#line	46
-	' * Write
-	pushb	122
-	outb
-
-#line	46
-	' * Write
-	pushb	61
-	outb
-
-#line	46
-	' * Write
-	push	bp
-	pushi	-7
-	addi
-	loadb
-	outb
-
-#line	46
-	' * Write
-	pushb	10
-	outb
-
-#line	45
-	' * Assignment
-	push	bp
-	pushi	-7
-	addi
-	push	bp
-	pushi	-7
-	addi
-	loadb
-	b2i
-	pushi	1
-	addi
-	i2b
-	storeb
-	jmp label12
- label13:
-
-#line	53
+#line	48
 	' * Write
 	pushb	82
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	101
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	99
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	111
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	114
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	114
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	105
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	101
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	110
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	100
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	111
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	32
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	117
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	110
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	32
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	97
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	114
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	114
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	97
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	121
 	outb
 
-#line	53
+#line	48
 	' * Write
 	pushb	10
 	outb
-	' * int i (offset -23)
+	' * int i (offset -22)
 
-#line	54
+#line	49
 	' * Assignment
 	push	bp
-	pushi	-23
+	pushi	-22
 	addi
 	pushi	0
 	storei
- label14:
+ label12:
 	push	bp
-	pushi	-23
+	pushi	-22
 	addi
 	loadi
 	pushi	11
 	lti
-	jz label15
+	jz label13
 
-#line	55
+#line	50
 	' * Write
 	pushb	97
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pushb	114
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pushb	114
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pushb	97
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pushb	121
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pushb	91
 	outb
 
-#line	55
+#line	50
 	' * Write
 	push	bp
-	pushi	-23
+	pushi	-22
 	addi
 	loadi
 	outi
 
-#line	55
+#line	50
 	' * Write
 	pushb	93
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pushb	61
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pusha	0
 	push	bp
-	pushi	-23
+	pushi	-22
 	addi
 	loadi
 	pushi	1
@@ -928,23 +869,23 @@ halt
 	loadb
 	outb
 
-#line	55
+#line	50
 	' * Write
 	pushb	10
 	outb
 
-#line	54
+#line	49
 	' * Assignment
 	push	bp
-	pushi	-23
+	pushi	-22
 	addi
 	push	bp
-	pushi	-23
+	pushi	-22
 	addi
 	loadi
 	pushi	1
 	addi
 	storei
-	jmp label14
- label15:
-	ret 0, 23, 0
+	jmp label12
+ label13:
+	ret 0, 22, 0
